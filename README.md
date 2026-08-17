@@ -1,5 +1,7 @@
 # TCS formalizations
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+
 Machine-checked formalizations of results in theoretical computer science, developed in Lean 4
 over [Mathlib](https://github.com/leanprover-community/mathlib4). The project explores
 AI-assisted formalization of selected TCS results. The accompanying
