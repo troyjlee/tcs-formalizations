@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this formalization, please cite it using the metadata from this file."
+title: "TCS formalizations: the sunflower theorems"
+type: software
+authors:
+  - family-names: Lee
+    given-names: Troy
+license: Apache-2.0
+version: 0.1.0
+date-released: 2026-08-18
+repository-code: "https://github.com/troyjlee/tcs-formalizations"
+keywords:
+  - Lean 4
+  - Mathlib
+  - formalized mathematics
+  - sunflower lemma
+  - Erdős–Rado theorem
+  - Alweiss–Lovett–Wu–Zhang
+  - robust sunflowers
+  - theoretical computer science
+abstract: >-
+  Machine-checked Lean 4 formalizations (over Mathlib) of the improved
+  sunflower bounds — Alweiss–Lovett–Wu–Zhang (STOC 2020), Rao's Coding for
+  Sunflowers, and the Bell–Chueluecha–Warnke (C·r·log w)^w improvement —
+  through the ALWZ and Rao–BCW approaches, together with lower bounds for
+  robust-sunflower thresholds, the BCW satisfying/spread condition, and the
+  classical Erdős–Rado theorem. The sources are sorry-free, with an included
+  checks file verifying that the flagship theorems depend on exactly
+  [propext, Classical.choice, Quot.sound].
