@@ -4,7 +4,9 @@
   "license": "Apache-2.0",
   "creators": [
     {
-      "name": "Lee, Troy"
+      "name": "Lee, Troy",
+      "orcid": "0000-0001-6912-2338",
+      "affiliation": "University of Technology Sydney"
     }
   ],
   "description": "<p>Machine-checked Lean 4 formalizations (over Mathlib) of the improved sunflower bounds — Alweiss–Lovett–Wu–Zhang (STOC 2020), Rao's <em>Coding for Sunflowers</em>, and the Bell–Chueluecha–Warnke (C·r·log w)^w improvement — through the ALWZ and Rao–BCW approaches, together with lower bounds for robust-sunflower thresholds, the BCW satisfying/spread condition, and the classical Erdős–Rado theorem.</p><p>The Lean sources are sorry-free; a checks file included in the default build verifies with <code>#guard_msgs</code> that the flagship theorems depend on exactly [propext, Classical.choice, Quot.sound]. The accompanying formalization notes record boundary cases, implicit constructions, and proof-engineering choices that required explicit treatment, including the reconstruction of Rao's case-1 decoder and the base-1.9 treatment of the w = 2 logarithm boundary.</p>",
@@ -21,5 +23,5 @@
     "theoretical computer science",
     "combinatorics"
   ],
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
