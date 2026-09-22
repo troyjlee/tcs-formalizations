@@ -1,12 +1,16 @@
 # TCS formalizations
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+[![Archived sunflower release](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+
+The linked archive contains the existing sunflower release. The TSP integration
+in the current source has not yet been archived.
 
 Machine-checked formalizations of results in theoretical computer science, developed in Lean 4
 over [Mathlib](https://github.com/leanprover-community/mathlib4). The project explores
 AI-assisted formalization of selected TCS results. The accompanying
-**[sunflower formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md)** record boundary cases,
-implicit constructions, and proof-engineering choices that required explicit treatment.
+[sunflower notes](SUNFLOWER_FORMALIZATION_NOTES.md) and
+[TSP proof notes](docs/tsp/PROOF_NOTES.md) record boundary cases, implicit
+constructions and adaptations of the published arguments.
 
 One Lake package, one pinned toolchain, and one CI workflow; each formalization is a library
 inside it. Current contents:
@@ -14,8 +18,24 @@ inside it. Current contents:
 | Project | Headline results | Status |
 |---|---|---|
 | **Sunflowers** (below) | `rao_bcw_bounded`, `alwz_bounded`, Theorem 1.9 in both formalized shapes, robust/spread lower bounds, the BCW note's four numbered results, Erdős–Rado | current sunflower scope complete, sorry-free |
+| **Metric TSP** ([guide](docs/tsp/README.md)) | `TSPGap.song_gap`: subtour-LP integrality gap at most `3/2 − 2.05522 × 10⁻³⁰`; retained `TSPGap.kko_gap` | proof complete on 4.32; 4.33 integration verification in progress |
 
-Further projects from the same formalization programme will join as they are prepared for release.
+## Metric TSP, formalized
+
+For every metric TSP instance on at least three vertices and every feasible
+subtour-LP point, `TSPGap.song_gap` proves the existence of a Hamiltonian tour
+within `3/2 − 2.05522 × 10⁻³⁰` of its LP cost. The development follows
+Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song, with documented
+adaptations of intermediate arguments. The formalized claim is the
+integrality-gap bound; running time and finite-precision sampling are outside
+its scope.
+
+Start with the [TSP guide](docs/tsp/README.md),
+[proof notes](docs/tsp/PROOF_NOTES.md) and
+[verification instructions](docs/tsp/VERIFICATION.md).
+`TSPGapChecks.lean` contains all 668 Song regression examples and guarded
+axiom checks for both public tour theorems. The library's complete requested
+axiom inventory is enforced during the build.
 
 ## Sunflowers, formalized
 
@@ -81,9 +101,12 @@ lake build           # builds the library and runs the axiom checks
 ```
 
 The toolchain (`lean-toolchain`) and the Mathlib revision (`lake-manifest.json`) are
-pinned; `lake build` compiles the `Sunflower` library and `SunflowerChecks.lean`, whose
-`#guard_msgs` blocks fail the build if any theorem's axiom footprint ever deviates from
-`[propext, Classical.choice, Quot.sound]`.
+pinned at Lean/Mathlib 4.33.0. `lake build` compiles both `Sunflower` and
+`TSPGap`, including `SunflowerChecks.lean` and `TSPGapChecks.lean`. Their
+`#guard_msgs` blocks fail the build if a checked headline theorem's axiom
+footprint deviates from `[propext, Classical.choice, Quot.sound]`. The TSP
+library additionally enforces its full requested axiom inventory. CI runs
+the same default build and the TSP source-admission scan.
 
 ### Reading guide
 
@@ -130,5 +153,8 @@ A map of the layers:
 
 ### License and attribution
 
-Apache License 2.0 (see `LICENSE`). Formalization by Troy Lee, with AI-assisted proof
-development using Claude (Anthropic). All theorem statements and proofs are checked by Lean.
+Apache License 2.0 (see [LICENSE](LICENSE)). Formalization by Troy Lee, with
+AI-assisted proof development using Claude (Anthropic) and Codex (OpenAI).
+The build checks the formal theorem statements and their proofs in Lean.
+Independent review of their correspondence to the intended mathematical
+statements remains separate from kernel verification.
