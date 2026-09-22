@@ -242,6 +242,7 @@ theorem sum_cut_kn (y : Sym2 (Fin n) → ℝ) (S : Finset (Fin n)) :
   rw [cutSum, ← map_cut_kn, sum_map]
   rfl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **Edmonds–Johnson O-join polyhedron** (KKO22 Prop 2.4), proved.
 If `y ≥ 0` satisfies `y(δ(S)) ≥ 1` for every `O`-odd cut `S`, then some
 `O`-join costs at most `⟨c, y⟩`. -/

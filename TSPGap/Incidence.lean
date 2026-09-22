@@ -5,6 +5,10 @@ Authors: Troy Lee
 -/
 import TSPGap.Basic
 import TSPGap.CauchyBinet
+import Mathlib.AlgebraicTopology.SimplexCategory.Basic
+import Mathlib.Combinatorics.SimpleGraph.Connectivity.Finite
+import Mathlib.Data.Sym.Sym2.Order
+import Mathlib.LinearAlgebra.Matrix.Determinant.TotallyUnimodular
 
 /-!
 # The reduced oriented incidence matrix

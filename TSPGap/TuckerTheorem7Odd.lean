@@ -1108,6 +1108,7 @@ theorem oc3_MIV (hh : 1 ≤ h) (hi₂' : i₂ = i₁ + 1) (hw : S.P.r (h + 1) = 
   · intro i j
     fin_cases i <;> fin_cases j <;> simp [MIV] <;> assumption
 
+set_option backward.isDefEq.respectTransparency false in
 /-- For `h = 0` and `i₁ ≥ 2`, `w ∌ R.q 1`: `x – w – R.q 1 – R.r 1 – y` would be shorter than
 `P`. -/
 theorem oc3_h0_w1 (hh : h = 0) (hi₁2 : 2 ≤ i₁) : S.R.q 1 ∉ S.P.r (h + 1) := by
@@ -1134,6 +1135,7 @@ theorem oc3_h0_w1 (hh : h = 0) (hi₁2 : 2 ≤ i₁) : S.R.q 1 ∉ S.P.r (h + 1)
   simp only [Chain.snoc_n, Chain.single_n] at this
   omega
 
+set_option backward.isDefEq.respectTransparency false in
 /-- For `h = 0` and `i₂ ≤ n - 2`, `w ∌ R.q (n-1)`: `x – w – R.q (n-1) – R.r n – z` would be
 shorter than `Q`. -/
 theorem oc3_h0_wn (hh : h = 0) (hi₂' : i₂ + 2 ≤ S.R.n) : S.R.q (S.R.n - 1) ∉ S.P.r (h + 1) := by
@@ -1164,6 +1166,7 @@ theorem oc3_h0_wn (hh : h = 0) (hi₂' : i₂ + 2 ≤ S.R.n) : S.R.q (S.R.n - 1)
   simp only [Chain.snoc_n, Chain.single_n] at this
   omega
 
+set_option backward.isDefEq.respectTransparency false in
 /-- For `h = 0` and `i₁ < i₂`: `i₁ = 1` (else `x, R.q 1, z` is a triple without `y`). -/
 theorem oc3_h0_i₁ (hh : h = 0) (hlt : i₁ < i₂) : i₁ = 1 := by
   by_contra hne
@@ -1283,6 +1286,7 @@ theorem oc3_h0_i₁ (hh : h = 0) (hlt : i₁ < i₂) : i₁ = 1 := by
     simp only [Chain.drop_r, Chain.drop_n] at hl ⊢
     exact S.R.r_memF (by omega) (by omega)
 
+set_option backward.isDefEq.respectTransparency false in
 /-- For `h = 0` and `i₁ < i₂`: `i₂ = n - 1` (else `x, R.q (n-1), y` is a triple without `z`). -/
 theorem oc3_h0_i₂ (hh : h = 0) (hlt : i₁ < i₂) : i₂ = S.R.n - 1 := by
   by_contra hne

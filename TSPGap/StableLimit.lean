@@ -5,6 +5,8 @@ Authors: Troy Lee
 -/
 import TSPGap.MaxEntropyLimit
 import TSPGap.Stable
+import Mathlib.Analysis.Complex.Polynomial.Basic
+import Mathlib.Analysis.Normed.Field.Approximation
 
 /-!
 # Real stability survives the max-entropy limit, at fixed rank

@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.Basic
+import Mathlib.Algebra.Order.Star.Real
 
 /-!
 # Spanning-tree distributions with prescribed marginals

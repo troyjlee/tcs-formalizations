@@ -74,9 +74,10 @@ The umbrella import `import TSPGap` also exposes both results.
 
 ## Verification status
 
-The original Lean 4.32 development passed all **668 Song regression examples**
-and reported only `propext`, `Classical.choice` and `Quot.sound` for the public
-theorems. The 4.33 integration is being verified from fresh project artifacts.
+The shared Lean 4.33 build passed locally on **22 September 2026**, including
+all **668 Song regression examples**. Both public theorems use exactly
+`propext`, `Classical.choice` and `Quot.sound`. The full inventory of
+**2,530 axiom checks** also passed, and the source scan found no admissions.
 
 The shared default build includes `TSPGapChecks.lean`, which preserves all
 31 Song regression suites and guards the two public theorem axiom footprints.

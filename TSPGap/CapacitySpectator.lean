@@ -38,7 +38,8 @@ theorem rowDegree_erase_zero [DecidableEq C] {A : R → C → ℝ} (c : C)
     (hc : ∀ i, A i c = 0) (i : R) : rowDegree (eraseColumn A c) i = rowDegree A i := by
   classical
   have h := Fintype.sum_eq_add_sum_subtype_ne (fun j => if A i j ≠ 0 then 1 else 0) c
-  unfold rowDegree
+  change (Finset.univ.filter (fun j : {j // j ≠ c} => A i j.val ≠ 0)).card =
+    (Finset.univ.filter (fun j => A i j ≠ 0)).card
   rw [Finset.card_filter, Finset.card_filter]
   simpa only [eraseColumn, hc i, ne_eq, not_true_eq_false,
     if_false, zero_add] using h.symm

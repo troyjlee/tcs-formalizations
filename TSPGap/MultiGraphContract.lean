@@ -144,7 +144,7 @@ theorem inside_eq_filter_not_outU (D : Finset E) :
 
 theorem card_restrict (D : Finset E) :
     (G.restrict U D).card + (G.inside U D).card = D.card := by
-  rw [restrict, card_subtype, inside_eq_filter_not_outU, filter_card_add_filter_neg_card_eq_card]
+  rw [restrict, card_subtype, inside_eq_filter_not_outU, card_filter_add_card_filter_not]
 
 theorem lift_union (D D' : Finset {e // G.OutU U e}) :
     G.lift U (D ∪ D') = G.lift U D ∪ G.lift U D' := map_union _ _

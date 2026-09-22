@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.Bernoulli
+import Mathlib.Algebra.Ring.IsFormallyReal
 
 /-!
 # Hoeffding's extremal theorem for Bernoulli sums (KKO21 Theorem 2.15)

@@ -3,7 +3,10 @@ Copyright (c) 2026 Troy Lee. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
-import Mathlib
+import Mathlib.Tactic
+import Mathlib.Algebra.Order.Ring.Star
+import Mathlib.Algebra.Order.Star.Real
+import Mathlib.Analysis.Complex.ExponentialBounds
 
 /-!
 # The Bernoulli-sum parity toolkit (KKO21 §2.5)

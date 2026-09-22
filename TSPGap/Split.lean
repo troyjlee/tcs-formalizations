@@ -5,6 +5,7 @@ Authors: Troy Lee
 -/
 import TSPGap.Tour
 import TSPGap.Uncrossing
+import Mathlib.AlgebraicTopology.SimplexCategory.Basic
 
 /-!
 # KKO22 §2.1: the root-edge reduction

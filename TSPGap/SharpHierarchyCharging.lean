@@ -120,6 +120,7 @@ theorem exists_happySlack_of_hierarchies_sharp (μ : TreeDist n x)
       · exact Or.inr (by simpa [heq] using h.2)
     · have hs : (∑ a ∈ J.filter (fun a => cut a = p), w (cut a)) =
           (if p ∈ FL then w p else 0) + (if p ∈ FR then w p else 0) := by
+        set_option backward.isDefEq.respectTransparency false in
         simp [J, cut, sum_filter, sum_disjSum]
       rw [hs]
       by_cases hat : p.1 = p.2

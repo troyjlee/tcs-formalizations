@@ -166,7 +166,8 @@ def id (n : ℕ) : FiberTreeModel (Sym2 (Fin n)) n := ⟨fun e => e⟩
 @[simp] theorem id_base (e : Sym2 (Fin n)) : (FiberTreeModel.id n).base e = e := rfl
 
 @[simp] theorem id_fiberOver (F : Finset (Sym2 (Fin n))) : (FiberTreeModel.id n).fiberOver F = F := by
-  ext e; simp [fiberOver, FiberTreeModel.id]
+  ext e
+  simp only [mem_fiberOver, id_base]
 
 @[simp] theorem id_project (T : Finset (Sym2 (Fin n))) : (FiberTreeModel.id n).project T = T := by
   ext e; simp [project, FiberTreeModel.id]
@@ -190,7 +191,8 @@ def model : FiberTreeModel R.Piece n := ⟨R.base⟩
 @[simp] theorem model_base (p : R.Piece) : R.model.base p = R.base p := rfl
 
 theorem model_fiberOver (F : Finset (Sym2 (Fin n))) : R.model.fiberOver F = R.piecesOver F := by
-  ext p; simp [FiberTreeModel.fiberOver, piecesOver]
+  ext p
+  simp only [FiberTreeModel.mem_fiberOver, model_base, mem_piecesOver]
 
 theorem model_project (Ť : Finset R.Piece) : R.model.project Ť = R.project Ť := rfl
 

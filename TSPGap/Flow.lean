@@ -3,7 +3,7 @@ Copyright (c) 2026 Troy Lee. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
-import Mathlib
+import Mathlib.Tactic
 
 /-!
 # Max-flow / min-cut for the four-layer network `s → A → B → t`

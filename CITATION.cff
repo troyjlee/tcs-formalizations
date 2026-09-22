@@ -25,8 +25,9 @@ abstract: >-
   Machine-checked Lean 4 formalizations over Mathlib of the improved sunflower
   bounds and an upper bound on the metric TSP subtour-LP integrality gap.
   The sunflower development includes Alweiss–Lovett–Wu–Zhang, Rao–Bell–Chueluecha–Warnke,
-  robust-sunflower lower bounds and Erdos–Rado. The TSP development follows
+  robust-sunflower lower bounds and Erdős–Rado. The TSP development follows
   Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song, and proves the
-  existence of a tour of cost at most (3/2 - 2.05522e-30) times any feasible
-  subtour-LP objective. The shared build includes axiom checks and regression
+  existence, on at least three vertices, of a tour of cost at most
+  (3/2 - 2.05522e-30) times any feasible subtour-LP objective.
+  The shared build includes axiom checks and regression
   examples. Documentation records the scope and adaptations of the proofs.

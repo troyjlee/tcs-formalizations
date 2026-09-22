@@ -4,6 +4,13 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.Stable
+import Mathlib.Analysis.Complex.Convex
+import Mathlib.Analysis.Complex.Polynomial.GaussLucas
+import Mathlib.RingTheory.Etale.Weakly
+import Mathlib.RingTheory.Finiteness.ModuleFinitePresentation
+import Mathlib.RingTheory.Flat.TorsionFree
+import Mathlib.RingTheory.SimpleRing.Principal
+import Mathlib.RingTheory.TotallySplit
 
 /-!
 # The marker calculus I: reflection and certified differentiation

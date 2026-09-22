@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.Basic
+import Mathlib.Combinatorics.SimpleGraph.Hamiltonian
 
 /-!
 # The output layer: shortcutting a spanning closed walk into a tour

@@ -254,8 +254,11 @@ theorem inc_liftJ_inl (J : Finset E) (v : V) :
       (G.inc J v).map ⟨fun e => ⟨e, ⟨if G.fst e = v then 0 else 2 * w e - 1, by
         have := hw e; split_ifs <;> omega⟩⟩, fun e e' h => (Sigma.ext_iff.mp h).1⟩ := by
   ext ⟨e, i⟩
-  simp only [mem_inc, mem_liftJ, ends_subdiv, Sym2.mem_iff, mem_map, Function.Embedding.coeFn_mk,
-    Sigma.mk.injEq]
+  simp only [mem_inc, mem_liftJ, ends_subdiv, Sym2.mem_iff, mem_map]
+  change _ ↔ ∃ e', (e' ∈ J ∧ v ∈ G.ends e') ∧
+    (⟨e', ⟨if G.fst e' = v then 0 else 2 * w e' - 1, by
+      have := hw e'; split_ifs <;> omega⟩⟩ : SubE (E := E) w) = ⟨e, i⟩
+  simp only [Sigma.mk.injEq]
   have hi : i.val < 2 * w e := i.isLt
   have hw1 := hw e
   rw [G.inl_eq_node_iff w e hw1 (by omega), G.inl_eq_node_iff w e hw1 (by omega)]

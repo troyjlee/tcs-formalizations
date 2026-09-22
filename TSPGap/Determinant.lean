@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.Stable
+import Mathlib.RingTheory.SimpleRing.Principal
 
 /-!
 # Weighted determinant stability

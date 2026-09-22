@@ -1850,6 +1850,7 @@ theorem start_mem_arcSet {M : ℕ} [NeZero M] {s : Fin M} {l : ℕ} (hl : 0 < l)
   rw [mem_arcSet]
   simpa using hl
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **The cuts of the component are intervals of the near-cycle.**  A cut's
 outside atoms form an arc; the arc misses the root's index, so read from the
 root it is the interval between its ends — and the union of the atoms it

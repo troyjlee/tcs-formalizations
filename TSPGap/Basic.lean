@@ -3,7 +3,8 @@ Copyright (c) 2026 Troy Lee. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
-import Mathlib
+import Mathlib.Tactic
+import Mathlib.Combinatorics.SimpleGraph.Connectivity.Connected
 
 /-!
 # Basic definitions: the subtour LP, metric costs, tours

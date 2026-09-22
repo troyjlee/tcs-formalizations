@@ -5,6 +5,7 @@ Authors: Troy Lee
 -/
 import TSPGap.Fact28
 import TSPGap.SubtreeProbability
+import Mathlib.Combinatorics.SimpleGraph.Connectivity.Finite
 
 /-!
 # The tree face: counts are connectivity

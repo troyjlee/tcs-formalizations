@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.Polygon
+import Mathlib.Algebra.Order.Ring.Star
 
 /-!
 # `k`-cycles of near-minimum cuts are long (BG08 Lemma 22 = KKO22 Lemma 4.19)

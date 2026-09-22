@@ -5,6 +5,7 @@ Authors: Troy Lee
 -/
 import TSPGap.Leaves
 import TSPGap.Uncrossing
+import Mathlib.Combinatorics.SimpleGraph.Metric
 
 /-!
 # Subtree probabilities: KKO22 Lemma 2.11 and Corollary 2.12

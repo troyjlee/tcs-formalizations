@@ -198,6 +198,7 @@ theorem crossA_Qn : S.Q.n = h + 1 := by
   have := even_hQ hm
   omega
 
+set_option backward.isDefEq.respectTransparency false in
 /-- `w = x`: otherwise `y ⇝ P.q (h+1) – v – z` is an `x`-avoiding chain shorter than `R`. -/
 theorem crossA_h_zero : h = 0 := by
   by_contra hh
@@ -349,6 +350,7 @@ theorem A0_p_mem_R (hm : S.m = 0) (ht : S.P.q 1 ∈ S.Q.r 1) (i : ℕ) (h1 : 1 �
     · exact A0_v_notR i h1 hi e
     · exact A0_v_notR _ (by omega) (by omega) e
 
+set_option backward.isDefEq.respectTransparency false in
 /-- `p₁ ∈ R.r 1`: otherwise `p₁, y, z` is an asteroidal triple of the instance without `x`. -/
 theorem A0_p_mem_R1 (hm : S.m = 0) (hQ : S.Q.n = 1) (ht : S.P.q 1 ∈ S.Q.r 1) :
     S.P.q 1 ∈ S.R.r 1 := by
@@ -403,6 +405,7 @@ theorem A0_p_ne_R (hm : S.m = 0) (ht : S.P.q 1 ∈ S.Q.r 1) (hR : 2 ≤ S.R.n) (
     have := A0_p_mem_R hm ht 2 (by omega) hR h2
     omega
 
+set_option backward.isDefEq.respectTransparency false in
 /-- `t` contains no element of `R`: for an interior element, `x – t – R.q i ⇝ y` would
 replace `P` in the instance without `p₁`. -/
 theorem A0_t_notR (hm : S.m = 0) (hQ : S.Q.n = 1) (ht : S.P.q 1 ∈ S.Q.r 1) (hR : 2 ≤ S.R.n)
@@ -1370,6 +1373,7 @@ theorem c2_P_avoid_x : ∀ l, 1 ≤ l → l ≤ (S.P.drop (h + 1) (even_hP hm)).
   have := (S.P_ind.incid 0 (h + 1 + l) (by omega) (by omega) (by omega)).mp (by rw [S.P0]; exact hx)
   omega
 
+set_option backward.isDefEq.respectTransparency false in
 /-- **Case 2.**  `MI` or a contradiction. -/
 theorem even_case2 : ¬ IsTuckerFree F := by
   have hP := even_hP hm

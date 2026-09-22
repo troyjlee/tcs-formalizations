@@ -5,6 +5,7 @@ Authors: Troy Lee
 -/
 import TSPGap.TreeDist
 import TSPGap.RestrictedLP
+import Mathlib.Algebra.Order.Ring.Star
 
 /-!
 # Threshold-dependent slack certificates

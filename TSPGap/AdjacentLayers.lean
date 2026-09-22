@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.ProjectedLayers
+import Mathlib.RingTheory.MvPolynomial.IrreducibleQuadratic
 
 /-!
 # The marker calculus III: the adjacent-layer bridge

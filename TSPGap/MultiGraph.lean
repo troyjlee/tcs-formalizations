@@ -3,7 +3,9 @@ Copyright (c) 2026 Troy Lee. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
-import Mathlib
+import Mathlib.Tactic
+import Mathlib.Algebra.Order.Ring.Star
+import Mathlib.Data.Int.Star
 
 /-!
 # Labelled multigraphs: degrees, even edge sets, `T`-joins, cuts

@@ -18,7 +18,7 @@ inside it. Current contents:
 | Project | Headline results | Status |
 |---|---|---|
 | **Sunflowers** (below) | `rao_bcw_bounded`, `alwz_bounded`, Theorem 1.9 in both formalized shapes, robust/spread lower bounds, the BCW note's four numbered results, Erdős–Rado | current sunflower scope complete, sorry-free |
-| **Metric TSP** ([guide](docs/tsp/README.md)) | `TSPGap.song_gap`: subtour-LP integrality gap at most `3/2 − 2.05522 × 10⁻³⁰`; retained `TSPGap.kko_gap` | proof complete on 4.32; 4.33 integration verification in progress |
+| **Metric TSP** ([guide](docs/tsp/README.md)) | `TSPGap.song_gap`: subtour-LP integrality gap at most `3/2 − 2.05522 × 10⁻³⁰`; retained `TSPGap.kko_gap` | verified on Lean 4.33; sorry-free |
 
 ## Metric TSP, formalized
 

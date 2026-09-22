@@ -5,6 +5,7 @@ Authors: Troy Lee
 -/
 import TSPGap.Lemma226
 import TSPGap.Leaves
+import Mathlib.Combinatorics.SimpleGraph.Acyclic
 
 /-!
 # The tree exchange, and Lemma 2.26 for a literal edge

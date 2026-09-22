@@ -4,6 +4,8 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.CircularOnes
+import Mathlib.Algebra.Order.Ring.Star
+import Mathlib.AlgebraicTopology.SimplexCategory.Basic
 
 /-!
 # Tucker's forbidden configurations
@@ -107,8 +109,8 @@ theorem HasConfig.map {β : Type*} [DecidableEq β] {F : Finset (Finset α)} (f 
   obtain ⟨ρ, γ, hρ, hspec⟩ := hM
   refine ⟨⟨fun i => (ρ i).map f, fun i i' h => ρ.injective (Finset.map_injective f h)⟩,
     γ.trans f, fun i => Finset.mem_image_of_mem _ (hρ i), fun i j => ?_⟩
-  simp only [Function.Embedding.coeFn_mk, Function.Embedding.trans_apply, Finset.mem_map' f]
-  exact hspec i j
+  change f (γ j) ∈ (ρ i).map f ↔ j ∈ M i
+  simpa only [Finset.mem_map' f] using hspec i j
 
 /-- A configuration of the restriction `F|O` (rows `R ∩ O`) is a configuration of `F`,
 provided the pattern has no all-zero column (so every column lies in `O`). -/
@@ -124,7 +126,7 @@ theorem HasConfig.of_restrict {F : Finset (Finset α)} {O : Finset α} {r c : �
     rw [← hSρ i] at this
     exact (Finset.mem_inter.mp this).2
   refine ⟨⟨S, fun i i' h => ρ.injective (by rw [← hSρ i, ← hSρ i', h])⟩, γ, hS, fun i j => ?_⟩
-  simp only [Function.Embedding.coeFn_mk]
+  change γ j ∈ S i ↔ j ∈ M i
   rw [← hspec i j, ← hSρ i, Finset.mem_inter]
   exact ⟨fun h => ⟨h, hO j⟩, fun h => h.1⟩
 

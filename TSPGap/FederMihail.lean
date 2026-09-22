@@ -336,6 +336,7 @@ end Preserve
 
 /-! ### Mass bridges -/
 
+set_option backward.isDefEq.respectTransparency false in
 theorem weightMass_deleteWeight (w : Finset ι → ℝ) (k : ι) (A : Finset ι → Prop) :
     weightMass (deleteWeight w k) (TSPGap.outSection A k)
       = weightMass w (fun S => k ∉ S ∧ A S) := by

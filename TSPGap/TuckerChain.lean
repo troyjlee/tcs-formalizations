@@ -356,11 +356,13 @@ theorem IsShortest.q_inj {C : Chain O F} (hC : C.IsShortest) {i j : ℕ} (hi : i
     rw [min_eq_left hi]; exact h
   have := hC ((C.take i).append (C.drop j hj) hD)
     (by simp [append_q]) (by
-      simp only [append_q, append_n, take_n, drop_n, drop_q]
+      change (if min i C.n + (C.n - j) ≤ min i C.n
+        then C.q (min i C.n + (C.n - j))
+        else C.q (j + (min i C.n + (C.n - j) - min i C.n))) = C.q C.n
       rw [min_eq_left hi]
       split_ifs with h'
       · have : C.n - j = 0 := by omega
-        rw [this, add_zero, take_q, h]; congr 1; omega
+        rw [this, add_zero, h]; congr 1; omega
       · congr 1; omega)
   simp only [append_n, take_n, drop_n] at this
   rw [min_eq_left hi] at this
@@ -477,7 +479,8 @@ theorem hasConfig_MI_of_cycle {F : Finset (Finset α)} {k : ℕ} (q : ℕ → α
   refine ⟨⟨fun i => r i.val, fun i j h => Fin.ext (hr _ _ (by omega) (by omega) h)⟩,
     ⟨fun j => q j.val, fun i j h => Fin.ext (hq _ _ (by omega) (by omega) h)⟩,
     fun i => hF _ (by omega), fun i j => ?_⟩
-  simp only [Function.Embedding.coeFn_mk, MI, pairRow, Finset.mem_insert, Finset.mem_singleton]
+  change q j.val ∈ r i.val ↔ j ∈ MI k i
+  simp only [MI, pairRow, Finset.mem_insert, Finset.mem_singleton]
   rw [hinc i.val j.val (by omega) (by omega), Fin.ext_iff, Fin.ext_iff, Fin.val_add]
   have h1 : ((1 : Fin (k + 3)) : ℕ) = 1 := Fin.val_one (k + 1)
   rw [h1]

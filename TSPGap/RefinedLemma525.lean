@@ -234,7 +234,7 @@ theorem lemma_5_25_of_le_liftProb_capacity {e₀ : RootEdge n} (hx : IsRestricte
       ≤ (Z.filter (fun u => ¬ ε₂ ≤ ∑ p ∈ R.piecesOver (betweenEdges v u) ∩ A, R.weight p)).card • ε₂ :=
     Finset.sum_le_card_nsmul _ _ _ fun u hu => (not_le.mp (Finset.mem_filter.mp hu).2).le
   have hcards : Zbig.card + (Z.filter (fun u => ¬ ε₂ ≤ ∑ p ∈ R.piecesOver (betweenEdges v u) ∩ A, R.weight p)).card
-      = Z.card := Finset.filter_card_add_filter_neg_card_eq_card _
+      = Z.card := Finset.card_filter_add_card_filter_not _
   rw [nsmul_eq_mul] at hbigsum hsmallsum
   have hb : (Zbig.card : ℝ) ≤ 1 := by exact_mod_cast hbig
   have hb0 : (0 : ℝ) ≤ Zbig.card := Nat.cast_nonneg _

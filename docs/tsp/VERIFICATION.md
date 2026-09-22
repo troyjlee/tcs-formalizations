@@ -79,11 +79,17 @@ examples passed, and 2,530 printed reports covering 2,510 declarations used
 only the three standard axioms. The source scan found no admissions in its
 422 library modules. That run used cached unchanged dependencies.
 
-The Lean 4.33 integration build is in progress. It starts without project
-build artifacts and uses an independent copy of the destination's cached
-dependencies. Its Mathlib source is clean and matches manifest revision
-`db584cd6d46c92f209a44c0f1c829460d327499d`. The port uses ordinary Lake
-dependency checking, without `--old`.
+The integrated Lean 4.33 package passed a local `lake build` on
+22 September 2026. This includes both libraries and both check files, all
+668 Song regression examples, both guarded public theorem footprints, and
+all 2,530 enforced axiom checks. The source scan passed for all 423 TSP
+library modules and both public entry files.
+
+The TSP project modules were rebuilt for Lean 4.33 using cached, pinned
+dependencies. The Mathlib source was clean and matched manifest revision
+`db584cd6d46c92f209a44c0f1c829460d327499d`. Verification used ordinary Lake
+dependency checking, without `--old`; a final cached build confirmed the
+final build configuration.
 
 Independent mathematical review of the statement, definitions and
 [proof adaptations](PROOF_NOTES.md) remains separate from these checks.

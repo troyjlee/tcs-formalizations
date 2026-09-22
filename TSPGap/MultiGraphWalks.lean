@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.MultiGraph
+import Mathlib.Data.List.TakeWhile
 
 /-!
 # Walks in a labelled multigraph

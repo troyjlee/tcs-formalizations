@@ -5,6 +5,7 @@ Authors: Troy Lee
 -/
 import TSPGap.Uncrossing
 import TSPGap.TreeDist
+import Mathlib.Algebra.BigOperators.Sym
 
 /-!
 # The spanning-tree polytope, and the restricted LP point

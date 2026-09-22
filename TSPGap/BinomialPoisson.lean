@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 -/
 import TSPGap.BernoulliCount
+import Mathlib.Analysis.SpecialFunctions.Complex.LogBounds
 
 /-!
 # The binomial lower tail below the mean against shifted Poisson tails
