@@ -1,5 +1,5 @@
 name = "TCSFormalizations"
-defaultTargets = ["Sunflower", "SunflowerChecks"]
+defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks"]
 
 [[require]]
 name = "mathlib"
@@ -11,3 +11,21 @@ name = "Sunflower"
 
 [[lean_lib]]
 name = "SunflowerChecks"
+
+[[lean_lib]]
+name = "TSPGap"
+
+[lean_lib.leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[lean_lib]]
+name = "TSPGapChecks"
+
+[lean_lib.leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3

@@ -1,2 +1,9 @@
 # Lake build artifacts and dependency checkouts
 /.lake/
+
+# Private working documents
+/docs/tsp/ADVERSARIAL_AUDIT.md
+/docs/tsp/INTEGRATION.md
+
+# Finder metadata
+.DS_Store
