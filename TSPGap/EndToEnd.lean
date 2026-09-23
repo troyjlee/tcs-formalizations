@@ -10,7 +10,11 @@ import TSPGap.Split
 import TSPGap.Statement
 
 /-!
-# KKO22 §6.2 assembled: a tour of cost `(3/2 − ε) c(x)`
+# KKO22 §6.2 with GKL capacity estimates: a tour of cost `(3/2 − ε) c(x)`
+
+The saving `kkoEps = 1.08·10⁻³⁴` improves the tour-existence conclusion of
+KKO22 Theorem 1.1. It uses capacity estimates developed from
+Gurvits–Klein–Leake; `Statement.lean` compares the constants with both papers.
 
 The end-to-end chain is axiom-clean: max-entropy existence, Edmonds–Johnson,
 the root-edge reduction, the slack pair, Euler's theorem and shortcutting
@@ -26,7 +30,7 @@ are all proved.
    `c(T) + c(J)`, and `Tour.lean` shortcuts it to a Hamiltonian cycle without
    raising the cost.
 
-**The constants.**  Theorem B.3 now costs `125ηβxₑ`, using the restored
+**The constants.**  Theorem B.3 costs `125ηβxₑ`, using the
 `44αη` Appendix A bound. The final mixture in `exists_slack_pair_capacity` saves
 `0.374 ε_P βxₑ`. We spend half that saving on the repair:
 `125 η = 0.187 ε_P`, so `η = 0.374 ε_P / 250`.
@@ -82,13 +86,15 @@ theorem kkoEps_le_gain : kkoEps ≤ 0.187 * epsPCapacity * kkoBeta := by
 
 /-! ### The tour, for an instance carrying a zero-cost unit edge -/
 
-/-- **KKO22 Theorem 1.1 for a rooted instance.**  If the LP point has an edge
+/-- **Rooted tour bound from the KKO22 framework with GKL capacity estimates.**
+If the LP point has an edge
 `e₀` of value one and cost zero — KKO's standing assumption, obtained by
 splitting a vertex — then there is a Hamiltonian cycle of cost at most
-`(3/2 − ε) c(x₀)`.
+`(3/2 − kkoEps) c(x₀)`, where `kkoEps = 1.08·10⁻³⁴`.
 
-The proof is KKO's §6.2, using the proved max-entropy distribution and
-Edmonds–Johnson theorem, with `Tour.lean` supplying the shortcutting. -/
+The proof uses KKO's §6.2 construction with the capacity-based slack pair,
+the proved tree distribution and Edmonds–Johnson theorem, with `Tour.lean`
+supplying the shortcutting. -/
 theorem exists_tour_of_rootEdge (hn : 3 ≤ n) {c : Sym2 (Fin n) → ℝ}
     (hc : IsMetric c) {x₀ : Sym2 (Fin n) → ℝ} (hx₀ : x₀ ∈ subtourLP n)
     (e₀ : RootEdge n) (hx₀e : x₀ e₀.edge = 1) (hce₀ : c e₀.edge = 0) :
@@ -191,14 +197,16 @@ copies joined by a zero-cost edge of LP value one — is carried out in
 `TSPGap/Split.lean`, and `gap_of_rooted_gap` there turns the rooted form of
 the theorem into the general one. -/
 
-/-- **KKO22 Theorem 1.1** (existential form).  Every metric TSP instance has a
-tour of cost at most `(3/2 − ε)` times the cost of any subtour-LP-feasible
-point; in particular the integrality gap of the subtour LP is below `3/2`.
+/-- **KKO22's integrality-gap conclusion with an improved constant.**
+Every metric TSP instance has a tour of cost at most `(3/2 − kkoEps)` times
+the cost of any subtour-LP-feasible point, where `kkoEps = 1.08·10⁻³⁴`.
 
-The statement is the one `Statement.lean` declares; the proof is the chain of
-this file, and its axiom report is clean since 2026-09-10 (`propext`,
-`Classical.choice`, `Quot.sound`): the last box on its path, Edmonds–Johnson, is proved
-in `EdmondsJoin.lean`. All formerly admitted statements are now proved or retired. -/
+The proof combines the KKO22 framework with GKL capacity estimates via
+`epsPCapacity = 1.25·10⁻¹⁵`. Thus it implies the tour-existence conclusion of
+KKO22 Theorem 1.1 with a saving above `10⁻³⁶`. The constant is this
+development's choice; see `Statement.lean` for the comparison with the
+papers. No algorithmic expected-output guarantee is asserted here.
+The theorem uses only `propext`, `Classical.choice` and `Quot.sound`. -/
 theorem kko_gap {n : ℕ} (hn : 3 ≤ n) {c : Sym2 (Fin n) → ℝ} (hc : IsMetric c)
     {x : Sym2 (Fin n) → ℝ} (hx : x ∈ subtourLP n) :
     ∃ (v : Fin n) (w : (⊤ : SimpleGraph (Fin n)).Walk v v),

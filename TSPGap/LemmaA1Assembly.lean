@@ -12,7 +12,7 @@ The paper-facing statement: a half bundle `E = E(u,v)` whose cut `δ(u)` is
 partitioned into `A ⊔ B ⊔ C` with `x(A), x(B) ≈ 1`, `x(C)` negligible and
 `x(B ∩ E) ≤ ε`, which is 2-2 good (`P_τ[δ(u)_T = δ(v)_T = 2] ≥ 3ε` under the
 two-atom face `τ`), and whose ambient tail satisfies
-`P[(A∖E)_T + (δ(v)∖E)_T ≤ 1] ≥ 8ε`, is 2-1-1 happy with probability at
+`P[(A∖E)_T + (δ(v)∖E)_T ≤ 1] ≥ 5ε`, is 2-1-1 happy with probability at
 least `0.005ε²`.
 
 ## The three laws
@@ -37,7 +37,9 @@ count exactly like `A`, `B`, `δ(v) ∖ E`, `E` on every supported tree.
 `P_ν[·]` is unwound through the three normalizations:
 `W_w(P ∧ E present ∧ C_T = 0 ∧ face) = P_ν[P] · M_ν · M_σ · M_τ`, with
 `M_τ ≥ 1 − 2ε_η`, `M_σ ≥ 1 − x(C)`, `M_ν = E_σ[E] ≥ x(E) − x(C) − 2ε_η`, so
-the product is `≥ 0.4987` and `0.01008 · 0.4987 ≥ 0.005`.
+the product is `≥ 0.4987`. The budget theorem retains `0.00119ℓε²` after
+this lift. Choosing `ℓ = 4.75` gives the paper's ambient threshold `5ε`
+and happy mass `0.0056525ε² ≥ 0.005ε²`.
 
 The proof lives in `LemmaA1Indexed.lean`, over a fiber tree model, with the
 sanitization and support completeness generic in the bundle; this file keeps
@@ -79,7 +81,7 @@ theorem bundleSanitize_sdiff_bundle {A E : Finset (Sym2 (Fin n))}
 /-- **KKO21 Lemma A.1.**  A 2-2 good half bundle `E = E(u,v)` with degree
 partition `δ(u) = A ⊔ B ⊔ C` (`x(A), x(B) ∈ [1 − ε/12, 1 + ε_η]`,
 `x(C) ≤ ε/6 + ε_η`, `x(B ∩ E) ≤ ε`) and ambient tail
-`P[(A∖E)_T + (δ(v)∖E)_T ≤ 1] ≥ 8ε` is 2-1-1 happy with probability at least
+`P[(A∖E)_T + (δ(v)∖E)_T ≤ 1] ≥ 5ε` is 2-1-1 happy with probability at least
 `0.005ε²`. -/
 theorem lemma_A1 {w : Finset (Sym2 (Fin n)) → ℝ} {k : ℕ}
     (hst : IsRealStable (genPoly w)) (hr : FixedRankWeight (k + 1) w)
@@ -101,7 +103,7 @@ theorem lemma_A1 {w : Finset (Sym2 (Fin n)) → ℝ} {k : ℕ}
     (hdv1 : 2 ≤ expCard w (cutEdges v)) (hdv2 : expCard w (cutEdges v) ≤ 2 + εη)
     (hgood : 3 * ε ≤ weightMass (lemmaA1Tau w u v)
       (fun T => (T ∩ cutEdges u).card = 2 ∧ (T ∩ cutEdges v).card = 2))
-    (htail : 8 * ε ≤ weightMass w
+    (htail : 5 * ε ≤ weightMass w
       (fun T => (T ∩ (A \ E)).card + (T ∩ (cutEdges v \ E)).card ≤ 1)) :
     0.005 * ε ^ 2 ≤ weightMass w (fun T =>
       (T ∩ A).card = 1 ∧ (T ∩ B).card = 1 ∧ (T ∩ C).card = 0

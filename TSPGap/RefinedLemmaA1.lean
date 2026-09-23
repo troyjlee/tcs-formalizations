@@ -28,7 +28,7 @@ open Finset
 
 variable {n : ℕ} {x : Sym2 (Fin n) → ℝ} {D : Finset (Sym2 (Fin n))} {ε₁ : ℝ}
 
-/-- **Lemma A.1 for the lifted law, with piece sides.** -/
+/-- **Lemma A.1 for the lifted law, with piece sides and the paper's `5ε` tail.** -/
 theorem lemma_A1_liftProb {e₀ : RootEdge n} (hx : IsRestrictedLP e₀ x) (μ : TreeDist n x)
     (hμ : IsMaxEntropyLimit μ) {εη : ℝ} (H : Hierarchy x e₀ εη)
     (R : EdgeRefinement x D ε₁) {S u v : Finset (Fin n)}
@@ -44,7 +44,7 @@ theorem lemma_A1_liftProb {e₀ : RootEdge n} (hx : IsRestrictedLP e₀ x) (μ :
     (hgood : 3 * ε ≤ weightMass (R.model.tau (R.liftProb μ) u v)
       (fun Ť => (Ť ∩ R.piecesOver (cutEdges u)).card = 2
         ∧ (Ť ∩ R.piecesOver (cutEdges v)).card = 2))
-    (htail : 8 * ε ≤ weightMass (R.liftProb μ) (fun Ť =>
+    (htail : 5 * ε ≤ weightMass (R.liftProb μ) (fun Ť =>
       (Ť ∩ (A \ R.piecesOver (betweenEdges u v))).card
         + (Ť ∩ (R.piecesOver (cutEdges v) \ R.piecesOver (betweenEdges u v))).card ≤ 1)) :
     R.IsTwoOneOneGoodOn μ (0.005 * ε ^ 2) u v A B C := by

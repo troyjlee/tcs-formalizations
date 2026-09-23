@@ -13,7 +13,7 @@ import TSPGap.Lemma523
 `lemma_A1_conditioned_kernel_budget` consumes nine estimates on the conditioned law
 `ν`.  This file derives all nine from **means** at `ν` and two **transferred
 tails**, and chains the result into `lemma_A1_conditioned_budget`.
-The original `lemma_A1_conditioned` statement is retained as a wrapper.
+The legacy fixed-tail `lemma_A1_conditioned` statement is retained as a wrapper.
 
 ## The data
 
@@ -43,17 +43,23 @@ the support.
 The last two estimates actually give `0.2676` and `0.268`. The budget
 version retains `0.267` on both sides, instead of weakening them to the
 original kernel's `0.147`. For `0 ≤ ℓ ≤ 100` it gives conditioned mass
-`0.0024ℓε²`; the old wrapper specializes `ℓ = 7.75` and weakens the result.
+`0.0024ℓε²`. The legacy fixed-tail wrapper specializes `ℓ = 7.75` and weakens
+the result. The paper-facing assembly uses `ℓ = 4.75`, which suffices for
+the original `5ε` ambient tail and `0.005ε²` happy-mass conclusion.
 
-## Two repairs to the paper's constants
+## Replacement estimates and the paper's ambient threshold
 
 KKO's `P_ν[· ≥ 1 | A+B+V = 3] ≥ 3.02ε` is `0.63 · 4.8ε`, but `0.63` needs
 mean `≥ 0.997`, which only the bundle's own cell has; the bundle-free cell
-has mean `≥ 0.4977` and `P[≥ 1] ≥ 0.39`.  So the transferred tail must be
-`≥ 7.75ε` rather than `4.8ε`, i.e. Lemma A.1's ambient hypothesis is
-`≥ 8ε₁ᐟ₂` rather than `5ε₁ᐟ₂` — harmless for Lemma 5.23, which supplies
-`0.02`.  And the paper's `p₃ ≥ 1/4` is `0.2507` at the true residual mean
-`1.4966`; the PF₂ bootstrap only needs `0.14`, which is what is proved.
+has mean `≥ 0.4977` and `P[≥ 1] ≥ 0.39`. The earlier fixed-tail proof
+compensated with a transferred tail `7.75ε` and an ambient threshold `8ε`.
+The budget theorem's stronger `0.267` bounds remove that extra requirement:
+`ℓ = 4.75` yields `0.00119 × 4.75 = 0.0056525` after lifting, so the
+exported Lemma A.1 now has the paper's `5ε` threshold. This replacement
+does not rely on the disputed `0.63` estimate for the bundle-free cell.
+
+The paper's `p₃ ≥ 1/4` is `0.2507` at the true residual mean `1.4966`;
+the PF₂ bootstrap only needs `0.14`, which is what is proved.
 -/
 
 namespace TSPGap
@@ -581,7 +587,7 @@ theorem lemma_A1_conditioned_budget {ν : Finset ι → ℝ} {r : ℕ}
   exact lemma_A1_conditioned_kernel_budget hst hr hnn htot hAB hAV hBV hε0 hεcap hℓ0 hℓcap hbase
     hm3 hXge hXle hVge hVle hAge hAle hBge hBle
 
-/-- The original fixed-tail package, retained with its original statement. -/
+/-- The legacy fixed-tail package, retained with its previous statement. -/
 theorem lemma_A1_conditioned {ν : Finset ι → ℝ} {r : ℕ}
     (hst : IsRealStable (genPoly ν)) (hr : FixedRankWeight r ν)
     (hnn : WeightNonneg ν) (htot : totalMass ν = 1)

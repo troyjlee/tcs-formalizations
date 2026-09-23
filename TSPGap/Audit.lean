@@ -1712,6 +1712,7 @@ repository-wide milestone: **no admitted statement remains anywhere.** -/
 #check_tsp_axioms TSPGap.slack_mixture_bad_gain
 #check_tsp_axioms TSPGap.exists_slack_pair_sharp
 #check_tsp_axioms TSPGap.exists_slack_pair
+#check_tsp_axioms TSPGap.exists_slack_pair_legacy
 #check_tsp_axioms TSPGap.kko_eq_nine
 #check_tsp_axioms TSPGap.kkoEps_le_gain
 
@@ -3603,5 +3604,8 @@ repository-wide milestone: **no admitted statement remains anywhere.** -/
 #check_tsp_axioms TSPGap.ojoinFeasible_of_all_cut_slack
 #check_tsp_axioms TSPGap.exists_tour_of_all_cut_slack
 #check_tsp_axioms TSPGap.Song.exists_tour_of_rootEdge
+#check_tsp_axioms TSPGap.Song.exists_tour_of_rootEdge_exact
 #check_tsp_axioms TSPGap.song_gap
+#check_tsp_axioms TSPGap.song_gap_exact
+#check_tsp_axioms TSPGap.song_gap_strict
 -- End Song threshold and endpoint.

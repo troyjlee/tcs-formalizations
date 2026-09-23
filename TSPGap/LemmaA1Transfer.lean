@@ -10,7 +10,7 @@ import TSPGap.Lemma517
 # Transfers through the three conditionings of Lemma A.1
 
 Lemma A.1 imports two ambient tails — Lemma 5.15's `P[(δ(u)∖e)_T + (δ(v)∖e)_T
-≤ 2] ≥ 0.4ε` and the hypothesis `P[(A∖e)_T + V_T ≤ 1] ≥ 8ε` — into the law
+≤ 2] ≥ 0.4ε` and the hypothesis `P[(A∖e)_T + V_T ≤ 1] ≥ 5ε` — into the law
 `ν` obtained by conditioning on the two-atom face, on `C_T = 0`, and on the
 bundle being present.  Both tails are **decreasing** events on edges outside
 the conditioning sets, and each stage moves them in the right direction:

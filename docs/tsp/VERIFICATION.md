@@ -2,7 +2,9 @@
 
 The TSP formalization is a library within the shared
 [TCS formalizations package](../../README.md). Lean and Mathlib are pinned
-to **4.33.0** by the root toolchain and dependency manifest.
+to **4.33.0** by [lean-toolchain](../../lean-toolchain) and
+[lake-manifest.json](../../lake-manifest.json). The manifest fixes Mathlib
+at revision `db584cd6d46c92f209a44c0f1c829460d327499d`.
 
 ## Build and checks
 
@@ -12,13 +14,15 @@ repository root:
 ```sh
 lake exe cache get
 lake build
+lake env lean scripts/audit-tsp-statements.lean
 node scripts/check-tsp-source.mjs
 ```
 
 The first command fetches compiled Mathlib dependencies for the pinned
 revision. The default build compiles both formalizations and their check
-files. Node.js is needed only for the additional source scan. CI runs the
-same build and scan.
+files. The next command runs the supplementary statement and proof-dependency
+checks. Node.js is needed only for the additional source scan. CI runs the
+same build, audit and scan.
 
 On machines with limited memory, reduce build concurrency with
 `LEAN_NUM_THREADS=1 lake build`. CI sets `LEAN_NUM_THREADS=2`.
@@ -31,13 +35,14 @@ To build only the TSP formalization and its checks:
 lake build TSPGap TSPGapChecks
 ```
 
-The TSP checks have three parts:
+The TSP proof checks include:
 
 | Check | Enforced by |
 | --- | --- |
-| Two public theorem footprints equal `[propext, Classical.choice, Quot.sound]` | `#guard_msgs` blocks in [TSPGapChecks.lean](../../TSPGapChecks.lean) |
-| All 2,530 requested axiom checks, covering 2,510 distinct declarations, use only those standard axioms | [Audit.lean](../../TSPGap/Audit.lean) and [AxiomCheck.lean](../../TSPGap/AxiomCheck.lean) |
-| All 668 examples from the 31 Song regression suites compile | [TSPGapChecks.lean](../../TSPGapChecks.lean) |
+| Four public theorem footprints equal `[propext, Classical.choice, Quot.sound]` | `#guard_msgs` blocks in [TSPGapChecks.lean](../../TSPGapChecks.lean) |
+| All 2,534 requested axiom checks, covering 2,514 distinct declarations, use only those standard axioms | [Audit.lean](../../TSPGap/Audit.lean) and [AxiomCheck.lean](../../TSPGap/AxiomCheck.lean) |
+| All 668 examples from the 31 Song regression suites and 5 paper-interface checks compile | [TSPGapChecks.lean](../../TSPGapChecks.lean) |
+| Supplementary paper-statement proofs and required/excluded dependencies of `song_gap` pass | [audit-tsp-statements.lean](../../scripts/audit-tsp-statements.lean), run by CI after the build |
 
 The audit inspects each declaration's transitive axiom dependencies and
 raises a build error for an unexpected axiom or missing declaration.
@@ -60,39 +65,44 @@ import TSPGap.SongEndToEnd
 import TSPGap.EndToEnd
 
 #check TSPGap.song_gap
+#check TSPGap.song_gap_exact
+#check TSPGap.song_gap_strict
 #check TSPGap.kko_gap
 #print axioms TSPGap.song_gap
+#print axioms TSPGap.song_gap_exact
+#print axioms TSPGap.song_gap_strict
 #print axioms TSPGap.kko_gap
 LEAN
 ```
 
-The expected axiom set for both theorems is
+The expected axiom set for all four theorems is
 `[propext, Classical.choice, Quot.sound]`: propositional extensionality,
 classical choice and quotient soundness. No `sorryAx` or additional
 project axiom is accepted.
 
-## Recorded verification
+## Current verification
 
-The original Lean 4.32 development was checked on 22 September 2026:
-the public endpoint and umbrella builds passed, all 668 Song regression
-examples passed, and 2,530 printed reports covering 2,510 declarations used
-only the three standard axioms. The source scan found no admissions in its
-422 library modules. That run used cached unchanged dependencies.
+The 23 September 2026 TSP validation passed with
+`LEAN_NUM_THREADS=4 lake build TSPGap TSPGapChecks`: 673 examples, four
+guarded public theorem footprints, and 2,534 axiom checks covering 2,514
+distinct declarations. The statement checks pin the `5ε` A.1 premise, both
+Theorem 6.1 coefficients, the exact Song bound and its uniform strict saving.
+The build used ordinary Lake dependency checking, without `--old`, and
+cached unchanged dependencies. The Mathlib checkout was clean and matched
+the pinned revision.
 
-The integrated Lean 4.33 package passed a local `lake build` on
-22 September 2026. This includes both libraries and both check files, all
-668 Song regression examples, both guarded public theorem footprints, and
-all 2,530 enforced axiom checks. The source scan passed for all 423 TSP
-library modules and both public entry files.
+The [supplementary statement checks](../../scripts/audit-tsp-statements.lean)
+also passed with
+`LEAN_NUM_THREADS=2 lake env lean scripts/audit-tsp-statements.lean`,
+using the CI worker setting, including the standard-axiom and
+proof-dependency checks. The source scan passed for all 423 TSP library
+modules and both public entry files.
 
-The TSP project modules were rebuilt for Lean 4.33 using cached, pinned
-dependencies. The Mathlib source was clean and matched manifest revision
-`db584cd6d46c92f209a44c0f1c829460d327499d`. Verification used ordinary Lake
-dependency checking, without `--old`; a final cached build confirmed the
-final build configuration.
-
-Independent mathematical review of the statement, definitions and
-[proof adaptations](PROOF_NOTES.md) remains separate from these checks.
+The [paper-correspondence review](PAPER_CORRESPONDENCE.md) records the
+targeted, AI-assisted comparison of the statements, definitions and
+[proof adaptations](PROOF_NOTES.md) with the cited papers. It distinguishes
+the reproducible Lean checks from the mathematical interpretation of the
+paper statements; it does not claim external independent peer review.
 The formalized TSP conclusion is tour existence with the stated cost
 bound; computational complexity and finite-precision sampling are outside
 its scope.

@@ -10,10 +10,11 @@ import TSPGap.PolygonOneSideExistence
 /-!
 # KKO22 Theorem B.3: the payment at a cut
 
-Theorem B.3 is the hierarchy's payment, and `Theorem61.lean` derives
-`exists_slack_pair` (Theorem 6.1) from it.  Its own proof is a case analysis
-over five kinds of near-minimum cut; this file carries all of it except the
-construction of the hierarchy itself.
+Theorem B.3 is the hierarchy's payment. This file develops the case analysis
+over five kinds of near-minimum cut and a legacy repair bound of `600ηβxₑ`.
+`SharpPaymentHierarchy.lean` reuses the cut analysis with the recovered
+`125ηβxₑ` repair. `Theorem61.lean` constructs the hierarchy and derives the
+paper-level `exists_slack_pair` (Theorem 6.1) from the recovered producer.
 
 Three of KKO's five types — 2, 4 and 5 — end in the *same* inequality.  A
 slack vector bounded below by `−βxₑ` loses at most `(2+η)β` across a
@@ -25,7 +26,7 @@ bothSides`) and Appendix A (`exists_slackStar_oneSide`) therefore deliver the
 *same* bound, and the difference between the types is only which cuts each of
 them covers.  Type 3 is the trivial `payment_of_nonneg`.
 
-## What this file now carries
+## Contents
 
 * **Definition B.1**, the `Hierarchy`, whose near-cycle cuts are witnessed by a
   `NearCycle` rooted at the cut's complement (`Hierarchy.Presents`).
@@ -58,23 +59,20 @@ them covers.  Type 3 is the trivial `payment_of_nonneg`.
   cuts that are intervals of a near-cycle presenting a hierarchy cut, and the
   three branches do not care where the near-cycle came from.
 
-* **Theorem B.3 itself** (`exists_payment_of_hierarchy`), from a hierarchy and
-  the Main Payment Theorem.
+* **A legacy form of Theorem B.3** (`exists_payment_of_hierarchy`), from a
+  hierarchy and the Main Payment Theorem.
 
-What remains is plumbing, not mathematics: building the hierarchy from the two
-structural boxes, enlarging the constant of `OJoin.exists_payment_hierarchy`
-from `125ηβ` to `600ηβ` with `EndToEnd.kkoEta` shrunk to match, and moving
-Theorem 6.1's derivation below this file, which imports `OJoin`.  That is
-`Theorem61.lean`, where the hierarchy is built and Theorem B.2 invoked.
+The hierarchy construction and Theorem B.2 invocation are completed in
+`Theorem61.lean`. The local legacy proof uses Appendix A cost
+`4α(8ε_η + ε_η) = 252αη`, giving the round bound `600ηβxₑ` after adding the
+both-sides repair. `SharpPaymentHierarchy.lean` restores the Appendix A
+cost `44αη` and the total `125ηβxₑ` bound.
 
-⚠️ The constant: `s*` is the sum of two vectors, so its cost is the sum of
-theirs.  KKO get `(18 + 44)η`'s worth; Appendix A here proves `4(8ε_η + ε_η)`
-rather than `44η` (see the entry in `notes.md`), so Theorem B.3 costs `600ηβxₑ`
-in place of KKO's `125ηβxₑ`.  `EndToEnd.lean` absorbs the difference: `η` drops
-to `ε_P/3600`, and `β` is taken at KKO's own `η/(4 + 2η)` — though at the
-repaired `ε_P` the rational `η/5` would serve too.  ⚠️ The gap constant itself is
-`10⁻⁴¹`, not `10⁻³⁶` — but that is `ε_P`'s doing, not Theorem B.3's: see
-`epsP`.
+The active endpoint uses `exists_slack_pair_capacity` with
+`epsPCapacity = 1.25e-15`, `kkoEta = 0.374 * epsPCapacity / 250`, and
+`kkoBeta = kkoEta / (4 + 2 * kkoEta)`. `EndToEnd.lean` certifies the
+resulting saving `kkoEps = 1.08e-34`. The older `600`, `ε_P/3600`, and
+`10⁻⁴¹` parameter propagation describes a superseded endpoint.
 -/
 
 namespace TSPGap
@@ -1873,7 +1871,7 @@ theorem payment_of_hierarchy {F : OneSideFamily x₀ η e₀}
   · exact hpay4 i S T (Or.inr hi) hS hodd
   · exact hpay5 S S' T hchild hcyc htri hS hodd
 
-/-- **KKO22 Theorem B.3**, from the hierarchy and the Main Payment Theorem.
+/-- **Legacy form of KKO22 Theorem B.3**, from the hierarchy and the Main Payment Theorem.
 
 `s*` is the sum of two vectors, exactly as in KKO: Theorem 5.2's for the cuts
 crossed on both sides, and Appendix A's — over the whole hierarchy, components
@@ -1882,13 +1880,11 @@ the root cut is settled by parity (the tree crosses `V ∖ {u₀, v₀}` exactly
 twice, `card_cut_inter_rootPair`), and clause (iv) selects between
 `IsMainPayment.good_mass` and `good_mass_of_nested` by the classification.
 
-⚠️ **The constant is `600ηβ`, not KKO's `125ηβ`.**  Appendix A here costs
-`4α(8ε_η + ε_η) = 252αη` where KKO have `44αη`, because their `44` is inherited
-from KKO21's sharper Lemmas 4.18–4.19 and does not follow from Theorem A.3 as
-stated (see `notes.md`).  With `α = (2+η)β/(1 − ε)` the two vectors come to
-about `541ηβ`, and `600` is a round bound.  `Theorem61.lean` carries the change
-through: `EndToEnd.kkoEta` is `ε_P/3600` rather than KKO's `ε_P/750`, and `β`
-has to be taken at KKO's own `η/(4 + 2η)`.  The gap constant survives. -/
+This local version costs `600ηβ`: its Appendix A estimate is
+`4α(8ε_η + ε_η) = 252αη`. With `α = (2+η)β/(1 − ε)` the two vectors cost
+about `541ηβ`, rounded up to `600ηβ`. The stronger
+`exists_payment_of_hierarchy_sharp` in `SharpPaymentHierarchy.lean` restores
+the `44αη` estimate and total `125ηβ` repair used by the current endpoint. -/
 theorem exists_payment_of_hierarchy {x₀ : Sym2 (Fin n) → ℝ} {e₀ : RootEdge n}
     {F : OneSideFamily x₀ η e₀} {H : Hierarchy (e₀.restrict x₀) e₀ (7 * η)}
     {μ : TreeDist n (e₀.restrict x₀)} {Eg : Finset (Sym2 (Fin n))}

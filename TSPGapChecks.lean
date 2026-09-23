@@ -9,7 +9,8 @@ import TSPGap
 # TSP axiom checks and Song regressions
 
 The headline axiom footprints are build invariants. The regression examples below
-preserve the 31 Song verification suites from the original TSPGap development.
+preserve the 31 Song verification suites from the original TSPGap development,
+and check the restored KKO and strict Song statement interfaces.
 -/
 
 /-- info: 'TSPGap.song_gap' depends on axioms: [propext, Classical.choice, Quot.sound] -/
@@ -20,10 +21,118 @@ preserve the 31 Song verification suites from the original TSPGap development.
 #guard_msgs in
 #print axioms TSPGap.kko_gap
 
+/-- info: 'TSPGap.song_gap_exact' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms TSPGap.song_gap_exact
+
+/-- info: 'TSPGap.song_gap_strict' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms TSPGap.song_gap_strict
+
 -- The checker must reject Lean's admission axiom without introducing one here.
 /-- error: sorryAx depends on unexpected axiom sorryAx -/
 #guard_msgs in
 #check_tsp_axioms sorryAx
+
+/-! ## Paper statement interfaces -/
+
+namespace TSPGap
+open Finset
+variable {n : ℕ}
+
+-- Require the paper's 5ε premise directly at both exported A.1 interfaces.
+example {ι : Type*} [Fintype ι] [DecidableEq ι] (M : FiberTreeModel ι n)
+    {w : Finset ι → ℝ} {k : ℕ}
+    (hst : IsRealStable (genPoly w)) (hr : FixedRankWeight (k + 1) w)
+    (hnn : WeightNonneg w) (htot : totalMass w = 1)
+    {u v : Finset (Fin n)} (hune : u.Nonempty) (hvne : v.Nonempty)
+    (huv : Disjoint u v) (huvp : u ∪ v ≠ Finset.univ)
+    (hcount : M.TwoAtomCrossData w u v)
+    {E A B C : Finset ι} (hSC : M.SupportComplete w E u v)
+    (hpart : M.fiberOver (cutEdges u) = (A ∪ B) ∪ C)
+    (hAB : Disjoint A B) (hAC : Disjoint A C) (hBC : Disjoint B C)
+    {εη ε : ℝ} (hεη : 0 ≤ εη) (hε0 : 0 ≤ ε) (hεcap : ε ≤ 0.001)
+    (hεηsq : εη ≤ ε ^ 2)
+    (hdef : faceDeficiency w (M.fiberOver (twoAtomInternal u v)) (twoAtomBudget u v) ≤ 2 * εη)
+    (hxE : |expCard w E - 1 / 2| ≤ ε)
+    (hxA1 : 1 - ε / 12 ≤ expCard w A) (hxA2 : expCard w A ≤ 1 + εη)
+    (hxB1 : 1 - ε / 12 ≤ expCard w B) (hxB2 : expCard w B ≤ 1 + εη)
+    (hxC : expCard w C ≤ ε / 6 + εη)
+    (hxBE : expCard w (B ∩ E) ≤ ε)
+    (hdv1 : 2 ≤ expCard w (M.fiberOver (cutEdges v)))
+    (hdv2 : expCard w (M.fiberOver (cutEdges v)) ≤ 2 + εη)
+    (hgood : 3 * ε ≤ weightMass (M.tau w u v)
+      (fun T => (T ∩ M.fiberOver (cutEdges u)).card = 2 ∧ (T ∩ M.fiberOver (cutEdges v)).card = 2))
+    (htail : 5 * ε ≤ weightMass w
+      (fun T => (T ∩ (A \ E)).card + (T ∩ (M.fiberOver (cutEdges v) \ E)).card ≤ 1)) :
+    0.005 * ε ^ 2 ≤ weightMass w (fun T =>
+      (T ∩ A).card = 1 ∧ (T ∩ B).card = 1 ∧ (T ∩ C).card = 0
+        ∧ (T ∩ M.fiberOver (cutEdges v)).card = 2
+        ∧ InducesTree u (M.project T) ∧ InducesTree v (M.project T)) := by
+  exact lemma_A1_indexed M hst hr hnn htot hune hvne huv huvp hcount hSC
+    hpart hAB hAC hBC hεη hε0 hεcap hεηsq hdef hxE hxA1 hxA2 hxB1 hxB2
+    hxC hxBE hdv1 hdv2 hgood htail
+
+example {w : Finset (Sym2 (Fin n)) → ℝ} {k : ℕ}
+    (hst : IsRealStable (genPoly w)) (hr : FixedRankWeight (k + 1) w)
+    (hnn : WeightNonneg w) (htot : totalMass w = 1)
+    (htree : ∀ T, w T ≠ 0 → IsSpanningTree n T)
+    {u v : Finset (Fin n)} (hune : u.Nonempty) (hvne : v.Nonempty)
+    (huv : Disjoint u v) (huvp : u ∪ v ≠ Finset.univ)
+    {E A B C : Finset (Sym2 (Fin n))} (hSC : SupportComplete w E u v)
+    (hpart : cutEdges u = (A ∪ B) ∪ C)
+    (hAB : Disjoint A B) (hAC : Disjoint A C) (hBC : Disjoint B C)
+    {εη ε : ℝ} (hεη : 0 ≤ εη) (hε0 : 0 ≤ ε) (hεcap : ε ≤ 0.001)
+    (hεηsq : εη ≤ ε ^ 2)
+    (hdef : faceDeficiency w (twoAtomInternal u v) (twoAtomBudget u v) ≤ 2 * εη)
+    (hxE : |expCard w E - 1 / 2| ≤ ε)
+    (hxA1 : 1 - ε / 12 ≤ expCard w A) (hxA2 : expCard w A ≤ 1 + εη)
+    (hxB1 : 1 - ε / 12 ≤ expCard w B) (hxB2 : expCard w B ≤ 1 + εη)
+    (hxC : expCard w C ≤ ε / 6 + εη)
+    (hxBE : expCard w (B ∩ E) ≤ ε)
+    (hdv1 : 2 ≤ expCard w (cutEdges v)) (hdv2 : expCard w (cutEdges v) ≤ 2 + εη)
+    (hgood : 3 * ε ≤ weightMass (lemmaA1Tau w u v)
+      (fun T => (T ∩ cutEdges u).card = 2 ∧ (T ∩ cutEdges v).card = 2))
+    (htail : 5 * ε ≤ weightMass w
+      (fun T => (T ∩ (A \ E)).card + (T ∩ (cutEdges v \ E)).card ≤ 1)) :
+    0.005 * ε ^ 2 ≤ weightMass w (fun T =>
+      (T ∩ A).card = 1 ∧ (T ∩ B).card = 1 ∧ (T ∩ C).card = 0
+        ∧ (T ∩ cutEdges v).card = 2 ∧ InducesTree u T ∧ InducesTree v T) := by
+  exact lemma_A1 hst hr hnn htot htree hune hvne huv huvp hSC hpart hAB hAC hBC
+    hεη hε0 hεcap hεηsq hdef hxE hxA1 hxA2 hxB1 hxB2 hxC hxBE hdv1 hdv2 hgood htail
+
+-- Check both paper coefficients together, without a stronger payment premise.
+example {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
+    (hx₀ : x₀ ∈ subtourLP n) (hx₀e : x₀ e₀.edge = 1) (hn : 2 ≤ n)
+    {μ : TreeDist n (e₀.restrict x₀)} (hμ : IsMaxEntropyLimit μ)
+    {η β : ℝ} (hη0 : 0 < η) (hη : η ≤ 1e-12) (hβ0 : 0 < β) :
+    ∃ s s' : TreeSlack n,
+      (∀ T e, -(β * e₀.restrict x₀ e) ≤ s T e) ∧
+      (∀ T e, 0 ≤ s' T e) ∧
+      (∀ S T, μ.prob T ≠ 0 → IsRootedNearMinCut e₀ x₀ η S →
+        Odd (cutEdges S ∩ T).card → 0 ≤ ∑ e ∈ cutEdges S, (s T e + s' T e)) ∧
+      (∀ e, μ.expect (fun T => s' T e) ≤ 125 * η * β * e₀.restrict x₀ e) ∧
+      (∀ e, μ.expect (fun T => s T e) ≤ -(3.12e-16 * β * e₀.restrict x₀ e / 3)) := by
+  exact exists_slack_pair e₀ hx₀ hx₀e hn hμ hη0 hη hβ0
+
+-- One strict saving must work for every instance, including every feasible LP point.
+example :
+    ∃ ε : ℝ, 2.05522e-30 < ε ∧
+      ∀ (n : ℕ), 3 ≤ n → ∀ (c : Sym2 (Fin n) → ℝ), IsMetric c →
+        ∀ (x : Sym2 (Fin n) → ℝ), x ∈ subtourLP n →
+          ∃ (v : Fin n) (w : (⊤ : SimpleGraph (Fin n)).Walk v v),
+            w.IsHamiltonianCycle ∧ tourCost c w ≤ (3 / 2 - ε) * lpCost c x := by
+  simpa only [Song.targetGap] using song_gap_strict
+
+-- The exact saving also reaches the unrooted tour statement.
+example (hn : 3 ≤ n) {c x : Sym2 (Fin n) → ℝ} (hc : IsMetric c)
+    (hx : x ∈ subtourLP n) :
+    ∃ (v : Fin n) (w : (⊤ : SimpleGraph (Fin n)).Walk v v),
+      w.IsHamiltonianCycle ∧ tourCost c w ≤
+        (3 / 2 - ThresholdSlack.totalGain Song.H Song.layers Song.kappa) * lpCost c x :=
+  song_gap_exact hn hc hx
+
+end TSPGap
 
 /-! ## song-layering -/
 

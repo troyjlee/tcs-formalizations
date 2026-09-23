@@ -14,8 +14,9 @@ import TSPGap.Lemma517
 
 **Eq. (56).**  If the half bundle `e = E(u,v)` is *not* 2-1-1 good with
 respect to `v`, Lemma A.1's tail hypothesis must fail, so
-`P[(δ(u)∖e)_T + (A∖e)_T ≥ 2] > 1 − 8ε₂` (our repaired threshold; KKO's is
-`5ε₂`).  With the mean of that count at most `2 + 3.17ε₂ + 3ε_η` and
+`P[(δ(u)∖e)_T + (A∖e)_T ≥ 2] > 1 − 5ε₂`. The implementation retains the
+weaker `1 − 8ε₂` bound to preserve its downstream constants. With the mean
+of that count at most `2 + 3.17ε₂ + 3ε_η` and
 `E[X] ≥ 2·P[X ≥ 2] + P[X ≥ 3]`, the count is exactly `2` with probability
 at least `1 − 27.2ε₂` (`lemma_5_27_eq56`; KKO: `1 − ε` with `ε = 20ε₂`).
 

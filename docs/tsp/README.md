@@ -22,10 +22,13 @@ The [references](#references) identify the paper versions used.
 
 | Theorem | Saving below `3/2` | Source |
 | --- | --- | --- |
+| `TSPGap.song_gap_strict` | One uniform `ε > 2.05522 × 10⁻³⁰` | [SongEndToEnd.lean](../../TSPGap/SongEndToEnd.lean) |
+| `TSPGap.song_gap_exact` | `ThresholdSlack.totalGain Song.H Song.layers Song.kappa` | [SongEndToEnd.lean](../../TSPGap/SongEndToEnd.lean) |
 | `TSPGap.song_gap` | `2.05522 × 10⁻³⁰` | [SongEndToEnd.lean](../../TSPGap/SongEndToEnd.lean) |
-| `TSPGap.kko_gap` | `1.08 × 10⁻³⁴` | [EndToEnd.lean](../../TSPGap/EndToEnd.lean) |
+| `TSPGap.kko_gap` | `1.08 × 10⁻³⁴`; improves KKO22 Theorem 1.1's tour-existence bound using GKL capacity estimates | [EndToEnd.lean](../../TSPGap/EndToEnd.lean) |
 
-Both theorems assume only `n ≥ 3`, `IsMetric c`, and `x ∈ subtourLP n`.
+The pointwise bounds assume only `n ≥ 3`, `IsMetric c`, and `x ∈ subtourLP n`.
+The strict theorem supplies one saving that works for all such instances.
 The [definitions](../../TSPGap/Basic.lean) encode nonnegative symmetric costs
 satisfying the triangle inequality, nonnegative LP coordinates, degree two
 at each vertex, and a lower bound of two on every nonempty proper cut.
@@ -34,8 +37,23 @@ Hamiltonian cycle.
 
 These are existence theorems establishing the integrality-gap bound.
 Polynomial running time, finite-precision sampling and an executable TSP
-solver are outside the formalized claim. The public Song constant is exactly
-`2.05522e-30`; the smaller KKO interface is retained for compatibility.
+solver are outside the formalized claim. `song_gap` uses the rounded constant
+`2.05522e-30`; `song_gap_strict` exports the paper's strict improvement, and
+`song_gap_exact` retains the exact finite sum.
+
+`kko_gap` combines the KKO22 framework with capacity estimates developed
+from Gurvits–Klein–Leake. Its saving `1.08e-34` implies KKO22 Theorem 1.1's
+integrality-gap conclusion with an improved constant. It uses
+`epsPCapacity = 1.25e-15` and `p = 8e-10`.
+[GKL24 Corollary 4.6](https://arxiv.org/abs/2311.09072v2) gives the stronger
+published saving `2.18e-34`, using `p = 1.5e-9`; `kko_gap` certifies the
+constant from this development's capacity specialization and parameter choices.
+
+The KKO paper interfaces also expose their stated numerical bounds:
+`lemma_A1` and `lemma_A1_indexed` require the `5ε` ambient tail, and
+`exists_slack_pair` has repair `125ηβxₑ` and expected saving
+`(3.12e-16 / 3)βxₑ`. See [Proof notes](PROOF_NOTES.md#kko-paper-interfaces)
+for the derivation of these bounds.
 
 The proof uses replacements for some printed intermediate arguments. See
 [Proof notes](PROOF_NOTES.md) for the window-probability argument,
@@ -65,25 +83,31 @@ import TSPGap.SongEndToEnd
 import TSPGap.EndToEnd
 
 #check TSPGap.song_gap
+#check TSPGap.song_gap_strict
+#check TSPGap.song_gap_exact
 #check TSPGap.kko_gap
 #print axioms TSPGap.song_gap
+#print axioms TSPGap.song_gap_strict
+#print axioms TSPGap.song_gap_exact
 #print axioms TSPGap.kko_gap
 ```
 
-The umbrella import `import TSPGap` also exposes both results.
+The umbrella import `import TSPGap` also exposes these results.
 
 ## Verification status
 
-The shared Lean 4.33 build passed locally on **22 September 2026**, including
-all **668 Song regression examples**. Both public theorems use exactly
-`propext`, `Classical.choice` and `Quot.sound`. The full inventory of
-**2,530 axiom checks** also passed, and the source scan found no admissions.
+The TSP formalization passed validation on **23 September 2026**.
+The full TSP build passed **668 original Song regression examples** and
+**5 paper-interface checks**, the four public tour bounds' guarded axiom
+footprints, and **2,534 axiom checks**. The supplementary statement and
+dependency checks and the source scan also passed.
 
-The shared default build includes `TSPGapChecks.lean`, which preserves all
-31 Song regression suites and guards the two public theorem axiom footprints.
-`TSPGap/Audit.lean` now enforces its full inventory of 2,530 axiom checks.
-See the [verification guide](VERIFICATION.md) for the current build procedure
-and review scope. Independent mathematical review remains separate work.
+The shared default build includes the regression examples and guarded
+public axiom footprints in `TSPGapChecks.lean`, and the enforced inventory
+in `TSPGap/Audit.lean`. See the [verification guide](VERIFICATION.md) for
+the build procedure and the [paper-correspondence review](PAPER_CORRESPONDENCE.md)
+for the statement comparisons, proof adaptations and limits of the AI-assisted
+review.
 
 ## Reading the source
 
@@ -114,7 +138,7 @@ the build and included checks.
   [*From Trees to Polynomials and Back Again: New Capacity Bounds with Applications to TSP*](https://arxiv.org/abs/2311.09072v2).
   Version used: arXiv:2311.09072v2.
 - **Song:** Zhao Song,
-  [*A Sharper Explicit Bound on the Subtour-LP Integrality Gap for Metric TSP*](https://doi.org/10.20944/preprints202609.0140.v1).
+  [*A Sharper Explicit Bound on the Subtour-LP Integrality Gap for Metric TSP*](https://www.preprints.org/manuscript/202609.0140/v1).
   Preprint, version 1, 2 September 2026.
 
 ## License

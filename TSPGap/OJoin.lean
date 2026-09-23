@@ -556,18 +556,20 @@ def IsLambdaUniform {x : Sym2 (Fin n) → ℝ} (μ : TreeDist n x) : Prop :=
     ∀ T : Finset (Sym2 (Fin n)), IsSpanningTree n T →
       μ.prob T = (∏ e ∈ T, lam e) / Z
 
-/-- KKO22's `ε_P` (their Eq. (35)), the constant the hierarchy's slack vector
-gains on every edge: `ε_P = (ε₁/6)(τ/β)p`.
+/-- Legacy payment parameter in the role of KKO22's `ε_P` (Eq. (35)):
+`ε_P = (ε₁/6)(τ/β)p`.
 
-⚠️⚠️ **`2.5·10⁻¹⁸`, not KKO's `3.12·10⁻¹⁶`.**  Their value is computed at
-`p = 0.005ε₂²`, while this development carries the *repaired* `p = 0.00004ε₂²`
-— Theorem 5.28's constant, see `Lemma522` — which is smaller by a factor of
-`125`.  At `ε₂ = 0.0002`, `τ = 0.571β` and `ε₁ = ε₂/12`, `§7`'s top saving is
+This compatibility constant uses `p = 0.00004ε₂²`, a factor of `125` below
+the paper's `0.005ε₂²`. At `ε₂ = 0.0002`, `τ = 0.571β` and `ε₁ = ε₂/12`,
+the corresponding §7 top saving is
 
 `p·τ·(ε₁/6) = 1.6·10⁻¹² · 0.571 · (1/360000) = 2.537777…·10⁻¹⁸`
 
-per unit of `β·xₑ`, so `3.12·10⁻¹⁶` is **unattainable** here and `2.5·10⁻¹⁸` is
-what Lemma 7.2 can deliver, with 1.5% to spare.  `kkoEps` drops with it. -/
+per unit of `β·xₑ`, so `2.5·10⁻¹⁸` leaves 1.5% to spare in that older route.
+`MainPaymentExistence.lean` proves the stronger producers with
+`epsPRecovered = 3.125e-16` and `epsPCapacity = 1.25e-15`. The current KKO
+endpoint uses the capacity parameter; this legacy definition does not limit
+its saving. -/
 noncomputable def epsP : ℝ := 2.5e-18
 
 theorem epsP_pos : 0 < epsP := by unfold epsP; norm_num

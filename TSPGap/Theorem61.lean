@@ -23,8 +23,11 @@ live beside the box it consumed, so the box could not be discharged in place.
 **The repair coefficient is 125.**  `SharpPaymentHierarchy.lean` restores
 KKO's `44αη` Appendix A estimate and combines it with the both-sides
 repair. The sharp exports use `125ηβxₑ`; the older `600ηβxₑ` statements
-remain compatibility wrappers. The recovered hierarchy and slack-pair exports
-also carry the stronger §5 payment saving `epsPRecovered`.
+remain compatibility wrappers. `exists_payment_hierarchy_recovered` carries
+the stronger §5 payment saving `epsPRecovered = 3.125e-16`.
+`exists_slack_pair` specializes that producer to Theorem 6.1's repair `125`
+and payment parameter `3.12e-16`; `exists_slack_pair_legacy` retains the
+previous weaker statement.
 -/
 
 namespace TSPGap
@@ -33,7 +36,8 @@ open Finset
 
 variable {n : ℕ} {η β : ℝ}
 
-/-- **KKO22 Theorem B.3.**  The hierarchy's payment: a set `Eg` of *good*
+/-- **Compatibility form of KKO22 Theorem B.3.** The hierarchy's payment:
+a set `Eg` of *good*
 edges, a slack vector `s` supported on them which is never below `−βxₑ` and
 whose expectation gains `ε_P βxₑ` there, and a nonnegative `s*` costing at most
 `125ηβxₑ`, such that together they satisfy every odd near-minimum cut; and the
@@ -42,7 +46,9 @@ from the root cut.
 
 The hierarchy is built here (`exists_oneSideFamily` then
 `exists_hierarchy_of_oneSideFamily`), Theorem B.2 is invoked for its payment,
-and `exists_payment_of_hierarchy_sharp` does the rest. -/
+and `exists_payment_of_hierarchy_sharp` does the rest. The repair coefficient
+is the paper's `125`, but the payment uses the legacy `epsP = 2.5e-18`.
+For the recovered paper-level payment, use `exists_payment_hierarchy_recovered`. -/
 theorem exists_payment_hierarchy_sharp {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
     (hx₀ : x₀ ∈ subtourLP n) (hx₀e : x₀ e₀.edge = 1) (hn : 2 ≤ n)
     {μ : TreeDist n (e₀.restrict x₀)} (hμ : IsMaxEntropyLimit μ)
@@ -67,7 +73,8 @@ theorem exists_payment_hierarchy_sharp {x₀ : Sym2 (Fin n) → ℝ} (e₀ : Roo
     exists_payment_of_hierarchy_sharp hMP hH hx₀ hx₀e hn hη0 hη hβ0
   exact ⟨Eg, s, s', hMP.lower, hMP.support, hnn, hpay, hexp, hMP.expect, hgood⟩
 
-/-- The hierarchy package with the recovered payment saving. -/
+/-- **KKO22 Theorem B.3**, with repair `125` and recovered payment saving
+`epsPRecovered = 3.125e-16`, exceeding the paper's `3.12e-16` parameter. -/
 theorem exists_payment_hierarchy_recovered {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
     (hx₀ : x₀ ∈ subtourLP n) (hx₀e : x₀ e₀.edge = 1) (hn : 2 ≤ n)
     {μ : TreeDist n (e₀.restrict x₀)} (hμ : IsMaxEntropyLimit μ)
@@ -379,7 +386,7 @@ theorem exists_slack_pair_of_payment {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootE
       rw [h1, h2]
       nlinarith [h4]
 
-/-- Compatibility wrapper at the original probability constant. -/
+/-- Compatibility wrapper at the legacy probability constant. -/
 theorem exists_slack_pair_125 {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
     (hx₀ : x₀ ∈ subtourLP n) (hx₀e : x₀ e₀.edge = 1) (hn : 2 ≤ n)
     {μ : TreeDist n (e₀.restrict x₀)} (hμ : IsMaxEntropyLimit μ)
@@ -454,9 +461,9 @@ theorem exists_slack_pair_sharp {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n
     mul_nonneg (mul_nonneg hη0.le hβ0.le) (RootEdge.restrict_nonneg hx₀.1 e)
   nlinarith [hcost e]
 
-/-- **KKO22 Theorem 6.1**, with its original `ε_P/3` conclusion, as a
-weakening of `exists_slack_pair_sharp`. -/
-theorem exists_slack_pair {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
+/-- Compatibility weakening with repair `600` and legacy `epsP/3` saving.
+The paper-level coefficients are exported by `exists_slack_pair`. -/
+theorem exists_slack_pair_legacy {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
     (hx₀ : x₀ ∈ subtourLP n) (hx₀e : x₀ e₀.edge = 1) (hn : 2 ≤ n)
     {μ : TreeDist n (e₀.restrict x₀)} (hμ : IsMaxEntropyLimit μ)
     (hη0 : 0 < η) (hη : η ≤ 1e-12) (hβ0 : 0 < β) :
@@ -476,5 +483,28 @@ theorem exists_slack_pair {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
     mul_nonneg (mul_nonneg epsP_pos.le hβ0.le)
     (RootEdge.restrict_nonneg hx₀.1 e)
   nlinarith [hgain e]
+
+/-- **KKO22 Theorem 6.1**, with repair coefficient `125` and the paper's
+payment parameter `3.12e-16` in its `ε_P/3` conclusion. The recovered
+producer has enough margin to supply both coefficients on rooted cuts. -/
+theorem exists_slack_pair {x₀ : Sym2 (Fin n) → ℝ} (e₀ : RootEdge n)
+    (hx₀ : x₀ ∈ subtourLP n) (hx₀e : x₀ e₀.edge = 1) (hn : 2 ≤ n)
+    {μ : TreeDist n (e₀.restrict x₀)} (hμ : IsMaxEntropyLimit μ)
+    (hη0 : 0 < η) (hη : η ≤ 1e-12) (hβ0 : 0 < β) :
+    ∃ s s' : Finset (Sym2 (Fin n)) → Sym2 (Fin n) → ℝ,
+      (∀ T e, -(β * e₀.restrict x₀ e) ≤ s T e) ∧
+      (∀ T e, 0 ≤ s' T e) ∧
+      (∀ S T, μ.prob T ≠ 0 → IsRootedNearMinCut e₀ x₀ η S →
+        Odd (cutEdges S ∩ T).card → 0 ≤ ∑ e ∈ cutEdges S, (s T e + s' T e)) ∧
+      (∀ e, μ.expect (fun T => s' T e) ≤ 125 * η * β * e₀.restrict x₀ e) ∧
+      (∀ e, μ.expect (fun T => s T e) ≤ -(3.12e-16 * β * e₀.restrict x₀ e / 3)) := by
+  obtain ⟨s, s', hlower, hnonneg, hpay, hcost, hgain⟩ :=
+    exists_slack_pair_recovered e₀ hx₀ hx₀e hn hμ hη0 hη hβ0
+  refine ⟨s, s', hlower, hnonneg, hpay, hcost, ?_⟩
+  intro e
+  have hnn := mul_nonneg hβ0.le (RootEdge.restrict_nonneg (e₀ := e₀) hx₀.1 e)
+  have h := hgain e
+  rw [epsPRecovered_eq] at h
+  nlinarith only [h, hnn]
 
 end TSPGap

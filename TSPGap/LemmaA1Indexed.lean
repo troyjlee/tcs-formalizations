@@ -40,8 +40,9 @@ lives in `RefinedLemmaA1.lean`.
 
 `lemma_A1_indexed_budget` exposes the stronger tail budget: an ambient tail
 of `(ℓ + 0.25)ε`, with `0 ≤ ℓ ≤ 100`, gives happy mass `0.00119ℓε²`.
-It uses the same conditioning and topology certificates. The original
-`lemma_A1_indexed` statement is preserved as a weaker `ℓ = 7.75` instance.
+It uses the same conditioning and topology certificates. The paper's
+`lemma_A1_indexed` statement uses `ℓ = 4.75`: the ambient threshold is `5ε`
+and the resulting `0.0056525ε²` mass implies the stated `0.005ε²` bound.
 -/
 
 namespace TSPGap
@@ -1182,7 +1183,7 @@ theorem lemma_A1_indexed_budget {ι : Type*} [Fintype ι] [DecidableEq ι] (M : 
     _ ≤ _ := hprod
     _ ≤ _ := hhappy
 
-/-- The original Lemma A.1, recovered from the stronger tail-budget theorem. -/
+/-- KKO21 Lemma A.1 with its `5ε` ambient tail, from the stronger tail-budget theorem. -/
 theorem lemma_A1_indexed {ι : Type*} [Fintype ι] [DecidableEq ι] (M : FiberTreeModel ι n)
     {w : Finset ι → ℝ} {k : ℕ}
     (hst : IsRealStable (genPoly w)) (hr : FixedRankWeight (k + 1) w)
@@ -1205,17 +1206,17 @@ theorem lemma_A1_indexed {ι : Type*} [Fintype ι] [DecidableEq ι] (M : FiberTr
     (hdv2 : expCard w (M.fiberOver (cutEdges v)) ≤ 2 + εη)
     (hgood : 3 * ε ≤ weightMass (M.tau w u v)
       (fun T => (T ∩ M.fiberOver (cutEdges u)).card = 2 ∧ (T ∩ M.fiberOver (cutEdges v)).card = 2))
-    (htail : 8 * ε ≤ weightMass w
+    (htail : 5 * ε ≤ weightMass w
       (fun T => (T ∩ (A \ E)).card + (T ∩ (M.fiberOver (cutEdges v) \ E)).card ≤ 1)) :
     0.005 * ε ^ 2 ≤ weightMass w (fun T =>
       (T ∩ A).card = 1 ∧ (T ∩ B).card = 1 ∧ (T ∩ C).card = 0
         ∧ (T ∩ M.fiberOver (cutEdges v)).card = 2
         ∧ InducesTree u (M.project T) ∧ InducesTree v (M.project T)) := by
   have h := lemma_A1_indexed_budget M hst hr hnn htot hune hvne huv huvp hcount hSC
-    hpart hAB hAC hBC hεη hε0 hεcap (ℓ := 7.75) (by norm_num) (by norm_num)
+    hpart hAB hAC hBC hεη hε0 hεcap (ℓ := 4.75) (by norm_num) (by norm_num)
     hεηsq hdef hxE hxA1 hxA2 hxB1 hxB2 hxC hxBE hdv1 hdv2 hgood
     (by convert htail using 1; norm_num)
-  calc 0.005 * ε ^ 2 ≤ 0.00119 * 7.75 * ε ^ 2 := by nlinarith [sq_nonneg ε]
+  calc 0.005 * ε ^ 2 ≤ 0.00119 * 4.75 * ε ^ 2 := by nlinarith [sq_nonneg ε]
     _ ≤ _ := h
 
 end TSPGap

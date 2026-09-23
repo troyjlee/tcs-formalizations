@@ -20,10 +20,12 @@ The proof is the assembly of the four pieces: Eq. (56) for `e` and for `f`
 `Z` dichotomy (`lemma_5_27_dichotomy`), and the two cases
 (`lemma_5_27_absent`, `lemma_5_27_present`).
 
-⚠️ KKO state `0.01`; with Lemma A.1's repaired threshold (`8ε₂` instead of
-`5ε₂`), Eq. (56) holds at `1 − 27.2ε₂` rather than `1 − 20ε₂`, and the
-constant becomes `0.005` — still far above the `p = 0.005ε₂²` that 2-2-2
-goodness (Definition 5.26) requires.
+KKO state `0.01`. This wrapper retains the earlier `0.005` conclusion and
+the Eq. (56) bound `1 − 27.2ε₂`, derived using a weakened `8ε₂` tail
+threshold. Lemma A.1 now exports the paper's `5ε₂` threshold, but this
+wrapper does not propagate that improvement through its constants.
+Its bound still exceeds the `p = 0.005ε₂²` required by 2-2-2 goodness
+(Definition 5.26).
 
 The proof lives in `Lemma527Indexed.lean`, over a fiber tree model; this file
 is its instance at the **identity model**, with the statement unchanged.

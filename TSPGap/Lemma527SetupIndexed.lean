@@ -129,7 +129,7 @@ theorem lemma_5_27_eq56_indexed {ι : Type*} [Fintype ι] [DecidableEq ι]
     rw [betweenEdges_comm v u]
   have hSC : M.SupportComplete w (M.fiberOver (betweenEdges v u)) v u :=
     ⟨Finset.Subset.refl _, fun S _ => Finset.inter_subset_right⟩
-  -- A.1's tail must fail
+  -- A.1 rules out a 5ε₂ tail; retain the weaker 8ε₂ bound used below.
   have htail : weightMass w (fun T =>
       (T ∩ (A \ M.fiberOver (betweenEdges v u))).card + (T ∩ (M.fiberOver (cutEdges u) \ M.fiberOver (betweenEdges v u))).card ≤ 1)
       < 8 * ε₂ := by
@@ -137,7 +137,7 @@ theorem lemma_5_27_eq56_indexed {ι : Type*} [Fintype ι] [DecidableEq ι]
     have h' := not_lt.mp h
     have := lemma_A1_indexed M hst hr hnn htot hvne hune huv.symm hvup hcert hSC hpart hAB hAC hBC
       hεη hε₂ hε₂cap hεηsq hdef (by rw [hcomm]; exact hxE) hxA1 hxA2 hxB1 hxB2 hxC
-      (by rw [Finset.inter_comm, hcomm]; exact hxEB) hdu1 hdu2 hgood h'
+      (by rw [Finset.inter_comm, hcomm]; exact hxEB) hdu1 hdu2 hgood (by linarith)
     linarith
   rw [hcomm] at htail
   -- the count as one set

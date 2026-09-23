@@ -77,7 +77,7 @@ theorem lemma_5_23_treeDist {e₀ : RootEdge n} (hx : IsRestrictedLP e₀ x) (μ
   rw [expCard_prob_of_subset_cut μ (Finset.sdiff_subset.trans (Finset.sdiff_subset.trans hA))]
   exact hD
 
-/-- **Lemma A.1 for a max-entropy tree distribution.** -/
+/-- **Lemma A.1 for a max-entropy tree distribution, with the paper's `5ε` tail.** -/
 theorem lemma_A1_treeDist {e₀ : RootEdge n} (hx : IsRestrictedLP e₀ x) (μ : TreeDist n x)
     (hμ : IsMaxEntropyLimit μ) {εη : ℝ} (H : Hierarchy x e₀ εη)
     {S u v : Finset (Fin n)}
@@ -92,7 +92,7 @@ theorem lemma_A1_treeDist {e₀ : RootEdge n} (hx : IsRestrictedLP e₀ x) (μ :
     (hxBE : ∑ e ∈ B ∩ betweenEdges u v, x e ≤ ε)
     (hgood : 3 * ε ≤ weightMass (lemmaA1Tau μ.prob u v)
       (fun T => (T ∩ cutEdges u).card = 2 ∧ (T ∩ cutEdges v).card = 2))
-    (htail : 8 * ε ≤ μ.probEvent (fun T =>
+    (htail : 5 * ε ≤ μ.probEvent (fun T =>
       (T ∩ (A \ betweenEdges u v)).card + (T ∩ (cutEdges v \ betweenEdges u v)).card ≤ 1)) :
     0.005 * ε ^ 2 ≤ μ.probEvent (fun T =>
       (T ∩ A).card = 1 ∧ (T ∩ B).card = 1 ∧ (T ∩ C).card = 0

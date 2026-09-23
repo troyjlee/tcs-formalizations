@@ -15,5 +15,7 @@ jobs:
         uses: actions/checkout@v4
       - name: build (with mathlib cache) and run checks
         uses: leanprover/lean-action@v1
+      - name: check TSP paper statements and proof dependencies
+        run: lake env lean scripts/audit-tsp-statements.lean
       - name: check TSP sources for admissions
         run: node scripts/check-tsp-source.mjs

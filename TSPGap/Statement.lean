@@ -6,20 +6,28 @@ Authors: Troy Lee
 import TSPGap.Basic
 
 /-!
-# The main theorem: the subtour LP integrality gap is below 3/2
+# A subtour-LP gap bound from KKO22 with GKL capacity estimates
 
-This file states the mathematical core of
-
-* Karlin–Klein–Oveis Gharan, *A (Slightly) Improved Bound on the Integrality
-  Gap of the Subtour LP for TSP* (FOCS 2022), Theorem 1.1
-  (`REFERENCES/2105.10043v3.pdf` in the parent research repo).
+This file fixes the saving for the KKO22 framework with capacity estimates
+developed from Gurvits–Klein–Leake. The source results are KKO22,
+*A (Slightly) Improved Bound on the Integrality Gap of the Subtour LP for TSP*,
+Theorem 1.1 (arXiv:2105.10043v3), and GKL24,
+*From Trees to Polynomials and Back Again: New Capacity Bounds with Applications
+to TSP* (arXiv:2311.09072v2).
 
 KKO22 proves that for **some** absolute `ε > 10⁻³⁶`, the max-entropy algorithm
 returns a tour of expected cost `≤ (3/2 − ε)·c(x)` for every LP-feasible `x`.
-We state the existential conclusion with the explicit constant
-`ε = 1.08 · 10⁻³⁴`. By the probabilistic method, the expected-cost bound yields
-the existence of a tour
-of at most that cost, which is the integrality-gap content of the theorem.
+Here `kko_gap` proves tour existence with the explicit saving
+`ε = 1.08 · 10⁻³⁴`, implying KKO22's integrality-gap conclusion with an
+improved constant. This saving uses the GKL capacity estimates through
+`epsPCapacity = 1.25 · 10⁻¹⁵` and the common probability threshold
+`p = 8 · 10⁻¹⁰`. It is not KKO22's original numerical choice.
+
+GKL24 Corollary 4.6 itself gives the stronger saving `2.18 · 10⁻³⁴`, using
+`p = 1.5 · 10⁻⁹`. The constant here is the one certified by this development's
+capacity specialization and parameter choices. The formalized conclusion
+is tour existence; algorithmic expected-output and running-time guarantees
+are outside its scope.
 
 The theorem is proved in `TSPGap/EndToEnd.lean` (`TSPGap.kko_gap`), using only
 Lean's standard logical axioms.  This file fixes the constant.
@@ -27,7 +35,7 @@ Lean's standard logical axioms.  This file fixes the constant.
 
 namespace TSPGap
 
-/-- The gap constant.
+/-- The explicit saving for the KKO22 framework with GKL capacity estimates.
 
 The gain is `0.187 ε_P β`, with
 `η = 0.374 ε_P / 250` and `β = η/(4 + 2η)`, so it scales as `ε_P²`.
