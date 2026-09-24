@@ -15,7 +15,7 @@ project:
 
 classification:
   arxiv: ["math.CO", "cs.DM"]
-  msc2020: ["05D05", "03B35"]
+  msc2020: ["05D05"]
 
 sources:
   - title: "Improved bounds for the sunflower lemma"

@@ -15,7 +15,7 @@ project:
 
 classification:
   arxiv: ["cs.DS", "math.CO"]
-  msc2020: ["90C27", "05C45", "03B35"]
+  msc2020: ["90C27", "05C45"]
 
 sources:
   - title: "A (Slightly) Improved Approximation Algorithm for Metric TSP"
