@@ -272,9 +272,9 @@ builds toward:
   bound (`alwz_of_spread_lemma`) and the padding wrapper (`alwz_bounded_of_alwz`) are shared
   verbatim with the second-moment route, so the two differ in exactly one lemma.
 
-See `SUNFLOWER_FORMALIZATION_NOTES.md` for the version choices, source clarifications, and
-design notes recorded by this development — in particular why the main theorem uses
-base-`1.9` logarithms.
+See `docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md` for the version choices, source
+clarifications, and design notes recorded by this development — in particular why the main
+theorem uses base-`1.9` logarithms.
 -/
 import Sunflower.Defs
 import Sunflower.Lg

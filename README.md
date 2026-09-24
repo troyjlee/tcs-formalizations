@@ -26,7 +26,7 @@ the BCW satisfying/spread results, and the classical Erdős–Rado theorem.
 
 Start with the [Sunflower guide](docs/sunflower/README.md) for the main
 results, build instructions, and source map. The
-[proof notes](SUNFLOWER_FORMALIZATION_NOTES.md) discuss boundary cases,
+[proof notes](docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md) discuss boundary cases,
 explicit constructions, and proof organization.
 
 Principal papers:
