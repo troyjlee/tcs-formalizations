@@ -9,7 +9,7 @@ Rao–BCW approaches. The development also includes lower bounds for
 robust-sunflower thresholds and the BCW satisfying/spread condition,
 together with the classical Erdős–Rado theorem.
 
-The [formalization notes](../../SUNFLOWER_FORMALIZATION_NOTES.md) explain
+The [formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md) explain
 places where the Lean proofs make a construction explicit or adopt a
 version-specific convention, including Rao's case-1 decoder and the
 `w = 2` logarithm boundary.
@@ -20,7 +20,7 @@ A *sunflower* with `r` petals is a family of `r` sets whose pairwise
 intersections all equal a common core. `HasSunflower r 𝓕` says the family
 `𝓕` contains one; `IsBounded w 𝓕` says every member has at most `w`
 elements. The logarithm `lg` has base `1.9`, as explained in the
-[formalization notes](../../SUNFLOWER_FORMALIZATION_NOTES.md). Families
+[formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md). Families
 are finite (`Finset`), and probabilities are expressed as finite sums.
 The theorem names below are in the `Sunflower` namespace.
 
@@ -36,7 +36,7 @@ The theorem names below are in the `Sunflower` namespace.
 | `rao_bcw`, `exists_pairwiseDisjoint_of_raoSpread`, `bcw_theorem3`, `bcw_lemma4` | The BCW note's Theorem 1, Lemma 2, Theorem 3 and Lemma 4; `bcw_disjoint` and `rao_disjoint_original` are additional corollaries | [RaoBCW.lean](../../Sunflower/RaoBCW.lean), [SunflowerNote.lean](../../Sunflower/SunflowerNote.lean), [BCWLower.lean](../../Sunflower/BCWLower.lean) |
 
 The asymptotic descriptions summarize the explicit formulas; see the
-[formalization notes](../../SUNFLOWER_FORMALIZATION_NOTES.md) for their scope.
+[formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md) for their scope.
 
 The development also proves Harris's correlation inequality for the finite
 `p`-biased product measure, basic and extended Janson inequalities, and a
@@ -52,7 +52,7 @@ imports from `Janson*` or the `SpreadCore`–`KappaZeroPad` iteration, while
 reusing common definitions and selected finite-probability infrastructure.
 `Kraft` and `PrefixCode` belong specifically to the Rao route; `BCWLower`
 is a separate lower-bound development. The
-[formalization notes](../../SUNFLOWER_FORMALIZATION_NOTES.md) describe the
+[formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md) describe the
 dependencies shared by the two routes.
 
 ## Build
@@ -93,14 +93,14 @@ The shared GitHub Actions workflow runs the same default build.
 
 The combined Lean 4.33 package build passed on 22 September 2026, including
 the Sunflower library and checks. Kernel checking certifies the Lean
-statements; the [formalization notes](../../SUNFLOWER_FORMALIZATION_NOTES.md)
+statements; the [formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md)
 document their relationship to the papers.
 
 ## Reading the source
 
 Start with the header of [Sunflower.lean](../../Sunflower.lean), which
 walks through the modules in dependency order and explains what each
-contributes. The [formalization notes](../../SUNFLOWER_FORMALIZATION_NOTES.md)
+contributes. The [formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md)
 provide a consolidated account of conventions and adaptations.
 
 A map of the layers:

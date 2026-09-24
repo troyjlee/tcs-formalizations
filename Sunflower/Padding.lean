@@ -33,11 +33,11 @@ so intersections — and therefore sunflower cores — are transported exactly.
 member it belongs to already realizes "no dummy element appears in more than one set".
 
 It is **not** the second, superficially similar padding sentence discussed in formalization
-note A3 (`SUNFLOWER_FORMALIZATION_NOTES.md`) — the one inside ALWZ's Lemma 2.10 ("we may also
-assume that all sets in `F′` have size exactly `w`, by adding different dummy elements … we
-take care to scale by a large enough factor so that a negligible amount of weight falls on
-each dummy element, and so the spreadness hypothesis is preserved"). That one pads a
-*weighted multiset* system and must preserve *spreadness*; it is load-bearing and its
+note A3 (`docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md`) — the one inside ALWZ's Lemma 2.10
+("we may also assume that all sets in `F′` have size exactly `w`, by adding different dummy
+elements … we take care to scale by a large enough factor so that a negligible amount of
+weight falls on each dummy element, and so the spreadness hypothesis is preserved"). That
+one pads a *weighted multiset* system and must preserve *spreadness*; it is load-bearing and its
 justification is unstated. The formalization avoids it entirely by restricting to the
 heaviest size class (`SpreadBottom.bottom_le`). What is padded here is only the top-level
 statement, where nothing but cardinalities and intersections has to survive — and both are

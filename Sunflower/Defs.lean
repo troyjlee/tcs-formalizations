@@ -24,7 +24,7 @@ pre-v3 statement, `log₂ log₂ 2 = 0` makes the required family size `0` at `w
 that every nonempty family of 2-element sets contains an `r`-sunflower. ArXiv v3 explicitly
 interprets `log` as base `1.9` for this boundary case, and we follow that convention. It gives
 the positivity needed by the subsequent divisions and inequalities. See
-`SUNFLOWER_FORMALIZATION_NOTES.md`.
+`docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md`.
 -/
 import Mathlib.Data.Finset.Card
 import Mathlib.Data.Finset.Lattice.Fold

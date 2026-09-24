@@ -16,7 +16,7 @@ positivity (`lg_lg_two_pos`) while the base-2 nested logarithm is zero
 (`logb_two_logb_two_two`). The later divisions and inequalities explicitly consume the
 corresponding positivity or nonzeroness facts.
 
-See `SUNFLOWER_FORMALIZATION_NOTES.md`.
+See `docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md`.
 -/
 import Sunflower.Spread
 import Sunflower.Padding
@@ -172,9 +172,10 @@ Privacy of the dummies makes the correspondence faithful in both directions
 (`hasSunflower_padFamily_iff`).
 
 This §1 padding is not the weighted padding discussed in formalization note A3
-(`SUNFLOWER_FORMALIZATION_NOTES.md`). This particular proof chain handles the weighted
-uniformity step via the heaviest size class (`SpreadBottom.bottom_le`); the robust-sunflower
-endpoint later formalizes the source's weighted padding in `DummyPad` and `PadBottom`. -/
+(`docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md`). This particular proof chain handles the
+weighted uniformity step via the heaviest size class (`SpreadBottom.bottom_le`); the
+robust-sunflower endpoint later formalizes the source's weighted padding in `DummyPad` and
+`PadBottom`. -/
 theorem alwz_bounded_of_alwz {C : ℝ} (hC : 0 < C)
     (halwz : ∀ (r w : ℕ), 3 ≤ r → 2 ≤ w → ∀ {𝓕 : Finset (Finset (Padded α))},
       IsUniform w 𝓕 → alwzBound C r w ≤ (𝓕.card : ℝ) → HasSunflower r 𝓕) :

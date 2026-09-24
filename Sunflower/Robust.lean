@@ -8,9 +8,9 @@ them to ordinary sunflowers (their Lemmas 1.6 and 1.8).
 **The `p`-biased distribution, without measure theory.** Definition 1.5 is a statement about
 `R ∼ U(X, α)`, the distribution on subsets of `X` including each element independently with
 probability `α`. Many of the combinatorial counts in this development stay in the
-*fixed-size* model (see `SUNFLOWER_FORMALIZATION_NOTES.md`, note A2), so the `p`-biased model appears here
-for the first time — but it needs no probability theory either: for a finite ground set the
-probability is literally the finite sum
+*fixed-size* model (see `docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md`, note A2), so the
+`p`-biased model appears here for the first time — but it needs no probability theory either:
+for a finite ground set the probability is literally the finite sum
 
   `pBiased X p P = ∑_{R ⊆ X} p^|R| (1-p)^{|X|-|R|} · [P R]`,
 
