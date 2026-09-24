@@ -9,6 +9,8 @@ developed in Lean 4 over [Mathlib](https://github.com/leanprover-community/mathl
 The project explores AI-assisted formalization of selected TCS results.
 Each library has a guide with theorem statements, a source map, references,
 and links to notes on adaptations of the published arguments.
+Separate [Palomar submission packages](Palomar/README.md) provide independent
+statements, proof adapters, and paper correspondence for each library.
 
 One Lake package, one pinned toolchain, and one CI workflow serve both projects:
 
@@ -75,18 +77,19 @@ lake env lean scripts/audit-tsp-statements.lean
 node scripts/check-tsp-source.mjs
 ```
 
-The toolchain and Mathlib revision are pinned at **4.33.0** in
+The toolchain and Mathlib revision are pinned at **4.35.0-rc2** in
 [lean-toolchain](lean-toolchain) and [lake-manifest.json](lake-manifest.json).
 The cache command fetches compiled Mathlib dependencies. `lake build`
-compiles both libraries and their check files, `SunflowerChecks.lean` and
-`TSPGapChecks.lean`. The project guides give commands for building each
-library separately.
+compiles both libraries, their check files (`SunflowerChecks.lean` and
+`TSPGapChecks.lean`), and the separate Palomar Challenge and Solution modules.
+The project guides give commands for building each library separately.
 
 Both check files guard headline theorem footprints against exactly
 `[propext, Classical.choice, Quot.sound]`. The TSP checks also compile 668
 Song regression examples and five paper-interface checks, and enforce
 2,534 axiom checks. CI runs the same default build, the supplementary TSP
 statement and proof-dependency checks, and the source-admission scan.
+It also runs the [Palomar comparison and kernel checks](Palomar/README.md#reproduce-the-local-checks).
 See the [TSP verification record](docs/tsp/VERIFICATION.md) for the recorded results.
 
 ## License and attribution

@@ -204,7 +204,7 @@ theorem HasCircularOnes.map {β : Type*} [DecidableEq β] {O : Finset α} {F : F
   have hcard : (O.map f).card = O.card := Finset.card_map f
   let φ : ↥O ≃ ↥(O.map f) :=
     (Equiv.Set.image f (↑O : Set α) f.injective).trans
-      (Equiv.setCongr (Finset.coe_map f O).symm)
+      (Set.equivOfEq (Finset.coe_map f O).symm)
   have hφ : ∀ x : ↥O, ((φ x : ↥(O.map f)) : β) = f (x : α) := fun x => rfl
   let e' : Enum (O.map f) := (finCongr hcard).trans (e.trans φ)
   refine ⟨e', fun R' hR' => ?_⟩

@@ -69,7 +69,7 @@ omit [DecidableEq ι] [DecidableEq κ] in
 /-- All coefficients are nonnegative when the original weights are. -/
 theorem coeff_groupedCountPoly_nonneg {w : Finset ι → ℝ}
     (hw : ∀ S, 0 ≤ w S) (f : ι → κ) (β d : κ →₀ ℕ) :
-    0 ≤ coeff d (groupedCountPoly w f β) := by
+    0 ≤ (groupedCountPoly w f β).coeff d := by
   classical
   rw [groupedCountPoly, coeff_sum]
   apply Finset.sum_nonneg

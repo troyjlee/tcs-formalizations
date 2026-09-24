@@ -61,15 +61,14 @@ there, and reattach `Z`.
 Stating it this way lets the *same* reduction serve both routes to the spread lemma: the
 second-moment one (`SpreadCore.spread_core_main`, giving `alwz` below) and the Janson one
 (`spread_core_janson`, giving `JansonALWZ.alwz_janson`). -/
-theorem alwz_of_spread_lemma {C₀ : ℝ} (hC₀ : 0 < C₀)
+theorem alwz_uniform_of_spread_lemma {C₀ : ℝ} (hC₀ : 0 < C₀)
     (hspread : ∀ (r w w' : ℕ), 3 ≤ r → 2 ≤ w → 1 ≤ w' → w' ≤ w →
       ∀ {𝓖 : Finset (Finset α)}, IsUniform w' 𝓖 → 𝓖.Nonempty →
         IsSpread (C₀ * (r : ℝ) ^ 3 * lg w * lg (lg w)) 𝓖 →
         ∃ 𝒟 ⊆ 𝓖, 𝒟.card = r ∧ (𝒟 : Set (Finset α)).PairwiseDisjoint id) :
-    ∃ C : ℝ, 0 < C ∧ ∀ (r w : ℕ), 3 ≤ r → 2 ≤ w →
-    ∀ {𝓕 : Finset (Finset α)}, IsUniform w 𝓕 → alwzBound C r w ≤ (𝓕.card : ℝ) →
-    HasSunflower r 𝓕 := by
-  refine ⟨max C₀ (1 / lg (lg 2)), lt_of_lt_of_le hC₀ (le_max_left _ _), ?_⟩
+    ∀ (r w : ℕ), 3 ≤ r → 2 ≤ w →
+    ∀ {𝓕 : Finset (Finset α)}, IsUniform w 𝓕 →
+      alwzBound (max C₀ (1 / lg (lg 2))) r w ≤ (𝓕.card : ℝ) → HasSunflower r 𝓕 := by
   intro r w hr hw 𝓕 hu hcard
   set C : ℝ := max C₀ (1 / lg (lg 2)) with hCdef
   -- positivity and monotonicity facts about the factors of `κ`
@@ -127,6 +126,18 @@ theorem alwz_of_spread_lemma {C₀ : ℝ} (hC₀ : 0 < C₀)
     hspread r w (w - Z.card) hr hw (by omega) (Nat.sub_le _ _) (hu.link Z)
       hlinkne hspread₀
   exact hasSunflower_of_pairwiseDisjoint_link h𝒟sub h𝒟card h𝒟pd
+
+/-- Existential form of `alwz_uniform_of_spread_lemma`. -/
+theorem alwz_of_spread_lemma {C₀ : ℝ} (hC₀ : 0 < C₀)
+    (hspread : ∀ (r w w' : ℕ), 3 ≤ r → 2 ≤ w → 1 ≤ w' → w' ≤ w →
+      ∀ {𝓖 : Finset (Finset α)}, IsUniform w' 𝓖 → 𝓖.Nonempty →
+        IsSpread (C₀ * (r : ℝ) ^ 3 * lg w * lg (lg w)) 𝓖 →
+        ∃ 𝒟 ⊆ 𝓖, 𝒟.card = r ∧ (𝒟 : Set (Finset α)).PairwiseDisjoint id) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (r w : ℕ), 3 ≤ r → 2 ≤ w →
+    ∀ {𝓕 : Finset (Finset α)}, IsUniform w 𝓕 → alwzBound C r w ≤ (𝓕.card : ℝ) →
+    HasSunflower r 𝓕 := by
+  refine ⟨max C₀ (1 / lg (lg 2)), lt_of_lt_of_le hC₀ (le_max_left _ _), ?_⟩
+  exact alwz_uniform_of_spread_lemma hC₀ hspread
 
 /-- **Alweiss–Lovett–Wu–Zhang** (STOC 2020; *Annals of Mathematics* 194 (2021) 795–815).
 

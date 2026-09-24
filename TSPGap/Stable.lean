@@ -11,10 +11,9 @@ import Mathlib.Analysis.CStarAlgebra.Classes
 /-!
 # Real stability and generating polynomials
 
-The first layer of Milestone 5.  Mathlib (v4.32) has multivariate polynomials
-with evaluation, renaming, substitution and partial derivatives, but no real
-stability, no strongly Rayleigh measures, no Rayleigh differences and no
-Hurwitz theorem, so those are built here.
+We use Mathlib's multivariate polynomials, evaluation, renaming, substitution
+and partial derivatives to define real stability and generating polynomials
+for finite measures.
 
 ## The representation
 
@@ -127,7 +126,7 @@ theorem genPoly_eq_sum_monomial [Fintype ι] [DecidableEq ι] (w : Finset ι →
 squarefree monomial of `S` — the correspondence is a bijection, not merely a
 map. -/
 theorem coeff_genPoly [Fintype ι] [DecidableEq ι] (w : Finset ι → ℝ)
-    (S : Finset ι) : coeff (sqExp S) (genPoly w) = w S := by
+    (S : Finset ι) : (genPoly w).coeff (sqExp S) = w S := by
   classical
   rw [genPoly_eq_sum_monomial, coeff_sum]
   rw [Finset.sum_eq_single S]
@@ -168,7 +167,7 @@ theorem eval_genPoly [Fintype ι] [DecidableEq ι] (w : Finset ι → ℝ) (z : 
 
 /-- `p` is **multi-affine** when no variable occurs to degree two or more. -/
 def IsMultiAffine {R : Type*} [CommSemiring R] (p : MvPolynomial ι R) : Prop :=
-  ∀ (m : ι →₀ ℕ) (i : ι), 2 ≤ m i → coeff m p = 0
+  ∀ (m : ι →₀ ℕ) (i : ι), 2 ≤ m i → p.coeff m = 0
 
 /-- The support form: every monomial of a multi-affine polynomial is
 squarefree. -/

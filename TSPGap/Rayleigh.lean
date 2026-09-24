@@ -72,12 +72,12 @@ theorem sqExp_support_of_mem {p : MvPolynomial ι ℝ} (hp : IsMultiAffine p)
 /-- **The converse of `isMultiAffine_genPoly`**: a multi-affine polynomial is the
 generating polynomial of its squarefree coefficients. -/
 theorem genPoly_coeff_self {p : MvPolynomial ι ℝ} (hp : IsMultiAffine p) :
-    genPoly (fun S => coeff (sqExp S) p) = p := by
+    genPoly (fun S => p.coeff (sqExp S)) = p := by
   classical
   rw [genPoly_eq_sum_monomial]
-  have hrestrict : ∑ S : Finset ι, (monomial (sqExp S) (coeff (sqExp S) p) : MvPolynomial ι ℝ)
-      = ∑ S ∈ Finset.univ.filter (fun S : Finset ι => coeff (sqExp S) p ≠ 0),
-          monomial (sqExp S) (coeff (sqExp S) p) := by
+  have hrestrict : ∑ S : Finset ι, (monomial (sqExp S) (p.coeff (sqExp S)) : MvPolynomial ι ℝ)
+      = ∑ S ∈ Finset.univ.filter (fun S : Finset ι => p.coeff (sqExp S) ≠ 0),
+          monomial (sqExp S) (p.coeff (sqExp S)) := by
     refine (Finset.sum_subset (Finset.filter_subset _ _) ?_).symm
     intro S _ hS
     simp only [Finset.mem_filter, Finset.mem_univ, true_and, not_not] at hS

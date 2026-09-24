@@ -2,9 +2,9 @@
 
 The TSP formalization is a library within the shared
 [TCS formalizations package](../../README.md). Lean and Mathlib are pinned
-to **4.33.0** by [lean-toolchain](../../lean-toolchain) and
+to **4.35.0-rc2** by [lean-toolchain](../../lean-toolchain) and
 [lake-manifest.json](../../lake-manifest.json). The manifest fixes Mathlib
-at revision `db584cd6d46c92f209a44c0f1c829460d327499d`.
+at revision `065356127b1dc0016f66b7283ce0ce2c4055aa55`.
 
 ## Build and checks
 
@@ -22,7 +22,8 @@ The first command fetches compiled Mathlib dependencies for the pinned
 revision. The default build compiles both formalizations and their check
 files. The next command runs the supplementary statement and proof-dependency
 checks. Node.js is needed only for the additional source scan. CI runs the
-same build, audit and scan.
+same build, audit and scan, followed by the
+[Palomar statement comparison and kernel checks](../../Palomar/README.md#reproduce-the-local-checks).
 
 On machines with limited memory, reduce build concurrency with
 `LEAN_NUM_THREADS=1 lake build`. CI sets `LEAN_NUM_THREADS=2`.
@@ -82,21 +83,29 @@ project axiom is accepted.
 
 ## Current verification
 
-The 23 September 2026 TSP validation passed with
-`LEAN_NUM_THREADS=4 lake build TSPGap TSPGapChecks`: 673 examples, four
-guarded public theorem footprints, and 2,534 axiom checks covering 2,514
-distinct declarations. The statement checks pin the `5ε` A.1 premise, both
-Theorem 6.1 coefficients, the exact Song bound and its uniform strict saving.
+The 24 September 2026 validation passed with
+`LEAN_NUM_THREADS=1 lake build`, including all 423 TSP library modules,
+673 examples, four guarded public theorem footprints, and 2,534 axiom checks
+covering 2,514 distinct declarations. The statement checks pin the `5ε` A.1
+premise, both Theorem 6.1 coefficients, the exact Song bound and its uniform
+strict saving.
 The build used ordinary Lake dependency checking, without `--old`, and
 cached unchanged dependencies. The Mathlib checkout was clean and matched
 the pinned revision.
 
 The [supplementary statement checks](../../scripts/audit-tsp-statements.lean)
 also passed with
-`LEAN_NUM_THREADS=2 lake env lean scripts/audit-tsp-statements.lean`,
-using the CI worker setting, including the standard-axiom and
-proof-dependency checks. The source scan passed for all 423 TSP library
+`LEAN_NUM_THREADS=1 lake env lean scripts/audit-tsp-statements.lean`,
+including the standard-axiom and proof-dependency checks. The source scan
+passed for all 423 TSP library
 modules and both public entry files.
+
+All five independent Palomar statements passed Comparator's statement and
+axiom checks and proof replay by con-ron, NanoDa, and Lean's kernel, using
+`LEAN_NUM_THREADS=1 python3 scripts/check-palomar.py --no-sandbox TSPGap`.
+This was a local macOS check, not a Palomar service review or registration.
+The [Palomar guide](../../Palomar/README.md#local-verification-record)
+records both packages' results and reproduction commands.
 
 The [paper-correspondence review](PAPER_CORRESPONDENCE.md) records the
 targeted, AI-assisted comparison of the statements, definitions and

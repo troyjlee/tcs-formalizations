@@ -121,7 +121,7 @@ theorem prod_one_sub_two_mul_le_on (s : Finset ι) (q : ι → ℝ)
     ∏ i ∈ s, (1 - 2 * q i) ≤ Real.exp (-2 * ∑ i ∈ s, q i) := by
   calc ∏ i ∈ s, (1 - 2 * q i)
       ≤ ∏ i ∈ s, Real.exp (-2 * q i) :=
-        Finset.prod_le_prod (fun i hi => by have := hh i hi; linarith)
+        Finset.prod_le_prod₀ (fun i hi => by have := hh i hi; linarith)
           (fun i _ => one_sub_two_mul_le_exp (q i))
     _ = Real.exp (∑ i ∈ s, -2 * q i) := (Real.exp_sum _ _).symm
     _ = Real.exp (-2 * ∑ i ∈ s, q i) := by rw [← Finset.mul_sum]

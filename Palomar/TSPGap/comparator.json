@@ -1,0 +1,16 @@
+{
+  "challenge_module": "Palomar.TSPGap.Challenge",
+  "solution_module": "Palomar.TSPGap.Solution",
+  "theorem_names": [
+    "PalomarTSPGap.kko_gap",
+    "PalomarTSPGap.song_gap",
+    "PalomarTSPGap.song_gap_strict",
+    "PalomarTSPGap.song_gap_exact",
+    "PalomarTSPGap.exactGain_gt_target"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

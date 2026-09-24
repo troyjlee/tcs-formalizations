@@ -19,3 +19,5 @@ jobs:
         run: lake env lean scripts/audit-tsp-statements.lean
       - name: check TSP sources for admissions
         run: node scripts/check-tsp-source.mjs
+      - name: compare Palomar statements and replay proofs
+        run: python3 scripts/check-palomar.py --no-sandbox

@@ -200,13 +200,12 @@ open Rao in
 lower bound `|𝓕| ≥ R^w` remains.) The proved statement is stronger — `w ≥ 1` and
 `0 < δ, ε ≤ 1` suffice, see `Rao.isSatisfying_of_raoSpread` — but this is the note's
 shape. -/
-theorem bcw_theorem3 : ∃ B : ℝ, 1 ≤ B ∧ ∀ (w : ℕ) (R δ ε : ℝ)
+theorem bcw_theorem3_explicit : ∀ (w : ℕ) (R δ ε : ℝ)
     (X : Finset α) (𝓕 : Finset (Finset α)),
     2 ≤ w → 0 < δ → δ ≤ 1 / 2 → 0 < ε → ε ≤ 1 / 2 →
     IsUniform w 𝓕 → IsRaoSpread R w 𝓕 → (∀ T ∈ 𝓕, T ⊆ X) →
-    B * δ⁻¹ * Real.log ((w : ℝ) / ε) ≤ R → R ^ w ≤ ((𝓕.card : ℕ) : ℝ) →
+    2 ^ 56 * δ⁻¹ * Real.log ((w : ℝ) / ε) ≤ R → R ^ w ≤ ((𝓕.card : ℕ) : ℝ) →
     IsSatisfying δ ε X 𝓕 := by
-  refine ⟨2 ^ 56, by norm_num, ?_⟩
   intro w R δ ε X 𝓕 hw hδ0 hδ1 hε0 hε1 hu hsp hSX hR hcard
   refine isSatisfying_of_raoSpread (by omega) hu hsp hSX hcard
     hδ0 (by linarith) hε0 (by linarith) ?_
@@ -223,6 +222,15 @@ theorem bcw_theorem3 : ∃ B : ℝ, 1 ≤ B ∧ ∀ (w : ℕ) (R δ ε : ℝ)
     nlinarith [Real.log_two_gt_d9]
   have hδinv0 : (0 : ℝ) < δ⁻¹ := inv_pos.mpr hδ0
   nlinarith [hR, hδinv0, hL1]
+
+/-- Existential form of `bcw_theorem3_explicit`. -/
+theorem bcw_theorem3 : ∃ B : ℝ, 1 ≤ B ∧ ∀ (w : ℕ) (R δ ε : ℝ)
+    (X : Finset α) (𝓕 : Finset (Finset α)),
+    2 ≤ w → 0 < δ → δ ≤ 1 / 2 → 0 < ε → ε ≤ 1 / 2 →
+    IsUniform w 𝓕 → IsRaoSpread R w 𝓕 → (∀ T ∈ 𝓕, T ⊆ X) →
+    B * δ⁻¹ * Real.log ((w : ℝ) / ε) ≤ R → R ^ w ≤ ((𝓕.card : ℕ) : ℝ) →
+    IsSatisfying δ ε X 𝓕 := by
+  exact ⟨2 ^ 56, by norm_num, bcw_theorem3_explicit⟩
 
 open Rao in
 /-- **Rao's spread-to-disjoint estimate, preserved as its own route.** At `δ = ε = 1/r` and
