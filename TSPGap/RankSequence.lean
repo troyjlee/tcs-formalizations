@@ -338,7 +338,7 @@ theorem exists_bernoulli_rank_law {w : Finset ι → ℝ} {r : ℕ}
       linarith [hs_nonpos _ hmem]
     exact (div_le_one (hfac_pos _ hmem)).mpr h2
   · rw [← coeff_rankPoly, Bernoulli.probCount_eq_coeff]
-    congr 1
+    apply congrArg (fun p : Polynomial ℝ => p.coeff k)
     symm
     -- each Bernoulli factor is `q · (X − root)`
     have hfac : ∀ j : Fin s.toList.length,
@@ -390,4 +390,3 @@ theorem IsMaxEntropyLimit.exists_bernoulli_rank_law {n : ℕ}
   exact hlaw k
 
 end TSPGap
-

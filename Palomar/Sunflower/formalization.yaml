@@ -1,0 +1,134 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Sunflower bounds"
+  description: >-
+    Lean proofs of the ALWZ and Rao–Bell–Chueluecha–Warnke sunflower bounds,
+    robust-sunflower upper and lower bounds, the BCW spread and satisfying
+    results, and the classical Erdős–Rado theorem. The submission compares ten
+    explicit finite statements, including second-moment and Janson routes to
+    the ALWZ bound.
+  authors: ["Troy Lee"]
+  responsible_maintainers: ["Troy Lee"]
+  license: "Apache-2.0"
+
+classification:
+  arxiv: ["math.CO", "cs.DM"]
+  msc2020: ["05D05", "03B35"]
+
+sources:
+  - title: "Improved bounds for the sunflower lemma"
+    authors: ["Ryan Alweiss", "Shachar Lovett", "Kewen Wu", "Jiapeng Zhang"]
+    id: "https://arxiv.org/abs/1908.08483v3"
+    type: "article"
+    location: "Theorems 1.4 and 1.9; Lemma 3.1"
+    relationship: "adapts"
+    note: >-
+      Follows the base-1.9 convention of arXiv v3. Exposes explicit upper
+      constants and an integer-rounded lower bound with denominator 16.
+  - title: "Coding for Sunflowers"
+    authors: ["Anup Rao"]
+    id: "https://discreteanalysisjournal.com/article/11887-coding-for-sunflowers"
+    type: "article"
+    location: "Coding and covering argument, Discrete Analysis 2020:2"
+    relationship: "adapts"
+    note: >-
+      Formalizes explicit encoders and decoders and uses the BCW colour
+      improvement to obtain the final sunflower bound.
+  - title: "Note on Sunflowers"
+    authors: ["Tolson Bell", "Suchakree Chueluecha", "Lutz Warnke"]
+    id: "https://arxiv.org/abs/2009.09327v2"
+    type: "article"
+    location: "Theorem 1, Lemma 2, Theorem 3, and Lemma 4"
+    relationship: "adapts"
+    note: "Upper bounds use explicit absolute constants; the finite lower-bound construction is included."
+  - title: "Intersection theorems for systems of sets"
+    authors: ["Paul Erdős", "Richard Rado"]
+    id: "https://doi.org/10.1112/jlms/s1-35.1.85"
+    type: "article"
+    location: "Journal of the London Mathematical Society 35 (1960), 85–90"
+    relationship: "formalizes"
+
+status:
+  scope: >-
+    Finite set families over arbitrary types with decidable equality. The
+    sunflower bounds allow sets of size at most w; the robust statements use
+    w-uniform families. Probabilities are explicit finite product-measure
+    sums. All ten compared results use explicit constants independent of
+    the ambient type. Asymptotic descriptions summarize those formulas;
+    separate IsBigO or little-o theorems are not asserted. Supporting Harris,
+    Janson, and coding results are proved in the library but are not separate
+    claims in this submission's Comparator configuration.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Claude (Anthropic)", "Codex (OpenAI)"]
+      framework: "Claude and Codex coding agents"
+      tool_setup: "Human-directed Lean and Mathlib proof development, compiler feedback, and statement review."
+      prompting_notes: "Formalize the cited results, verify paper correspondence, and check theorem dependencies."
+  spend_usd: "not specified"
+  notes: >-
+    Troy Lee directed the formalization and publication scope. AI assistance
+    is credited here rather than as human authorship. Specific model versions
+    and resource totals are not specified in this metadata.
+
+fidelity:
+  divergences: >-
+    The explicit ALWZ constant is max(2^41, 1/lg(lg 2)); the Rao–BCW sunflower
+    and robust thresholds use 2^60. The lower bound uses floor(log_2 w),
+    floor(sqrt w), and denominator 16 rather than the paper's displayed 8.
+    Sampling-model transfers and weighted dummy padding are explicit. Rao's
+    case-1 decoder transmits A in the budgeted subset field, and the trimming
+    reduction uses a threshold subfamily and event monotonicity. The two
+    ALWZ routes share their surrounding reduction and infrastructure.
+    See docs/sunflower/SUNFLOWER_FORMALIZATION_NOTES.md for details.
+
+review:
+  status: "agent-reviewed"
+  notes: >-
+    AI-assisted statement and source correspondence review, with Lean axiom
+    guards and finite boundary checks. No independent human peer review or
+    source-author endorsement is claimed. The local submission-check record
+    and reproduction commands are in Palomar/README.md.
+
+alignment:
+  namespace: "PalomarSunflower"
+  module: "Palomar.Sunflower.Solution"
+  statements:
+    - source: "Erdős–Rado sunflower theorem"
+      lean: "PalomarSunflower.erdos_rado_bounded"
+      status: "proved"
+    - source: "ALWZ Theorem 1.4, second-moment route"
+      lean: "PalomarSunflower.alwz_bounded"
+      status: "proved with an explicit absolute constant"
+    - source: "ALWZ Theorem 1.4, Janson route"
+      lean: "PalomarSunflower.alwz_bounded_janson"
+      status: "proved with the same explicit absolute constant"
+    - source: "BCW Theorem 1 via Rao's coding argument"
+      lean: "PalomarSunflower.rao_bcw_bounded"
+      status: "proved with constant 2^60"
+    - source: "ALWZ Theorem 1.9"
+      lean: "PalomarSunflower.exists_isRobustSunflower_pad"
+      status: "proved with an explicit threshold"
+    - source: "Rao's improved robust-sunflower threshold"
+      lean: "PalomarSunflower.exists_isRobustSunflower_rao"
+      status: "proved with constant 2^60"
+    - source: "ALWZ Lemma 3.1"
+      lean: "PalomarSunflower.exists_no_robustSunflower"
+      status: "proved with integer rounding and denominator 16"
+    - source: "BCW Lemma 2"
+      lean: "PalomarSunflower.exists_pairwiseDisjoint_of_raoSpread"
+      status: "proved with an explicit spread constant"
+    - source: "BCW Theorem 3"
+      lean: "PalomarSunflower.bcw_theorem3"
+      status: "proved with constant 2^56"
+    - source: "BCW Lemma 4"
+      lean: "PalomarSunflower.bcw_lemma4"
+      status: "proved"
+
+acknowledgements: "Lean, Mathlib, the cited paper authors, Anthropic Claude, and OpenAI Codex."

@@ -152,12 +152,12 @@ theorem isMetric_splitCost {c : Sym2 (Fin n) → ℝ} (hc : IsMetric c)
     (p : Fin n) : IsMetric (splitCost c p) where
   nonneg e := hc.nonneg _
   triangle u v w := by
-    simp only [splitCost, Sym2.map_pair_eq]
+    simp only [splitCost, Sym2.map_mk]
     exact hc.triangle _ _ _
 
 theorem splitCost_root {c : Sym2 (Fin n) → ℝ} (p : Fin n)
     (hdiag : c s(p, p) = 0) : splitCost c p (splitRoot p).edge = 0 := by
-  rw [splitCost, RootEdge.edge, splitRoot, Sym2.map_pair_eq, mergeMap_castSucc,
+  rw [splitCost, RootEdge.edge, splitRoot, Sym2.map_mk, mergeMap_castSucc,
     mergeMap_last]
   exact hdiag
 
@@ -191,7 +191,7 @@ theorem splitPoint_castSucc_castSucc (x : Sym2 (Fin n) → ℝ) (p a b : Fin n)
     intro h
     exact hab (Fin.castSucc_injective n h)
   have hmap : Sym2.map (mergeMap p) s(a.castSucc, b.castSucc) = s(a, b) := by
-    rw [Sym2.map_pair_eq, mergeMap_castSucc, mergeMap_castSucc]
+    rw [Sym2.map_mk, mergeMap_castSucc, mergeMap_castSucc]
   rw [splitPoint, if_neg hne, if_neg hdiag, hmap]
   by_cases h : a = p ∨ b = p
   · rw [if_pos h, if_pos]
@@ -217,7 +217,7 @@ theorem splitPoint_castSucc_last (x : Sym2 (Fin n) → ℝ) (p a : Fin n)
     simp only [Sym2.mk_isDiag_iff]
     exact castSucc_ne_last a
   have hmap : Sym2.map (mergeMap p) s(a.castSucc, Fin.last n) = s(a, p) := by
-    rw [Sym2.map_pair_eq, mergeMap_castSucc, mergeMap_last]
+    rw [Sym2.map_mk, mergeMap_castSucc, mergeMap_last]
   rw [splitPoint, if_neg hne, if_neg hdiag, hmap, if_pos (Sym2.mem_mk_right a p)]
 
 /-! ### Feasibility of the split LP point -/
@@ -847,7 +847,7 @@ theorem listCost_map (c : Sym2 (Fin n) → ℝ) (f : Fin (n + 1) → Fin n) :
   | [_] => rfl
   | a :: b :: t => by
       have ih := listCost_map c f (b :: t)
-      simp only [List.map_cons, listCost_cons_cons, Sym2.map_pair_eq] at ih ⊢
+      simp only [List.map_cons, listCost_cons_cons, Sym2.map_mk] at ih ⊢
       rw [ih]
 
 theorem not_isDiag_of_mem_walk_edges {u v : Fin n}

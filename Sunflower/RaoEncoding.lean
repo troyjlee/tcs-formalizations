@@ -156,13 +156,13 @@ theorem choose_mul_pow_le (m' v' t : ℕ) :
     calc (m' : ℝ) ^ t = ∏ _j ∈ Finset.range t, (m' : ℝ) := by
           rw [Finset.prod_const, Finset.card_range]
       _ ≤ ∏ j ∈ Finset.range t, ((m' + j + 1 : ℕ) : ℝ) := by
-          refine Finset.prod_le_prod (fun j _ => by positivity) fun j _ => ?_
+          refine Finset.prod_le_prod₀ (fun j _ => by positivity) fun j _ => ?_
           have : m' ≤ m' + j + 1 := by omega
           exact_mod_cast this
   have hhigh : ∏ j ∈ Finset.range t, ((v' + j + 1 : ℕ) : ℝ) ≤ (((v' + t : ℕ) : ℝ)) ^ t := by
     calc ∏ j ∈ Finset.range t, ((v' + j + 1 : ℕ) : ℝ)
         ≤ ∏ _j ∈ Finset.range t, (((v' + t : ℕ) : ℝ)) := by
-          refine Finset.prod_le_prod (fun j _ => by positivity) fun j hj => ?_
+          refine Finset.prod_le_prod₀ (fun j _ => by positivity) fun j hj => ?_
           rw [Finset.mem_range] at hj
           have : v' + j + 1 ≤ v' + t := by omega
           exact_mod_cast this

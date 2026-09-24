@@ -79,7 +79,7 @@ theorem profileProduct_nonneg {b : ℕ → ℝ} {n : ℕ}
 
 theorem profileProduct_le_one {b : ℕ → ℝ} {n : ℕ}
     (hb : ∀ k, 1 ≤ k → k ≤ n → 0 ≤ b k ∧ b k ≤ 1) : profileProduct b n ≤ 1 := by
-  apply Finset.prod_le_one
+  apply Finset.prod_le_one₀
   · intro k hk
     exact (hb (k + 1) (by omega) (by have := Finset.mem_range.mp hk; omega)).1
   · intro k hk

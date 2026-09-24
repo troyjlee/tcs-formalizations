@@ -197,7 +197,7 @@ theorem detPoly_eq_genPoly (A : Matrix r m ℝ) :
 
 /-- The coefficient of a squarefree monomial is the corresponding Gram minor. -/
 theorem coeff_detPoly (A : Matrix r m ℝ) (S : Finset m) :
-    coeff (sqExp S) (detPoly A)
+    (detPoly A).coeff (sqExp S)
       = if S.card = Fintype.card r then gramMinor A S else 0 := by
   rw [detPoly_eq_genPoly, coeff_genPoly]
 

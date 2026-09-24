@@ -88,7 +88,7 @@ theorem normalizeEraseColumn_value_le [DecidableEq C] {A : R → C → ℝ} (hA 
     rw [normalizeEraseColumn_rowValue hA hc]
     rw [Fintype.sum_eq_add_sum_subtype_ne (fun j => A i j * x j) c]
     exact le_add_of_nonneg_left (mul_nonneg (hA.1 i c) (hx c))
-  have hp := Finset.prod_le_prod
+  have hp := Finset.prod_le_prod₀
     (fun i (_ : i ∈ Finset.univ) => mul_nonneg (one_sub_entry_pos hA hc i).le
       (Finset.sum_nonneg (fun j _ => mul_nonneg (hB.1 i j) (hx j.val))))
     (fun i _ => hrow i)

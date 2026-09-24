@@ -188,7 +188,7 @@ theorem probCount_zero_le_exp (q : ι → ℝ) (h1 : ∀ i, q i ≤ 1) :
     Bernoulli.probCount q 0 ≤ Real.exp (-∑ i, q i) := by
   classical
   rw [probCount_zero_eq_prod, ← Finset.sum_neg_distrib, Real.exp_sum]
-  refine Finset.prod_le_prod (fun i _ => by linarith [h1 i]) fun i _ => ?_
+  refine Finset.prod_le_prod₀ (fun i _ => by linarith [h1 i]) fun i _ => ?_
   linarith [Real.add_one_le_exp (-q i)]
 
 /-! ### Numerical constants -/

@@ -98,7 +98,7 @@ private theorem coeff_prod_nonneg {κ : Type*} (s : Finset κ) (f : κ → Polyn
 /-- Nonnegative multivariate coefficients remain nonnegative in a real
 slice. The frozen value of the extracted coordinate is irrelevant. -/
 theorem coeff_nonneg_realCoordinateSlice {p : MvPolynomial ι ℝ}
-    (hp : ∀ m, 0 ≤ MvPolynomial.coeff m p) (x : ι → ℝ) (j : ι)
+    (hp : ∀ m, 0 ≤ p.coeff m) (x : ι → ℝ) (j : ι)
     (hx : ∀ i, i ≠ j → 0 ≤ x i) (k : ℕ) :
     0 ≤ (realCoordinateSlice x j p).coeff k := by
   classical
@@ -192,7 +192,7 @@ theorem splits_realCoordinateSlice {p : MvPolynomial ι ℝ} {d : ℕ}
 one coordinate survives extracting its coefficient at a cost `exp(-1)`.
 The scalar `c` may already contain a target monomial in the other variables. -/
 theorem homogeneous_capacity_extraction_one {p : MvPolynomial ι ℝ} {d : ℕ} {c : ℝ}
-    (hp : p.IsHomogeneous d) (hnn : ∀ m, 0 ≤ MvPolynomial.coeff m p)
+    (hp : p.IsHomogeneous d) (hnn : ∀ m, 0 ≤ p.coeff m)
     (hst : ∀ z : ι → ℂ, (∀ i, 0 < (z i).im) →
       MvPolynomial.eval z (p.map (algebraMap ℝ ℂ)) ≠ 0)
     (x : ι → ℝ) (j : ι) (hx : ∀ i, i ≠ j → 0 < x i)

@@ -1,0 +1,21 @@
+{
+  "challenge_module": "Palomar.Sunflower.Challenge",
+  "solution_module": "Palomar.Sunflower.Solution",
+  "theorem_names": [
+    "PalomarSunflower.erdos_rado_bounded",
+    "PalomarSunflower.alwz_bounded",
+    "PalomarSunflower.alwz_bounded_janson",
+    "PalomarSunflower.rao_bcw_bounded",
+    "PalomarSunflower.exists_isRobustSunflower_pad",
+    "PalomarSunflower.exists_isRobustSunflower_rao",
+    "PalomarSunflower.exists_no_robustSunflower",
+    "PalomarSunflower.exists_pairwiseDisjoint_of_raoSpread",
+    "PalomarSunflower.bcw_theorem3",
+    "PalomarSunflower.bcw_lemma4"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}

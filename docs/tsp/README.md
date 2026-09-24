@@ -69,7 +69,7 @@ lake exe cache get
 lake build TSPGap TSPGapChecks
 ```
 
-The project pins Lean **4.33.0** and Mathlib **v4.33.0**. The committed
+The project pins Lean **4.35.0-rc2** and Mathlib **v4.35.0-rc2**. The committed
 [lake-manifest.json](../../lake-manifest.json) fixes the dependency revisions.
 Keep these pins when reproducing the result. The cache command downloads
 compiled dependencies; Lake then compiles the project. See the
@@ -93,14 +93,20 @@ import TSPGap.EndToEnd
 ```
 
 The umbrella import `import TSPGap` also exposes these results.
+The [Palomar package](../../Palomar/README.md#tspgap-statements) restates the
+four tour bounds and exact-gain inequality independently of the proof library.
 
 ## Verification status
 
-The TSP formalization passed validation on **23 September 2026**.
+The TSP formalization passed validation on **24 September 2026** with the
+pinned Lean 4.35.0-rc2 toolchain.
 The full TSP build passed **668 original Song regression examples** and
 **5 paper-interface checks**, the four public tour bounds' guarded axiom
 footprints, and **2,534 axiom checks**. The supplementary statement and
-dependency checks and the source scan also passed.
+dependency checks and the source scan also passed. All five independent
+Palomar statements passed Comparator and proof replay by con-ron, NanoDa,
+and Lean's kernel; see the
+[local verification record](../../Palomar/README.md#local-verification-record).
 
 The shared default build includes the regression examples and guarded
 public axiom footprints in `TSPGapChecks.lean`, and the enforced inventory

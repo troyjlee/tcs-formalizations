@@ -548,7 +548,7 @@ theorem janson_on {X : Finset α} {p : ℝ} (hp0 : 0 ≤ p) (hp1 : p ≤ 1)
     exact Real.add_one_le_exp _
   calc ∏ i ∈ T, jansonFactor X p S T (i : ℕ) i
       ≤ ∏ i ∈ T, Real.exp (b i - a i) :=
-        Finset.prod_le_prod (fun i _ => jansonFactor_nonneg hp0 hp1 S T _ i) fun i _ => hstep i
+        Finset.prod_le_prod₀ (fun i _ => jansonFactor_nonneg hp0 hp1 S T _ i) fun i _ => hstep i
     _ = Real.exp (∑ i ∈ T, (b i - a i)) := (Real.exp_sum _ _).symm
     _ = Real.exp (- (∑ i ∈ T, a i) + ∑ i ∈ T, b i) := by
         congr 1

@@ -13,6 +13,8 @@ The [formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md) explain
 places where the Lean proofs make a construction explicit or adopt a
 version-specific convention, including Rao's case-1 decoder and the
 `w = 2` logarithm boundary.
+The [Palomar package](../../Palomar/README.md#sunflower-statements) gives
+an independent statement and proof adapter for ten principal results.
 
 ## Main results
 
@@ -64,10 +66,10 @@ lake exe cache get
 lake build Sunflower SunflowerChecks
 ```
 
-The shared package pins Lean **4.33.0** and Mathlib **v4.33.0** in
+The shared package pins Lean **4.35.0-rc2** and Mathlib **v4.35.0-rc2** in
 [lean-toolchain](../../lean-toolchain) and
 [lake-manifest.json](../../lake-manifest.json).
-The default `lake build` also builds TSPGap and its checks.
+The default `lake build` also builds TSPGap, its checks, and both Palomar packages.
 
 After building, the following can be used in a Lean file:
 
@@ -83,7 +85,8 @@ import Sunflower
 
 ## Verification
 
-The Lean sources are sorry-free.
+The proof library is sorry-free. The independent Palomar Challenge contains
+deliberate statement placeholders; its separately compiled Solution has none.
 [SunflowerChecks.lean](../../SunflowerChecks.lean), included in the default
 build, uses `#guard_msgs` to require exactly
 `[propext, Classical.choice, Quot.sound]` for the listed flagship theorems.
@@ -91,10 +94,13 @@ It also checks finite examples at the `w = 2`, `r = 2`, empty-core and
 disjoint-petal boundaries. A failed guard or example fails the build.
 The shared GitHub Actions workflow runs the same default build.
 
-The combined Lean 4.33 package build passed on 22 September 2026, including
-the Sunflower library and checks. Kernel checking certifies the Lean
-statements; the [formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md)
-document their relationship to the papers.
+The Sunflower library and checks passed on Lean 4.35.0-rc2 on
+24 September 2026. All ten Palomar statements also passed Comparator and
+proof replay by con-ron, NanoDa, and Lean's kernel; see the
+[local verification record](../../Palomar/README.md#local-verification-record).
+Kernel checking certifies the Lean statements; the
+[formalization notes](SUNFLOWER_FORMALIZATION_NOTES.md) document their
+relationship to the papers.
 
 ## Reading the source
 
