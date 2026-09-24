@@ -1,9 +1,8 @@
 # TCS formalizations
 
-[![Archived sunflower release](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
 
-The linked archive contains the existing sunflower release. The TSP integration
-in the current source has not yet been archived.
+The badge links to the latest archived release on Zenodo.
 
 Machine-checked formalizations of results in theoretical computer science,
 developed in Lean 4 over [Mathlib](https://github.com/leanprover-community/mathlib4).
