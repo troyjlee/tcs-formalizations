@@ -9,8 +9,9 @@ developed in Lean 4 over [Mathlib](https://github.com/leanprover-community/mathl
 The project explores AI-assisted formalization of selected TCS results.
 Each library has a guide with theorem statements, a source map, references,
 and links to notes on adaptations of the published arguments.
-The Sunflower and TSPGap [Palomar submission packages](Palomar/README.md) provide
-independent statements, proof adapters, and paper correspondence.
+The Sunflower, TSPGap, and quantum foundations
+[Palomar submission packages](Palomar/README.md) provide independent statements,
+proof adapters, and paper correspondence.
 
 One Lake package, one pinned toolchain, and one CI workflow serve all three libraries:
 
@@ -106,8 +107,8 @@ The toolchain and Mathlib revision are pinned at **4.35.0-rc2** in
 [lean-toolchain](lean-toolchain) and [lake-manifest.json](lake-manifest.json).
 The cache command fetches compiled Mathlib dependencies. `lake build`
 compiles all three libraries, their check files (`SunflowerChecks.lean`,
-`TSPGapChecks.lean`, and `QuantumQueryComplexityChecks.lean`), and the Sunflower
-and TSPGap Palomar Challenge and Solution modules.
+`TSPGapChecks.lean`, and `QuantumQueryComplexityChecks.lean`), and all three
+Palomar Challenge and Solution pairs.
 The project guides give commands for building each library separately.
 
 The Sunflower and TSP check files guard headline theorem footprints against exactly

@@ -9,6 +9,12 @@ The [library root](../../QuantumQueryComplexity.lean) imports the full
 development. The [quantum aggregate](../../QuantumQueryComplexity/Quantum.lean)
 lists the operational modules in dependency order.
 
+The [paper correspondence](PAPER_CORRESPONDENCE.md) maps the main result
+families to versioned sources, theorem numbers, and scope differences. The
+[Palomar foundations package](../../Palomar/QuantumQuery/README.md) selects
+seven claims in adversary theory, query characterization, dual extraction,
+and the polynomial method.
+
 ## Main statements
 
 Below, `ADV±` denotes `advPM` (or `advPMOn` on a promise). `Q` denotes the
@@ -20,8 +26,9 @@ exact hypotheses and constants.
 | --- | --- | --- |
 | `advDual_eq_advPM` | Strong duality for Boolean-output functions | [Duality/Main](../../QuantumQueryComplexity/Duality/Main.lean) |
 | `advPM_composeFun_eq` | Exact multiplicative composition for total Boolean functions | [Duality/Main](../../QuantumQueryComplexity/Duality/Main.lean), [Composition/Main](../../QuantumQueryComplexity/Composition/Main.lean) |
-| `boundedErrorQQuery_characterized_by_advPM` | For total Boolean functions, `ADV±/36 ≤ Q ≤ 2^17 · ADV±` | [Characterization](../../QuantumQueryComplexity/Quantum/Characterization.lean) |
-| `xorQQuery_characterized_by_advPM` | For total Boolean functions, `ADV±/72 ≤ Qˣ ≤ 2^18 · ADV±` | [Characterization](../../QuantumQueryComplexity/Quantum/Characterization.lean) |
+| `qQuery_sixteenth_le_one_add_advPM` | For total Boolean functions, `Q_{1/16} ≤ 8192(1 + ADV±)` from near-optimal duals and uniform extraction | [Characterization](../../QuantumQueryComplexity/Quantum/Characterization.lean) |
+| `boundedErrorQQuery_characterized_by_advPM` | For total Boolean functions, `ADV±/36 ≤ Q ≤ 2^14 · ADV±` | [Characterization](../../QuantumQueryComplexity/Quantum/Characterization.lean) |
+| `xorQQuery_characterized_by_advPM` | For total Boolean functions, `ADV±/72 ≤ Qˣ ≤ 2^15 · ADV±` | [Characterization](../../QuantumQueryComplexity/Quantum/Characterization.lean) |
 | `qQueryOn_third_le_of_hasDualOn_uniform` | A promise dual of cost `c ≥ 0` gives `Q ≤ 8192(1+c)`, independently of alphabet and output size | [UniformHasDual](../../QuantumQueryComplexity/Quantum/UniformHasDual.lean) |
 | `QAlg.exists_probability_polynomial` | For Boolean inputs, a `T`-query acceptance probability is represented by a real polynomial of total degree at most `2T`; a direct XOR version is also proved | [PolynomialMethod](../../QuantumQueryComplexity/Quantum/PolynomialMethod.lean), [XorPolynomialMethod](../../QuantumQueryComplexity/Quantum/XorPolynomialMethod.lean) |
 | `AmpSetup.amplified` | Amplitude amplification with a query budget, success guarantee and preserved conditional output law | [Amplification](../../QuantumQueryComplexity/Quantum/Amplitude/Amplification.lean) |
@@ -111,8 +118,10 @@ done
 The audit drivers reject dependencies outside `propext`, `Classical.choice`
 and `Quot.sound`, including `sorryAx` and `Lean.ofReduceBool`. They check all
 declarations in their listed modules and the presence of their named theorem
-pins. These are Lean checks; independent Comparator replay and a Palomar
-submission package for this library are separate preparation steps.
+pins. These are Lean checks; the separate
+[Palomar validation record](../../Palomar/QuantumQuery/README.md) records
+Comparator comparison and independent proof replay for the seven selected
+foundations claims.
 
 The [verification record](VERIFICATION.md) lists the completed local build,
 audit counts, and Lean 4.35 compatibility changes.

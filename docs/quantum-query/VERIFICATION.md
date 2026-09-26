@@ -51,6 +51,17 @@ the library root, no test modules are imported by that root, and no
 production admissions or trailing whitespace were introduced. Lake targets,
 local documentation links, and the citation/archive metadata were checked.
 
-This records local Lean validation; it does not record independent
-Comparator replay or a Palomar submission for the quantum library. See the
-[guide](README.md#build-and-verification) for the reproducible commands.
+The table above records the library migration's local Lean validation.
+Subsequently, the total Boolean characterization upper constants were
+strengthened to `2^14` for value queries and `2^15` for XOR queries. Strong
+duality and uniform extraction now establish the additive bound
+`Q_{1/16} ≤ 8192(1 + ADV±)` before absorbing the constant term for nonconstant
+functions. The stronger library theorems, statement tests, regression checks,
+and Palomar modules passed a combined build (`3083 jobs`). A fresh adversary
+audit with `--trust=0` passed: 222 declarations in 8 modules, 7 pins, and only
+`propext`, `Classical.choice`, and `Quot.sound`.
+
+The [Palomar foundations package](../../Palomar/QuantumQuery/README.md) has a
+separate validation record for its independent statements and proof replay.
+Neither local record constitutes a Palomar service review or registration.
+See the [guide](README.md#build-and-verification) for the library commands.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare the Palomar statements and replay proofs with Palomar's kernel set.
+"""Compare Palomar statements and replay with Lean, NanoDa, and con-ron.
 
 Run from any directory. This is a local check, not a Palomar submission.
 The submitted JSON files remain within Palomar's configuration schema; kernel
@@ -15,15 +15,16 @@ import tempfile
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("projects", nargs="*", help="Sunflower and/or TSPGap (default: both)")
+    available = ["Sunflower", "TSPGap", "QuantumQuery"]
+    parser.add_argument("projects", nargs="*", help="Sunflower, TSPGap, and/or QuantumQuery (default: all)")
     parser.add_argument(
         "--no-sandbox", action="store_true",
         help="check this trusted checkout without bubblewrap (needed on macOS)",
     )
     args = parser.parse_args()
-    projects = args.projects or ["Sunflower", "TSPGap"]
-    if any(project not in {"Sunflower", "TSPGap"} for project in projects):
-        parser.error("projects must be Sunflower and/or TSPGap")
+    projects = args.projects or available
+    if any(project not in available for project in projects):
+        parser.error("projects must be Sunflower, TSPGap, and/or QuantumQuery")
 
     root = Path(__file__).resolve().parent.parent
     prefix = Path(subprocess.check_output(

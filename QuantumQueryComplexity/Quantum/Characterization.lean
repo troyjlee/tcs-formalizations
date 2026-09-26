@@ -1,4 +1,5 @@
 import QuantumQueryComplexity.Quantum.UpperBound
+import QuantumQueryComplexity.Quantum.UniformHasDual
 import QuantumQueryComplexity.Quantum.Simulation
 import QuantumQueryComplexity.Quantum.FiniteOutput
 import QuantumQueryComplexity.Promise.Post
@@ -17,20 +18,18 @@ set_option linter.unusedSectionVars false
 
 The first end-to-end deliverable of the quantum layer:
 
-    (7/32) · ADV±(f)  ≤  Q_{1/16}(f)  ≤  2¹⁷ · ADV±(f)
+    (7/32) · ADV±(f)  ≤  Q_{1/16}(f)  ≤  2¹⁴ · ADV±(f)
 
 for every total Boolean function `f : (ι → Bool) → Bool`
 (`qQuery_characterized_by_advPM`).  The lower half is Milestone A
 (`mul_advPMOn_le_qQueryOn_of_error_sixteenth` at `read = id`); the upper half
-chains **strong duality** (`exists_dualPair_of_advPM_lt`, giving a dual pair
-of cost `< 2·ADV±`), the total-to-promise restriction (`DualPair.restrictTo
-id` — the wrapper direction the plan prescribed), and the extraction
-(`qQueryOn_le_of_dualPairOn`).  Constant functions cost zero queries and have
-`ADV± = 0`, so the inequality is exact at both ends of the difficulty scale.
-
-`2¹⁷` is generous bookkeeping, not a fact about the construction:
-`8192(1 + 8√2·ADV±) ≤ 2¹⁷·ADV±` already for `ADV± ≥ 1`, which
-`one_le_advPM` supplies for every nonconstant function.
+chains **strong duality** (`exists_dualPair_of_advPM_lt`, giving dual pairs
+of cost arbitrarily close to `ADV±`), the total-to-promise restriction
+(`HasDual.hasDualOn`), and uniform extraction
+(`qQueryOn_le_of_hasDualOn_uniform`). Taking arbitrarily small slack gives
+`Q_{1/16}(f) ≤ 8192(1 + ADV±(f))` without assuming an optimal dual exists.
+For nonconstant functions, `one_le_advPM` supplies `ADV± ≥ 1`, so this is at
+most `2¹⁴·ADV±`. Constant functions cost zero queries.
 
 This file deliberately sits **outside** the `QuantumQueryComplexity.Quantum` aggregate: it
 imports `QuantumQueryComplexity.Duality.Main` — the tracked strong-duality development —
@@ -40,7 +39,7 @@ explicitly with `lake build QuantumQueryComplexity.Quantum.Characterization`.
 The conventional-error form is here too
 (`boundedErrorQQuery_characterized_by_advPM`):
 
-    (1/36) · ADV±(f)  ≤  Q_{1/3}(f)  ≤  2¹⁷ · ADV±(f)
+    (1/36) · ADV±(f)  ≤  Q_{1/3}(f)  ≤  2¹⁴ · ADV±(f)
 
 — the upper half by error monotonicity, the lower half by the **sharp Boolean
 output condition** of `LowerBound/OutputBool.lean` (no amplification).
@@ -71,54 +70,48 @@ theorem mul_advPM_le_qQuery_sixteenth (f : (ι → Bool) → Bool) :
       ≤ (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 16) : ℝ) := h
   exact h
 
+/-- **The additive uniform upper bound, for total Boolean functions**:
+strong duality and uniform extraction give `Q_{1/16}(f) ≤ 8192(1 + ADV±(f))`.
+Arbitrarily small slack suffices; dual optimizer attainment is not needed. -/
+theorem qQuery_sixteenth_le_one_add_advPM (f : (ι → Bool) → Bool) :
+    (qQuery f (1 / 16) : ℝ) ≤ 8192 * (1 + advPM f) := by
+  apply le_of_forall_pos_le_add
+  intro ε hε
+  have hc : advPM f < advPM f + ε / 8192 := by linarith
+  obtain ⟨m, P, hP⟩ := exists_dualPair_of_advPM_lt hc
+  have hd : HasDual f (advPM f + ε / 8192) := ⟨Fin m, inferInstance, P, hP⟩
+  have hu := qQueryOn_le_of_hasDualOn_uniform hd.hasDualOn
+    ((advPM_nonneg f).trans hc.le)
+  change (qQuery f (1 / 16) : ℝ) ≤ 8192 * (1 + (advPM f + ε / 8192)) at hu
+  linarith
+
 /-- **The algorithmic upper bound, for total Boolean functions**:
-`Q_{1/16}(f) ≤ 2¹⁷·ADV±(f)`.  Strong duality supplies a dual pair of cost
-`< 2·ADV±`; the extraction compiles it. -/
+`Q_{1/16}(f) ≤ 2¹⁴·ADV±(f)`. The additive uniform bound absorbs its constant
+term using `ADV± ≥ 1` for nonconstant functions; constants need no queries. -/
 theorem qQuery_sixteenth_le_advPM (f : (ι → Bool) → Bool) :
-    (qQuery f (1 / 16) : ℝ) ≤ 2 ^ 17 * advPM f := by
+    (qQuery f (1 / 16) : ℝ) ≤ 2 ^ 14 * advPM f := by
   by_cases hconst : ∀ x y : ι → Bool, f x = f y
-  · -- constant: zero queries, and `ADV± = 0`
-    have h0 : qQuery f (1 / 16) = 0 := by
-      rcases isEmpty_or_nonempty (ι → Bool) with he | hne
-      · exact qQueryOn_const_eq_zero id (c := true)
-          (fun x => (he.false x).elim) (by norm_num)
-      · obtain ⟨x₀⟩ := hne
-        exact qQueryOn_const_eq_zero id (c := f x₀) (fun x => hconst x x₀)
-          (by norm_num)
+  · have h0 : qQuery f (1 / 16) = 0 :=
+      qQueryOn_const_eq_zero id (c := f (fun _ => false))
+        (fun x => hconst x (fun _ => false)) (by norm_num)
     rw [h0, Nat.cast_zero]
-    nlinarith [advPM_nonneg f]
-  · -- nonconstant: `ADV± ≥ 1`, strong duality, extraction
-    simp only [not_forall] at hconst
+    exact mul_nonneg (by norm_num) (advPM_nonneg f)
+  · simp only [not_forall] at hconst
     obtain ⟨x, y, hxy⟩ := hconst
     have h1 : 1 ≤ advPM f := one_le_advPM hxy
-    obtain ⟨m, P, hP⟩ := exists_dualPair_of_advPM_lt
-      (show advPM f < 2 * advPM f from by linarith)
-    have hcost : (P.restrictTo (id : (ι → Bool) → ι → Bool)).IsCostLe
-        (2 * advPM f) := ⟨hP.1, hP.2⟩
-    have hup := qQueryOn_le_of_dualPairOn (id : (ι → Bool) → ι → Bool) f
-      (P.restrictTo id) hcost (by linarith)
-    have hs2 : Real.sqrt (Fintype.card Bool) ≤ 3 / 2 := by
-      rw [show ((Fintype.card Bool : ℕ) : ℝ) = 2 from by simp]
-      calc Real.sqrt 2 ≤ Real.sqrt ((3 / 2) ^ 2) :=
-          Real.sqrt_le_sqrt (by norm_num)
-        _ = 3 / 2 := Real.sqrt_sq (by norm_num)
-    calc (qQuery f (1 / 16) : ℝ)
-        ≤ 8192 * (1 + 4 * Real.sqrt (Fintype.card Bool) * (2 * advPM f)) := hup
-      _ ≤ 8192 * (1 + 12 * advPM f) := by
-          linarith [mul_le_mul_of_nonneg_right hs2 (advPM_nonneg f)]
-      _ ≤ 2 ^ 17 * advPM f := by linarith [h1]
+    linarith [qQuery_sixteenth_le_one_add_advPM f]
 
 /-- **The fixed-error characterization for total Boolean functions**
-(Milestone B): `(7/32)·ADV±(f) ≤ Q_{1/16}(f) ≤ 2¹⁷·ADV±(f)`. -/
+(Milestone B): `(7/32)·ADV±(f) ≤ Q_{1/16}(f) ≤ 2¹⁴·ADV±(f)`. -/
 theorem qQuery_characterized_by_advPM (f : (ι → Bool) → Bool) :
     (7 / 32 : ℝ) * advPM f ≤ (qQuery f (1 / 16) : ℝ) ∧
-      (qQuery f (1 / 16) : ℝ) ≤ 2 ^ 17 * advPM f :=
+      (qQuery f (1 / 16) : ℝ) ≤ 2 ^ 14 * advPM f :=
   ⟨mul_advPM_le_qQuery_sixteenth f, qQuery_sixteenth_le_advPM f⟩
 
 /-- **The conventional-error upper bound is free** (error monotonicity):
-`Q_{1/3}(f) ≤ Q_{1/16}(f) ≤ 2¹⁷·ADV±(f)`. -/
+`Q_{1/3}(f) ≤ Q_{1/16}(f) ≤ 2¹⁴·ADV±(f)`. -/
 theorem boundedErrorQQuery_le_advPM (f : (ι → Bool) → Bool) :
-    (boundedErrorQQuery f : ℝ) ≤ 2 ^ 17 * advPM f := by
+    (boundedErrorQQuery f : ℝ) ≤ 2 ^ 14 * advPM f := by
   have hne : (QueryCounts (id : (ι → Bool) → ι → Bool) f (1 / 16)).Nonempty :=
     queryCounts_nonempty (fun x y hxy => by rw [show x = y from hxy])
       (by norm_num)
@@ -141,16 +134,16 @@ theorem mul_advPM_le_boundedErrorQQuery (f : (ι → Bool) → Bool) :
   exact h
 
 /-- **The conventional-error characterization** (Milestone B at `ε = 1/3`):
-`(1/36)·ADV±(f) ≤ Q_{1/3}(f) ≤ 2¹⁷·ADV±(f)` for total Boolean `f`. -/
+`(1/36)·ADV±(f) ≤ Q_{1/3}(f) ≤ 2¹⁴·ADV±(f)` for total Boolean `f`. -/
 theorem boundedErrorQQuery_characterized_by_advPM (f : (ι → Bool) → Bool) :
     (1 / 36 : ℝ) * advPM f ≤ (boundedErrorQQuery f : ℝ) ∧
-      (boundedErrorQQuery f : ℝ) ≤ 2 ^ 17 * advPM f :=
+      (boundedErrorQQuery f : ℝ) ≤ 2 ^ 14 * advPM f :=
   ⟨mul_advPM_le_boundedErrorQQuery f, boundedErrorQQuery_le_advPM f⟩
 
 /-- **The characterization in the Boolean XOR-oracle model**: for total
 Boolean `f`, at error `1/3`, using the idle and blank sectors of `XorOracle.lean`,
 
-    (1/72)·ADV±(f) ≤ Qˣ_{1/3}(f) ≤ 2¹⁸·ADV±(f),
+    (1/72)·ADV±(f) ≤ Qˣ_{1/3}(f) ≤ 2¹⁵·ADV±(f),
 
 by the two-queries-per-query simulation of `Quantum/Simulation.lean` applied
 to the transposition-model characterization. -/
@@ -158,7 +151,7 @@ theorem xorQQuery_characterized_by_advPM (f : (ι → Bool) → Bool) :
     (1 / 72 : ℝ) * advPM f
         ≤ (xorQQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ) ∧
       (xorQQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ)
-        ≤ 2 ^ 18 * advPM f := by
+        ≤ 2 ^ 15 * advPM f := by
   have hdet : ∀ x y : ι → Bool, (id x : ι → Bool) = id y → f x = f y :=
     fun x y hxy => by rw [show x = y from hxy]
   have h1 := qQueryOn_le_two_mul_xorQQueryOn hdet
@@ -175,7 +168,7 @@ theorem xorQQuery_characterized_by_advPM (f : (ι → Bool) → Bool) :
       ≤ (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ) :=
     mul_advPM_le_boundedErrorQQuery f
   have hup : (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ)
-      ≤ 2 ^ 17 * advPM f :=
+      ≤ 2 ^ 14 * advPM f :=
     boundedErrorQQuery_le_advPM f
   constructor
   · linarith

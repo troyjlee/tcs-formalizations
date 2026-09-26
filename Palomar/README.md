@@ -1,14 +1,15 @@
 # Palomar submission packages
 
-Sunflower and TSPGap are prepared as **two separate submissions from this
-repository**. Each has its own Challenge, Solution, Comparator configuration,
-and `formalization.yaml`. No submission or registration is made by building
+Sunflower, TSPGap, and quantum query foundations are prepared as **three separate
+submissions from this repository**. Each has its own Challenge, Solution,
+Comparator configuration, and `formalization.yaml`. No submission or registration is made by building
 the project or running these checks.
 
 | Submission | Independent statement | Proof adapter | Metadata | Comparator configuration |
 | --- | --- | --- | --- | --- |
 | Sunflower bounds | [Challenge](Sunflower/Challenge.lean) | [Solution](Sunflower/Solution.lean) | [formalization.yaml](Sunflower/formalization.yaml) | [comparator.json](Sunflower/comparator.json) |
 | Metric TSP subtour-LP gap | [Challenge](TSPGap/Challenge.lean) | [Solution](TSPGap/Solution.lean) | [formalization.yaml](TSPGap/formalization.yaml) | [comparator.json](TSPGap/comparator.json) |
+| Quantum query foundations | [Challenge](QuantumQuery/Challenge.lean) | [Solution](QuantumQuery/Solution.lean) | [formalization.yaml](QuantumQuery/formalization.yaml) | [comparator.json](QuantumQuery/comparator.json) |
 
 The Challenge files import only Mathlib and define their mathematical notions
 explicitly. Their theorem proofs deliberately contain `sorry`, as required
@@ -78,6 +79,20 @@ See the [TSP guide](../docs/tsp/README.md),
 [proof notes](../docs/tsp/PROOF_NOTES.md), and
 [paper correspondence](../docs/tsp/PAPER_CORRESPONDENCE.md).
 
+## Quantum query foundations
+
+The [quantum package](QuantumQuery/README.md) compares seven claims: Boolean
+adversary strong duality and exact composition, value and XOR query
+characterizations, uniform extraction from a supplied promise dual, and
+degree bounds for output-probability polynomials in both models.
+Its independent Challenge defines the complete finite query model.
+
+The [paper correspondence](../docs/quantum-query/PAPER_CORRESPONDENCE.md)
+maps each selected claim to the versioned papers of Høyer–Lee–Špalek,
+Lee–Mittal–Reichardt–Špalek–Szegedy, Reichardt, Belovs–Lee, and
+Beals–Buhrman–Cleve–Mosca–de Wolf. It also records provenance and scope for
+the library's other result families, which are not selected in this package.
+
 ## Reproduce the local checks
 
 Lean and Mathlib are pinned to **4.35.0-rc2**, the minimum in Palomar's
@@ -96,9 +111,9 @@ node scripts/check-tsp-source.mjs
 python3 scripts/check-palomar.py
 ```
 
-The final command uses Comparator plus Lean's kernel, NanoDa, and con-ron,
-matching Palomar's configured kernel set. It runs both configurations;
-append `Sunflower` or `TSPGap` to check just one. The default requires
+The final command uses local Comparator plus Lean's kernel, NanoDa, and con-ron.
+It runs all three configurations; append `Sunflower`, `TSPGap`, or
+`QuantumQuery` to check just one. The default requires
 bubblewrap on Linux. For this trusted checkout on macOS, use:
 
 ```sh
@@ -134,17 +149,24 @@ Both metadata files passed Palomar's metadata contract at
 and the `formalization.yaml` v0.4 JSON Schema. Their statement lists agree
 exactly with their respective Comparator configurations.
 
+On 27 September 2026, the quantum foundations package passed its build,
+all seven Comparator comparisons, and Lean, NanoDa, and con-ron replay.
+Its metadata passed the current contract at `a59f25b` and the v0.4 schema.
+See the [quantum verification record](QuantumQuery/README.md#local-verification-record--27-september-2026)
+for the exact versions and scope of that local run.
+
 ## Submission details
 
-After reviewing, committing, and pushing the prepared changes, submit the
-same immutable **full 40-character Git commit** twice, with these paths:
+Each selected package is a separate submission at an immutable
+**full 40-character Git commit**, after the final checked changes are committed
+and publicly pushed. Use these paths:
 
-| Field | Sunflower | TSPGap |
-| --- | --- | --- |
-| Repository | `https://github.com/troyjlee/tcs-formalizations` | same |
-| Lean project directory | `.` | `.` |
-| Comparator configuration | `Palomar/Sunflower/comparator.json` | `Palomar/TSPGap/comparator.json` |
-| Formalization metadata | `Palomar/Sunflower/formalization.yaml` | `Palomar/TSPGap/formalization.yaml` |
+| Field | Sunflower | TSPGap | Quantum foundations |
+| --- | --- | --- | --- |
+| Repository | `https://github.com/troyjlee/tcs-formalizations` | same | same |
+| Lean project directory | `.` | `.` | `.` |
+| Comparator configuration | `Palomar/Sunflower/comparator.json` | `Palomar/TSPGap/comparator.json` | `Palomar/QuantumQuery/comparator.json` |
+| Formalization metadata | `Palomar/Sunflower/formalization.yaml` | `Palomar/TSPGap/formalization.yaml` | `Palomar/QuantumQuery/formalization.yaml` |
 
 Use the commit containing the final checked versions of these files;
 `git rev-parse HEAD` prints it. A tag or GitHub release is not required for
@@ -153,4 +175,4 @@ submission. Recheck the selected commit if anything changes after validation.
 The metadata records AI-assisted development and review without claiming
 independent human peer review or source-author endorsement. Review the
 authorship, scope, paper correspondence, and automation descriptions before
-starting the two Palomar reviews. Registration is a later explicit step.
+starting a Palomar review. Registration is a later explicit step.

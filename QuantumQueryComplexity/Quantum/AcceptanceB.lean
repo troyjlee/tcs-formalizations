@@ -48,31 +48,31 @@ open Matrix
 /-! ## 1. The characterization -/
 
 /-- **The Boolean characterization, pinned**:
-`(7/32)·ADV±(f) ≤ Q_{1/16}(f) ≤ 2¹⁷·ADV±(f)`. -/
+`(7/32)·ADV±(f) ≤ Q_{1/16}(f) ≤ 2¹⁴·ADV±(f)`. -/
 theorem acceptance {ι : Type} [Fintype ι] [DecidableEq ι]
     (f : (ι → Bool) → Bool) :
     (7 / 32 : ℝ) * advPM f
         ≤ (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 16) : ℝ) ∧
       (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 16) : ℝ)
-        ≤ 2 ^ 17 * advPM f :=
+        ≤ 2 ^ 14 * advPM f :=
   qQuery_characterized_by_advPM f
 
 /-- The conventional-error upper half, already free. -/
 theorem acceptance_third_upper {ι : Type} [Fintype ι] [DecidableEq ι]
     (f : (ι → Bool) → Bool) :
     (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ)
-      ≤ 2 ^ 17 * advPM f :=
+      ≤ 2 ^ 14 * advPM f :=
   boundedErrorQQuery_le_advPM f
 
 /-- **The conventional-error characterization, pinned**:
-`(1/36)·ADV±(f) ≤ Q_{1/3}(f) ≤ 2¹⁷·ADV±(f)`, the lower half via the sharp
+`(1/36)·ADV±(f) ≤ Q_{1/3}(f) ≤ 2¹⁴·ADV±(f)`, the lower half via the sharp
 Boolean output condition — no amplification. -/
 theorem acceptance_third {ι : Type} [Fintype ι] [DecidableEq ι]
     (f : (ι → Bool) → Bool) :
     (1 / 36 : ℝ) * advPM f
         ≤ (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ) ∧
       (qQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ)
-        ≤ 2 ^ 17 * advPM f :=
+        ≤ 2 ^ 14 * advPM f :=
   boundedErrorQQuery_characterized_by_advPM f
 
 /-- The sharp Boolean lower bound behind it, pinned in its promise-native
@@ -118,13 +118,13 @@ theorem simulation_members_pinned {ι X O : Type} [Fintype ι] [DecidableEq ι]
 
 /-- **The conventional-model characterization, pinned**: total Boolean `f`,
 the standard XOR oracle, error `1/3` —
-`(1/72)·ADV±(f) ≤ Qˣ_{1/3}(f) ≤ 2¹⁸·ADV±(f)`. -/
+`(1/72)·ADV±(f) ≤ Qˣ_{1/3}(f) ≤ 2¹⁵·ADV±(f)`. -/
 theorem acceptance_xor {ι : Type} [Fintype ι] [DecidableEq ι]
     (f : (ι → Bool) → Bool) :
     (1 / 72 : ℝ) * advPM f
         ≤ (xorQQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ) ∧
       (xorQQueryOn (id : (ι → Bool) → ι → Bool) f (1 / 3) : ℝ)
-        ≤ 2 ^ 18 * advPM f :=
+        ≤ 2 ^ 15 * advPM f :=
   xorQQuery_characterized_by_advPM f
 
 /-! ## 3. The extraction is promise-native -/
