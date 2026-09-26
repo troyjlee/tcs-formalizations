@@ -1,5 +1,5 @@
 name = "TCSFormalizations"
-defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks", "Palomar"]
+defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks", "QuantumQueryComplexity", "QuantumQueryComplexityChecks", "Palomar"]
 
 [[require]]
 name = "mathlib"
@@ -27,6 +27,24 @@ maxSynthPendingDepth = 3
 
 [[lean_lib]]
 name = "TSPGapChecks"
+
+[lean_lib.leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[lean_lib]]
+name = "QuantumQueryComplexity"
+
+[lean_lib.leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[lean_lib]]
+name = "QuantumQueryComplexityChecks"
 
 [lean_lib.leanOptions]
 pp.unicode.fun = true

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this formalization, please cite it using the metadata from this file."
-title: "TCS formalizations: sunflower theorems and the metric TSP integrality gap"
+title: "TCS formalizations: sunflowers, the metric TSP integrality gap, and quantum query complexity"
 type: software
 authors:
   - family-names: Lee
@@ -21,13 +21,19 @@ keywords:
   - traveling salesperson problem
   - subtour linear program
   - integrality gap
+  - quantum query complexity
+  - adversary bound
 abstract: >-
   Machine-checked Lean 4 formalizations over Mathlib of the improved sunflower
-  bounds and an upper bound on the metric TSP subtour-LP integrality gap.
+  bounds, an upper bound on the metric TSP subtour-LP integrality gap,
+  and quantum query complexity.
   The sunflower development includes Alweiss–Lovett–Wu–Zhang, Rao–Bell–Chueluecha–Warnke,
   robust-sunflower lower bounds and Erdős–Rado. The TSP development follows
   Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song, and proves the
   existence, on at least three vertices, of a tour of cost at most
   (3/2 - 2.05522e-30) times any feasible subtour-LP objective.
+  The quantum query library includes adversary duality and characterization,
+  the polynomial method, amplitude amplification and estimation, robust
+  search, quantum-walk search, and classic query-complexity bounds.
   The shared build includes axiom checks and regression
   examples. Documentation records the scope and adaptations of the proofs.
