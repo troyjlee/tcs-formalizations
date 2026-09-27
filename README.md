@@ -19,6 +19,12 @@ One Lake package, one pinned toolchain, and one CI workflow serve both projects:
 | **Sunflowers** | ALWZ and Rao–BCW bounds, robust-sunflower bounds, and Erdős–Rado | [Sunflower guide](docs/sunflower/README.md) |
 | **TSPGap** | Metric subtour-LP integrality gap at most `3/2 − 2.05522 × 10⁻³⁰`, with an exported strict improvement | [TSP guide](docs/tsp/README.md) |
 
+The reusable [quantum query library](https://github.com/troyjlee/quantum-query-complexity)
+has its own repository, release history, documentation, and Palomar package.
+This collection consumes a pinned revision through Lake and compiles
+[usage examples](QuantumQueryUsage.lean). Quantum library development belongs
+in that dedicated repository.
+
 ## Sunflowers, formalized
 
 The development proves the improved sunflower bounds through the ALWZ and
@@ -81,7 +87,8 @@ The toolchain and Mathlib revision are pinned at **4.35.0-rc2** in
 [lean-toolchain](lean-toolchain) and [lake-manifest.json](lake-manifest.json).
 The cache command fetches compiled Mathlib dependencies. `lake build`
 compiles both libraries, their check files (`SunflowerChecks.lean` and
-`TSPGapChecks.lean`), and the separate Palomar Challenge and Solution modules.
+`TSPGapChecks.lean`), the separate Palomar Challenge and Solution modules,
+and `QuantumQueryUsage.lean` against the external quantum library dependency.
 The project guides give commands for building each library separately.
 
 Both check files guard headline theorem footprints against exactly
