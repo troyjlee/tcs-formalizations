@@ -67,6 +67,14 @@ namespace Sunflower
 #guard_msgs in
 #print axioms rao_bcw_bounded
 
+/-- info: 'Sunflower.bcw_natLog' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms bcw_natLog
+
+/-- info: 'Sunflower.bcw_natLog_bounded' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs in
+#print axioms bcw_natLog_bounded
+
 /-! ## The Bell–Chueluecha–Warnke note, all four statements -/
 
 /-- info: 'Sunflower.exists_pairwiseDisjoint_of_raoSpread' depends on axioms: [propext, Classical.choice, Quot.sound] -/

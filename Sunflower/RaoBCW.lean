@@ -20,7 +20,9 @@ the private-dummy padding, exactly as `alwz_bounded`. Against `alwz`'s
 `(C·r³·lg w·lg lg w)^w`, this removes both the `r³` (Rao's coding argument needs no `log r`
 rounds, and the note's `b = 1/2` removes the union bound's `1/r` budget) and the `lg lg w`
 (the coding estimate replaces the ALWZ iteration). `rao_bcw_original` re-exports Rao's own
-`(C·r·log(rw))^w` shape as a regression check.
+`(C·r·log(rw))^w` shape as a regression check. `bcw_natLog` (with `bcw_natLog_uniform`,
+`bcw_natLog_bounded`) states the bound in its usual natural-logarithm shape,
+`(2⁵⁷·r·ln(2w))^w`, straight from the `κ`-condition.
 -/
 import Sunflower.SunflowerNote
 import Sunflower.Padding
@@ -186,6 +188,53 @@ theorem rao_bcw_bounded : ∃ C : ℝ, 0 < C ∧ ∀ (r w : ℕ), 2 ≤ r → 2 
   intro r w hr hw 𝓕 hb hcard
   exact hasSunflower_of_bounded (P := fun n => raoBound (2 ^ 60) r w ≤ (n : ℝ))
     (fun hu hc => rao_bcw_uniform hr hw hu hc) hb hcard
+
+/-! ## The natural-logarithm form `(2⁵⁷·r·ln(2w))^w`
+
+The Bell–Chueluecha–Warnke bound is usually quoted as `(C·r·log(2w))^w` with the natural
+logarithm. Straight from the `κ`-condition of `hasSunflower_of_raoKappa` it holds at
+`C = 2⁵⁷`: for `w ≥ 2`, `ln(2w) ≥ ln 4 > 1`, so `2⁵⁶·(ln(2w) + 1) ≤ 2⁵⁷·ln(2w)`. This is
+sharper than passing through `rao_bcw`, whose base-`1.9` logarithm would cost `2⁶¹`. -/
+
+/-- The Bell–Chueluecha–Warnke threshold with the natural logarithm, `(C·r·ln(2w))^w`. -/
+noncomputable def bcwBound (C : ℝ) (r w : ℕ) : ℝ :=
+  (C * (r : ℝ) * Real.log (2 * (w : ℝ))) ^ w
+
+/-- The `κ`-condition clears at `R = 2⁵⁷·r·ln(2w)` for `w ≥ 2`, since `ln(2w) ≥ ln 4 > 1`. -/
+theorem kappa_cond_of_log_two_mul {r w : ℕ} (hw : 2 ≤ w) :
+    2 ^ 56 * (r : ℝ) * (Real.log (2 * (w : ℝ)) + 1)
+      ≤ 2 ^ 57 * (r : ℝ) * Real.log (2 * (w : ℝ)) := by
+  have hw2R : (2 : ℝ) ≤ (w : ℝ) := by exact_mod_cast hw
+  have hlog4 : Real.log 4 = 2 * Real.log 2 := by
+    rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]
+    norm_num
+  have hge : Real.log 4 ≤ Real.log (2 * (w : ℝ)) :=
+    Real.log_le_log (by norm_num) (by linarith)
+  have hone : 1 ≤ Real.log (2 * (w : ℝ)) := by
+    nlinarith [Real.log_two_gt_d9]
+  have hr0 : (0 : ℝ) ≤ (r : ℝ) := Nat.cast_nonneg r
+  nlinarith [mul_nonneg hr0 (by linarith : (0 : ℝ) ≤ Real.log (2 * (w : ℝ)) - 1)]
+
+/-- **The uniform sunflower theorem at `(2⁵⁷·r·ln(2w))^w`**, natural logarithm. -/
+theorem bcw_natLog_uniform {r w : ℕ} (hr : 1 ≤ r) (hw : 2 ≤ w)
+    {𝓕 : Finset (Finset α)} (hu : IsUniform w 𝓕)
+    (hcard : bcwBound (2 ^ 57) r w ≤ ((𝓕.card : ℕ) : ℝ)) : HasSunflower r 𝓕 := by
+  rw [bcwBound] at hcard
+  exact hasSunflower_of_raoKappa hr w (by omega) (kappa_cond_of_log_two_mul hw) 𝓕 hu hcard
+
+/-- **The Bell–Chueluecha–Warnke bound in its usual shape**: every `w`-uniform family of
+size at least `(2⁵⁷·r·ln(2w))^w` contains an `r`-sunflower (`r ≥ 1`, `w ≥ 2`). -/
+theorem bcw_natLog : ∀ (r w : ℕ), 1 ≤ r → 2 ≤ w →
+    ∀ {𝓕 : Finset (Finset α)}, IsUniform w 𝓕 → bcwBound (2 ^ 57) r w ≤ ((𝓕.card : ℕ) : ℝ) →
+    HasSunflower r 𝓕 :=
+  fun _ _ hr hw _ hu hcard => bcw_natLog_uniform hr hw hu hcard
+
+/-- **The `w`-set-system version** at `(2⁵⁷·r·ln(2w))^w`, via the private-dummy padding. -/
+theorem bcw_natLog_bounded {r w : ℕ} (hr : 1 ≤ r) (hw : 2 ≤ w)
+    {𝓕 : Finset (Finset α)} (hb : IsBounded w 𝓕)
+    (hcard : bcwBound (2 ^ 57) r w ≤ ((𝓕.card : ℕ) : ℝ)) : HasSunflower r 𝓕 :=
+  hasSunflower_of_bounded (P := fun n => bcwBound (2 ^ 57) r w ≤ (n : ℝ))
+    (fun hu hc => bcw_natLog_uniform hr hw hu hc) hb hcard
 
 /-! ## Rao's original shape, as a regression check -/
 
