@@ -32,6 +32,7 @@ The theorem names below are in the `Sunflower` namespace.
 | `alwz_bounded` | For `r ≥ 3`, `w ≥ 2`: `\|𝓕\| ≥ (C r³ lg w · lg lg w)^w` implies an `r`-sunflower, by the second-moment route | [ALWZ.lean](../../Sunflower/ALWZ.lean) |
 | `alwz_bounded_janson` | The same bound through the paper's Janson-inequality route | [JansonALWZ.lean](../../Sunflower/JansonALWZ.lean) |
 | `rao_bcw_bounded` | For `r,w ≥ 2`: `\|𝓕\| ≥ (2⁶⁰ r lg w)^w` implies an `r`-sunflower, by Rao's coding route with the BCW `2r`-colour improvement | [RaoBCW.lean](../../Sunflower/RaoBCW.lean) |
+| `bcw_natLog`, `bcw_natLog_bounded` | For `r ≥ 1`, `w ≥ 2`: `\|𝓕\| ≥ (2⁵⁷ r ln(2w))^w` implies an `r`-sunflower — the BCW bound in its usual natural-logarithm shape | [RaoBCW.lean](../../Sunflower/RaoBCW.lean) |
 | `exists_isRobustSunflower_pad` | For fixed `0 < a,b ≤ 1`, `w ≥ 2`: ALWZ Theorem 1.9 with `κ₀ = O(lg w · lg lg w)` | [KappaZeroPad.lean](../../Sunflower/KappaZeroPad.lean) |
 | `exists_isRobustSunflower_rao` | For fixed `0 < a,b ≤ 1`, `w ≥ 2`: Theorem 1.9 with `κ₀ = (2⁶⁰/a)·lg(w/b) = O(lg w)` | [RaoSchedule.lean](../../Sunflower/RaoSchedule.lean) |
 | `LowerBound.exists_no_robustSunflower` | For `w ≥ 4`, families of size at least `((⌊log₂ w⌋)/16)^(w−⌊√w⌋)` with no `(1/2,1/2)`-robust sunflower; asymptotically `(log w)^{w(1−o(1))}` | [LowerBound.lean](../../Sunflower/LowerBound.lean) |
