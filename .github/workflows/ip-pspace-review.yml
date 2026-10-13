@@ -16,7 +16,6 @@ jobs:
     timeout-minutes: 210
     env:
       LEAN_NUM_THREADS: "1"
-      ELAN_HOME: ${{ runner.temp }}/review-elan
       ELAN_VERSION: v4.2.3
       # Official release asset digest:
       # https://github.com/leanprover/elan/releases/expanded_assets/v4.2.3
@@ -39,6 +38,8 @@ jobs:
         timeout-minutes: 15
         run: |
           set -euo pipefail
+          export ELAN_HOME="$RUNNER_TEMP/review-elan"
+          printf 'ELAN_HOME=%s\n' "$ELAN_HOME" >> "$GITHUB_ENV"
           mkdir -p review-artifacts/ip-pspace/setup
           exec > >(tee review-artifacts/ip-pspace/setup/toolchain.log) 2>&1
           elan_archive="$RUNNER_TEMP/review-elan.tar.gz"
