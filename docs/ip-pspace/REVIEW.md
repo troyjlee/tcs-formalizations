@@ -142,9 +142,11 @@ imports. Original source attribution is retained; see
 [UPSTREAM.md](UPSTREAM.md), [UPSTREAM.json](UPSTREAM.json), and
 [vendor/README.md](../../vendor/README.md).
 
-This integration candidate carries the class equality checked in the standalone
-project and rebuilt successfully in the monorepo. Hosted CI and publication
-remain outstanding.
+This component carries the class equality checked in the standalone project
+and rebuilt successfully in the monorepo, including passing hosted CI. It was
+merged in [PR #8](https://github.com/troyjlee/tcs-formalizations/pull/8).
+Review release `0.1.0-review.2` is being prepared; the
+[release notes](RELEASE_NOTES.md) record the tested commits and verification runs.
 It makes no claim of priority or practical performance of an extracted verifier.
 Feedback should identify the declaration or definition, the suspected mismatch, and a
 minimal example or explanation where possible.

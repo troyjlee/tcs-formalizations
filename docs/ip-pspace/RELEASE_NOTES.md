@@ -1,9 +1,11 @@
-# IP = PSPACE monorepo review candidate
+# IP = PSPACE monorepo review release
 
-Candidate version `0.1.0-review.2` integrates the completed formalization into
-[TCS formalizations](https://github.com/troyjlee/tcs-formalizations). The proposed
-tag is `ip-pspace-v0.1.0-review.2`; this document does not assert that the tag or
-candidate has been published.
+The completed formalization was merged into
+[TCS formalizations](https://github.com/troyjlee/tcs-formalizations) in
+[PR #8](https://github.com/troyjlee/tcs-formalizations/pull/8), at commit
+[`b49cb245ea61d041f14ef06f6b3b7253ed20b262`](https://github.com/troyjlee/tcs-formalizations/commit/b49cb245ea61d041f14ef06f6b3b7253ed20b262).
+Review release `0.1.0-review.2` is being prepared with planned tag
+`ip-pspace-v0.1.0-review.2` and a Zenodo archive.
 
 The files were copied from standalone commit
 `50d03e76fd71d8f66bc2e8c48c76eed64943e709`. The mathematical proof baseline was
@@ -44,17 +46,25 @@ source-admission checks and the Palomar Sunflower/TSP comparisons and kernel
 replays (con-ron, NanoDa, and Lean). The shared build uses the existing CI warning
 policy: an initial stricter `--wfail` run failed on unchanged legacy deprecation
 and style warnings. Both that log and the successful normal build are retained.
-IPPSPACE itself passed with `--wfail`. Subsequent changes only record these results
-in component documentation; proof, configuration, and audit inputs are unchanged.
+IPPSPACE itself passed with `--wfail`. Subsequent changes updated documentation
+and corrected elan environment initialization in the dedicated CI workflow.
+The Lean proofs, toolchain pin, dependency pins, and check scripts are unchanged
+from that local run. The hosted runs below verify the corrected workflow.
 
-**Hosted CI and publication remain outstanding.** The dedicated
-[IP = PSPACE workflow](../../.github/workflows/ip-pspace-review.yml) is prepared
-for fresh Ubuntu 24.04 checkouts, but no hosted run of this candidate is claimed.
-It installs pinned elan and the repository's pinned Lean toolchain, downloads
-the Mathlib dependency cache, and builds `IPPSPACE` and its vendored dependencies
-locally. It retains setup and verification logs on failure. Existing workflows
-and archival records for other components do not establish this candidate's
-verification or publication status.
+**Hosted CI passed** at commit
+[`20d54a5814d1ed22a889d22314b61b1cd7a0cc84`](https://github.com/troyjlee/tcs-formalizations/commit/20d54a5814d1ed22a889d22314b61b1cd7a0cc84),
+before the PR merge:
+
+- [Shared repository CI](https://github.com/troyjlee/tcs-formalizations/actions/runs/38388601816).
+- [IPPSPACE push verification](https://github.com/troyjlee/tcs-formalizations/actions/runs/38388594797).
+- [IPPSPACE pull-request verification](https://github.com/troyjlee/tcs-formalizations/actions/runs/38388601912).
+
+The dedicated
+[IP = PSPACE workflow](../../.github/workflows/ip-pspace-review.yml) ran in fresh
+Ubuntu 24.04 checkouts. It installs pinned elan and the repository's pinned Lean
+toolchain, downloads the Mathlib dependency cache, and builds `IPPSPACE` and its
+vendored dependencies locally. It retains setup and verification logs, including
+on failure.
 
 Local component-review evidence is generated separately in
 `review-artifacts/ip-pspace/`. Read `environment.json` and `results.json` alongside
@@ -126,8 +136,9 @@ checkout's `.lake/build` absent to force component/vendor recompilation.
 - [UPSTREAM.json](UPSTREAM.json): unchanged source inventories and SHA-256 checksums; `local_path` entries are repository-root-relative.
 
 Apache-2.0 licensing and original upstream attributions are preserved. The
-[public repository](https://github.com/troyjlee/tcs-formalizations) already exists;
-publication and an archival identifier for this candidate remain unclaimed.
-A source archive contains no dependency binaries. When issued, the release tag
-and archive checksum identify the packaged revision; verification artifacts
-record their own tested revision.
+formalization is included in the
+[public repository](https://github.com/troyjlee/tcs-formalizations). The release
+tag and Zenodo archive are being prepared; the archive DOI will be recorded when
+assigned. A source archive contains no dependency binaries. When issued, the
+release tag and archive checksum identify the packaged revision; verification
+artifacts record their own tested revision.

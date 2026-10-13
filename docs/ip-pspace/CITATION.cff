@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: >-
   Please cite this software when using the formalization, and cite the upstream
-  libraries separately where appropriate. This is a candidate for review;
-  publication is not claimed.
+  libraries separately where appropriate. Review release 0.1.0-review.2 is
+  being prepared for this component of the TCS formalizations repository.
 type: software
 title: "IP = PSPACE in Lean"
 authors:
@@ -18,7 +18,7 @@ abstract: >-
   verifier, and closure of IP under polynomial-time reductions. The reverse
   inclusion is imported from Complexitylib. Developed with Codex assistance;
   original attribution is preserved for all vendored sources. This component
-  is being integrated into the TCS formalizations repository.
+  is included in the TCS formalizations repository.
 keywords:
   - computational complexity
   - interactive proofs

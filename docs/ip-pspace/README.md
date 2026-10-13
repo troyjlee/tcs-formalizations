@@ -22,13 +22,15 @@ unchanged upstream theorem `Complexity.IP_subset_PSPACE`.
 
 No missing reduction, runtime bound, or class inclusion is assumed.
 
-This component is being integrated into
-[TCS formalizations](https://github.com/troyjlee/tcs-formalizations) as candidate
-`0.1.0-review.2`, with proposed tag `ip-pspace-v0.1.0-review.2`. Start with the
-[review guide](REVIEW.md) and [release notes](RELEASE_NOTES.md). The standalone
-proof passed Lean checks and agent cross-review; local validation in this monorepo
-layout also passed, as recorded in the release notes. Publication and the
-dedicated hosted CI run remain pending.
+This component was merged into
+[TCS formalizations](https://github.com/troyjlee/tcs-formalizations) in
+[PR #8](https://github.com/troyjlee/tcs-formalizations/pull/8), at
+[`b49cb245`](https://github.com/troyjlee/tcs-formalizations/commit/b49cb245ea61d041f14ef06f6b3b7253ed20b262).
+Review release `0.1.0-review.2` is being prepared with planned tag
+`ip-pspace-v0.1.0-review.2`. Start with the [review guide](REVIEW.md) and
+[release notes](RELEASE_NOTES.md). The standalone proof passed Lean checks and
+agent cross-review. Local monorepo validation and hosted CI also passed;
+the release notes identify the tested commits and verification runs.
 
 The development covers the algebraic core, an executable algebraic verifier,
 and a protocol using a computed prime field and fair binary coins:

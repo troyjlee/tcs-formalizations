@@ -1,9 +1,10 @@
 # TCS formalizations
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+[![DOI (all versions)](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
 
-The badge links to the archived sunflower release on Zenodo; that archive
-predates the IPPSPACE addition.
+The badge covers all archived versions of this repository and resolves to the
+latest archive. The original [sunflower release, v0.1.2](https://doi.org/10.5281/zenodo.21981560),
+has a fixed DOI for that snapshot.
 
 Machine-checked formalizations of results in theoretical computer science,
 developed in Lean 4 over [Mathlib](https://github.com/leanprover-community/mathlib4).
