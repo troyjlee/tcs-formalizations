@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: >-
+  Please cite this software when using the formalization, and cite the upstream
+  libraries separately where appropriate. This is a candidate for review;
+  publication and external human review are not claimed.
+type: software
+title: "IP = PSPACE in Lean"
+authors:
+  - family-names: Lee
+    given-names: Troy
+version: 0.1.0-review.2
+repository-code: "https://github.com/troyjlee/tcs-formalizations"
+license: Apache-2.0
+abstract: >-
+  A Lean 4 formalization of Shamir's theorem using Complexitylib's unchanged
+  definitions of IP and PSPACE. The hard inclusion combines a uniform
+  polynomial-time machine-to-QBF reduction, a certified algebraic interactive
+  verifier, and closure of IP under polynomial-time reductions. The reverse
+  inclusion is imported from Complexitylib. Developed with Codex assistance;
+  original attribution is preserved for all vendored sources. This component
+  is being integrated into the TCS formalizations repository.
+keywords:
+  - computational complexity
+  - interactive proofs
+  - formal verification
+  - Lean
+  - PSPACE

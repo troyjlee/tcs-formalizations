@@ -1,5 +1,5 @@
 name = "TCSFormalizations"
-defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks", "Palomar"]
+defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks", "Palomar", "IPPSPACE"]
 
 [[require]]
 name = "mathlib"
@@ -24,6 +24,27 @@ pp.unicode.fun = true
 relaxedAutoImplicit = false
 weak.linter.mathlibStandardSet = true
 maxSynthPendingDepth = 3
+
+# Unchanged upstream source snapshots used by IPPSPACE.
+# Attribution and exact revisions: docs/ip-pspace/UPSTREAM.json.
+[[lean_lib]]
+name = "Cslib"
+srcDir = "vendor"
+roots = ["Cslib.Computability.Circuit.Signature"]
+globs = ["Cslib.+"]
+
+[[lean_lib]]
+name = "Complexitylib"
+srcDir = "vendor"
+roots = ["Complexitylib"]
+globs = ["Complexitylib.+"]
+
+[[lean_lib]]
+name = "IPPSPACE"
+
+[lean_lib.leanOptions]
+autoImplicit = false
+pp.unicode.fun = true
 
 [[lean_lib]]
 name = "TSPGapChecks"

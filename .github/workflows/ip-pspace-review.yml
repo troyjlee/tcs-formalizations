@@ -1,0 +1,118 @@
+name: IPPSPACE review verification
+
+"on":
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ip-pspace-review:
+    name: Fresh checkout / IPPSPACE review
+    runs-on: ubuntu-24.04
+    # Leave time for artifact upload after any step-level timeout.
+    timeout-minutes: 210
+    env:
+      LEAN_NUM_THREADS: "1"
+      ELAN_HOME: ${{ runner.temp }}/review-elan
+      ELAN_VERSION: v4.2.3
+      # Official release asset digest:
+      # https://github.com/leanprover/elan/releases/expanded_assets/v4.2.3
+      ELAN_ARCHIVE_SHA256: df0b2b3a439961ffcbb3985214365ffe40f49bc871df04dff268c7d8e21ca8b2
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out the reviewed commit
+        id: checkout
+        # https://github.com/actions/checkout/releases/tag/v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          clean: true
+
+      - name: Install pinned elan and the repository's Lean toolchain
+        id: toolchain
+        timeout-minutes: 15
+        run: |
+          set -euo pipefail
+          mkdir -p review-artifacts/ip-pspace/setup
+          exec > >(tee review-artifacts/ip-pspace/setup/toolchain.log) 2>&1
+          elan_archive="$RUNNER_TEMP/review-elan.tar.gz"
+          elan_installer="$RUNNER_TEMP/review-elan-installer"
+          curl --fail --location --silent --show-error --retry 3 \
+            "https://github.com/leanprover/elan/releases/download/$ELAN_VERSION/elan-x86_64-unknown-linux-gnu.tar.gz" \
+            --output "$elan_archive"
+          printf '%s  %s\n' "$ELAN_ARCHIVE_SHA256" "$elan_archive" | sha256sum --check -
+          mkdir -p "$elan_installer"
+          tar -xzf "$elan_archive" -C "$elan_installer"
+          "$elan_installer/elan-init" -y --default-toolchain none --no-modify-path
+          printf '%s\n' "$ELAN_HOME/bin" >> "$GITHUB_PATH"
+          "$ELAN_HOME/bin/elan" --version
+          "$ELAN_HOME/bin/elan" toolchain install "$(cat lean-toolchain)"
+
+      - name: Fetch only the pinned Mathlib dependency cache
+        id: dependencies
+        timeout-minutes: 30
+        # No Actions cache or artifact restores: project and vendored sources
+        # must compile in this job. The explicit Mathlib root limits cache get
+        # to that dependency and its imports; lake-manifest.json pins revisions.
+        run: |
+          set -euo pipefail
+          exec > >(tee review-artifacts/ip-pspace/setup/dependencies.log) 2>&1
+          python3 scripts/ip-pspace/serial-lean.py exe cache get Mathlib
+          git diff --exit-code -- lean-toolchain lakefile.toml lake-manifest.json
+
+      - name: Build IPPSPACE and audit its review statements
+        id: review
+        timeout-minutes: 130
+        run: |
+          set -euo pipefail
+          exec > >(tee review-artifacts/ip-pspace/setup/review-driver.log) 2>&1
+          python3 scripts/ip-pspace/review-check.py --output-dir review-artifacts/ip-pspace \
+            --cache-note "Mathlib cache downloaded in this fresh GitHub Actions job for the committed dependency pins"
+
+      - name: Record step outcomes, including setup failures
+        if: ${{ always() }}
+        env:
+          CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          TOOLCHAIN_OUTCOME: ${{ steps.toolchain.outcome }}
+          DEPENDENCIES_OUTCOME: ${{ steps.dependencies.outcome }}
+          REVIEW_OUTCOME: ${{ steps.review.outcome }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          output = Path("review-artifacts/ip-pspace/setup")
+          output.mkdir(parents=True, exist_ok=True)
+          record = {
+              "commit": os.environ["GITHUB_SHA"],
+              "run_id": os.environ["GITHUB_RUN_ID"],
+              "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+              "runner_os": os.environ["RUNNER_OS"],
+              "runner_arch": os.environ["RUNNER_ARCH"],
+              "steps": {
+                  name: os.environ[f"{name.upper()}_OUTCOME"]
+                  for name in ("checkout", "toolchain", "dependencies", "review")
+              },
+          }
+          (output / "step-outcomes.json").write_text(
+              json.dumps(record, indent=2) + "\n", encoding="utf-8"
+          )
+          PY
+
+      - name: Upload review logs
+        if: ${{ always() }}
+        timeout-minutes: 5
+        # https://github.com/actions/upload-artifact/releases/tag/v7.0.2
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: ip-pspace-review-${{ github.run_id }}-${{ github.run_attempt }}
+          path: review-artifacts/ip-pspace/
+          if-no-files-found: error
+          retention-days: 30

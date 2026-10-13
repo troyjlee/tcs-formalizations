@@ -7,3 +7,8 @@
 
 # Finder metadata
 .DS_Store
+
+# IPPSPACE verification logs and local release packages
+/review-artifacts/
+/release/
+__pycache__/
