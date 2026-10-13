@@ -5,9 +5,12 @@ Git revisions recorded in
 [UPSTREAM.json](UPSTREAM.json), not moving branches. The final checked theorem is
 `IPPSPACE.ip_eq_pspace : Complexity.IP = Complexity.PSPACE`.
 The unchanged proof and source snapshots also passed local monorepo integration
-checks; [RELEASE_NOTES.md](RELEASE_NOTES.md) records the tested commit and cache
-scope. Hosted CI and publication remain outstanding. Historical build counts
-below refer to the standalone project.
+checks and hosted CI. The component was merged in
+[PR #8](https://github.com/troyjlee/tcs-formalizations/pull/8);
+[RELEASE_NOTES.md](RELEASE_NOTES.md) records the tested commits, verification runs,
+and cache scope. Review release `0.1.0-review.2` is archived at
+[DOI 10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600).
+Historical build counts below refer to the standalone project.
 
 ## Source snapshots
 
