@@ -4,8 +4,8 @@ This component proves `IPPSPACE.ip_eq_pspace : Complexity.IP = Complexity.PSPACE
 using Complexitylib's unchanged class definitions. The purpose of review is to
 check that these definitions and their connections express the intended theorem,
 and to reproduce the Lean checks. The proof passed Lean checking and
-agent cross-review in the standalone project; monorepo integration checks are
-pending. It has not undergone external human peer review.
+agent cross-review in the standalone project, followed by successful local
+monorepo integration checks. It has not undergone external human peer review.
 
 Start with [Shamir.lean](../../IPPSPACE/Shamir.lean). Its short proof composes a uniform
 FP reduction from PSPACE to closed QBF truth, an IP protocol for that language,
@@ -144,7 +144,8 @@ imports. Original source attribution is retained; see
 [vendor/README.md](../../vendor/README.md).
 
 This integration candidate carries the class equality checked in the standalone
-project; it does not yet claim a successful monorepo rebuild or publication.
+project and rebuilt successfully in the monorepo. Hosted CI and publication
+remain outstanding.
 It makes no claim of priority,
 external peer review, or practical performance of an extracted verifier. Feedback
 should identify the declaration or definition, the suspected mismatch, and a

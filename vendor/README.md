@@ -17,7 +17,7 @@ retrieval provenance, and checksums. Run
 unchanged contents and reject missing, duplicate, or unrecorded Lean files.
 
 All 242 files built unchanged against the same pinned toolchain in the
-standalone IP = PSPACE project. Monorepo integration checking is pending. The
+standalone IP = PSPACE project and during local monorepo integration checks. The
 snapshot covers the dependencies of the final theorem, without claiming
 compatibility of the entire upstream repository. No neighboring cache or
 temporary checkout is needed by the build.

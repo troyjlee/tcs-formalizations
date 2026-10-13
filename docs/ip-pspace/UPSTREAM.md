@@ -26,8 +26,8 @@ preserving source text and terminal newlines. They are `Computability/Circuit/Si
 `docs/ip-pspace/UPSTREAM.json` records both source inventories and SHA-256
 checksums. It is byte-identical to the standalone inventory; its `local_path`
 entries remain relative to the repository root, where `vendor/` resides. Its
-`integration_status` records the completed standalone proof integration, not the
-pending monorepo rebuild.
+`integration_status` records the completed standalone proof integration. The
+subsequent successful local monorepo rebuild is documented in the release notes.
 `scripts/ip-pspace/check-upstream.py` verifies all hashes, rejects changes to
 entries marked unchanged, and rejects duplicate, missing, or unrecorded vendor Lean files.
 No upstream class definition, import, or proof has been replaced or edited.
@@ -122,8 +122,8 @@ because the newer toolchain was unavailable locally and shell DNS blocked GitHub
 Retrieval of the required pinned CSLib sources resolved the final import obstacle.
 
 All 238 Complexitylib and four CSLib source modules built unchanged on the
-standalone stack. The monorepo uses the same dependency pins; its integration
-rebuild is pending. This includes the complete import closure needed for actual
+standalone stack and in the monorepo, using the same dependency pins.
+This includes the complete import closure needed for actual
 `IP`, `PSPACE`, the runtime certificates, and the reverse inclusion. It does not
 claim compatibility of every unrelated module in the full upstream repository.
 Full-package migration is optional maintenance, not a gap in the checked theorem.
@@ -142,7 +142,9 @@ their axiom dependencies and permits only `propext`, `Classical.choice`, and
 
 These counts do not report a monorepo build. The source was imported from
 standalone commit `50d03e76fd71d8f66bc2e8c48c76eed64943e709`, whose SHA is from
-the original standalone history. Integration verification remains pending.
+the original standalone history. Local integration verification subsequently
+reproduced these component counts and passed the shared build and existing
+repository checks; see [RELEASE_NOTES.md](RELEASE_NOTES.md).
 
 Independent agent reviews checked final theorem quantifiers, uniformity, machine-space
 semantics, binary encodings, finite fields, private randomness, polynomial
