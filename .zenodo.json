@@ -1,5 +1,5 @@
 {
-  "title": "TCS formalizations: sunflower theorems and the metric TSP integrality gap",
+  "title": "TCS formalizations: sunflowers, the metric TSP integrality gap, and IP = PSPACE",
   "upload_type": "software",
   "license": "Apache-2.0",
   "creators": [
@@ -9,7 +9,7 @@
       "affiliation": "University of Technology Sydney"
     }
   ],
-  "description": "<p>Machine-checked Lean 4 formalizations (over Mathlib) of the improved sunflower bounds — Alweiss–Lovett–Wu–Zhang (STOC 2020), Rao's <em>Coding for Sunflowers</em>, and the Bell–Chueluecha–Warnke (C·r·log w)^w improvement — through the ALWZ and Rao–BCW approaches, together with lower bounds for robust-sunflower thresholds, the BCW satisfying/spread condition, and the classical Erdős–Rado theorem.</p><p>The Lean sources are sorry-free; a checks file included in the default build verifies with <code>#guard_msgs</code> that the flagship theorems depend on exactly [propext, Classical.choice, Quot.sound]. The accompanying formalization notes record boundary cases, implicit constructions, and proof-engineering choices that required explicit treatment, including the reconstruction of Rao's case-1 decoder and the base-1.9 treatment of the w = 2 logarithm boundary.</p><p>The TSP development follows Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song and proves a metric subtour-LP integrality-gap bound of 3/2 - 2.05522 &times; 10<sup>-30</sup>. It includes 668 Song regression examples and an enforced axiom inventory. The formalized TSP claim is tour existence; polynomial running time and finite-precision sampling are outside its scope. Proof notes describe the adaptations of the printed arguments.</p>",
+  "description": "<p>Machine-checked Lean 4 formalizations (over Mathlib) of the improved sunflower bounds — Alweiss–Lovett–Wu–Zhang (STOC 2020), Rao's <em>Coding for Sunflowers</em>, and the Bell–Chueluecha–Warnke (C·r·log w)^w improvement — through the ALWZ and Rao–BCW approaches, together with lower bounds for robust-sunflower thresholds, the BCW satisfying/spread condition, and the classical Erdős–Rado theorem.</p><p>The Lean sources are sorry-free; a checks file included in the default build verifies with <code>#guard_msgs</code> that the flagship theorems depend on exactly [propext, Classical.choice, Quot.sound]. The accompanying formalization notes record boundary cases, implicit constructions, and proof-engineering choices that required explicit treatment, including the reconstruction of Rao's case-1 decoder and the base-1.9 treatment of the w = 2 logarithm boundary.</p><p>The TSP development follows Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song and proves a metric subtour-LP integrality-gap bound of 3/2 - 2.05522 &times; 10<sup>-30</sup>. It includes 668 Song regression examples and an enforced axiom inventory. The formalized TSP claim is tour existence; polynomial running time and finite-precision sampling are outside its scope. Proof notes describe the adaptations of the printed arguments.</p><p>IPPSPACE formalizes Shamir's IP = PSPACE theorem using Complexitylib's unchanged class definitions. The hard inclusion combines a uniform polynomial-time machine-to-QBF reduction, an algebraic verifier with machine-time certificates, and closure under polynomial-time reductions. The reverse inclusion is imported unchanged from Complexitylib. Vendored upstream sources retain their original attribution and are checked against a pinned checksum inventory. A dedicated review runner checks the exact theorem statements and transitive axiom dependencies. The IPPSPACE addition is a review candidate.</p>",
   "keywords": [
     "Lean 4",
     "Mathlib",
@@ -24,6 +24,8 @@
     "combinatorics",
     "traveling salesperson problem",
     "subtour linear program",
-    "integrality gap"
+    "integrality gap",
+    "interactive proofs",
+    "IP = PSPACE"
   ]
 }

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this formalization, please cite it using the metadata from this file."
-title: "TCS formalizations: sunflower theorems and the metric TSP integrality gap"
+title: "TCS formalizations: sunflowers, the metric TSP integrality gap, and IP = PSPACE"
 type: software
 authors:
   - family-names: Lee
@@ -21,13 +21,20 @@ keywords:
   - traveling salesperson problem
   - subtour linear program
   - integrality gap
+  - interactive proofs
+  - IP = PSPACE
 abstract: >-
   Machine-checked Lean 4 formalizations over Mathlib of the improved sunflower
-  bounds and an upper bound on the metric TSP subtour-LP integrality gap.
+  bounds, an upper bound on the metric TSP subtour-LP integrality gap, and
+  Shamir's IP = PSPACE theorem.
   The sunflower development includes Alweiss–Lovett–Wu–Zhang, Rao–Bell–Chueluecha–Warnke,
   robust-sunflower lower bounds and Erdős–Rado. The TSP development follows
   Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song, and proves the
   existence, on at least three vertices, of a tour of cost at most
   (3/2 - 2.05522e-30) times any feasible subtour-LP objective.
+  IPPSPACE proves the unconditional class equality using unchanged Complexitylib
+  definitions, a uniform polynomial-time reduction, and a certified interactive
+  verifier. The reverse inclusion is imported from Complexitylib; unchanged
+  upstream sources retain their attribution.
   The shared build includes axiom checks and regression
   examples. Documentation records the scope and adaptations of the proofs.
