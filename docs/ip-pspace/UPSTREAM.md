@@ -4,9 +4,10 @@ Audited in the standalone project on 2026-10-13. The source references are exact
 Git revisions recorded in
 [UPSTREAM.json](UPSTREAM.json), not moving branches. The final checked theorem is
 `IPPSPACE.ip_eq_pspace : Complexity.IP = Complexity.PSPACE`.
-The unchanged proof and source snapshots are now being integrated into this
-monorepo; integration checking is pending. Historical build counts below refer
-to the standalone project.
+The unchanged proof and source snapshots also passed local monorepo integration
+checks; [RELEASE_NOTES.md](RELEASE_NOTES.md) records the tested commit and cache
+scope. Hosted CI and publication remain outstanding. Historical build counts
+below refer to the standalone project.
 
 ## Source snapshots
 

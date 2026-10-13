@@ -4,7 +4,7 @@ Standalone proof started 2026-10-12; completed 2026-10-13. The unconditional the
 `IPPSPACE.ip_eq_pspace : Complexity.IP = Complexity.PSPACE` is proved and checked.
 The chronological milestone notes below describe what was open at each stage;
 they do not list outstanding requirements for the completed theorem.
-The new monorepo integration is a separate packaging step whose checks are pending.
+The monorepo integration passed local checks; hosted CI and publication remain pending.
 Reviews recorded here were agent cross-reviews. External human review is
 outstanding; the review release supplies reproduction tools and a proof guide.
 
@@ -82,8 +82,12 @@ The monorepo candidate is `0.1.0-review.2`, with proposed tag
 `ip-pspace-v0.1.0-review.2`. Sources remain at `IPPSPACE/` and `vendor/`, documents
 are under `docs/ip-pspace/`, and review tools are under `scripts/ip-pspace/`.
 The dedicated runner builds `IPPSPACE`; the default Lake build includes all
-monorepo libraries. Integration verification and the dedicated hosted CI run are
-pending. The destination is the existing public TCS formalizations repository;
+monorepo libraries. Local integration verification passed at commit
+`0d04e0bbee24d23b0952048e58a45b8687547801`: strict IPPSPACE build and audits,
+the shared default build, TSP statement/source checks, and Palomar Sunflower/TSP
+kernel replays. The shared build retains its existing policy permitting legacy
+warnings. The dedicated hosted CI run remains pending.
+The destination is the existing public TCS formalizations repository;
 publication of this candidate and external human review are not claimed.
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) for reproduction and historical evidence.
 

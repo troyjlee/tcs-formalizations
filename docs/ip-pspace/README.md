@@ -26,9 +26,9 @@ This component is being integrated into
 [TCS formalizations](https://github.com/troyjlee/tcs-formalizations) as candidate
 `0.1.0-review.2`, with proposed tag `ip-pspace-v0.1.0-review.2`. Start with the
 [review guide](REVIEW.md) and [release notes](RELEASE_NOTES.md). The standalone
-proof passed Lean checks and agent cross-review; validation in this monorepo
-layout is pending. Publication, the dedicated hosted CI run, and external human
-review are not claimed.
+proof passed Lean checks and agent cross-review; local validation in this monorepo
+layout also passed, as recorded in the release notes. Publication, the dedicated
+hosted CI run, and external human review are not claimed.
 
 The development covers the algebraic core, an executable algebraic verifier,
 and a protocol using a computed prime field and fair binary coins:
@@ -376,7 +376,7 @@ For a direct component build or a build of every monorepo library:
 
 ```sh
 python3 scripts/ip-pspace/serial-lean.py build IPPSPACE --wfail
-python3 scripts/ip-pspace/serial-lean.py build --wfail
+python3 scripts/ip-pspace/serial-lean.py build
 ```
 
 For offline setup in a fresh checkout, copy a complete matching dependency cache:
@@ -399,8 +399,11 @@ Only `propext`, `Classical.choice`, and `Quot.sound` occur. All 242 vendored
 source checksums and the exact inventory passed. Agent reviews checked the
 machine-space semantics, uniform FP reduction, private-coin timing, all-history
 message bounds, and padding/clipping soundness. These counts describe the
-standalone project, not a completed monorepo integration run; integration checks
-are pending.
+standalone project. Local monorepo verification reproduced the strict IPPSPACE
+build and audit counts, then passed the shared default build (4769 jobs), TSP
+statement/source checks, and Palomar Sunflower/TSP kernel replays. The shared
+build permits existing legacy warnings under its current CI policy. See
+[RELEASE_NOTES.md](RELEASE_NOTES.md) for the tested commit and cache provenance.
 
 ## Complexitylib integration
 
@@ -411,8 +414,8 @@ closure required for the actual `IP` and `PSPACE` definitions, machine-time
 certificates, and upstream `IP_subset_PSPACE`. Every source retains its original
 module name and attribution; [UPSTREAM.json](UPSTREAM.json) records its checksum.
 
-All required sources built in the standalone project on the same pinned Lean
-4.35.0-rc2 and Mathlib stack; the monorepo rebuild is pending. The full upstream
+All required sources built in both the standalone project and this monorepo on
+the same pinned Lean 4.35.0-rc2 and Mathlib stack. The full upstream
 package advertises rc3 and a newer Mathlib revision;
 installing its unrelated modules is optional maintenance, not a gap in the
 checked theorem. [UPSTREAM.md](UPSTREAM.md) records provenance, compatibility

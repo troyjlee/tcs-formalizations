@@ -31,7 +31,23 @@ theorems, using only `propext`, `Classical.choice`, and `Quot.sound`. All 242
 vendored source checksums passed. Statement and source-provenance cross-reviews
 were performed by agents. External human review is outstanding.
 
-**Monorepo integration verification is pending.** The dedicated
+**Local monorepo integration verification passed** on 2026-10-13 at commit
+`0d04e0bbee24d23b0952048e58a45b8687547801`, with a clean source tree before and
+after the checks. All 367 IPPSPACE and vendored Lean modules were compiled from
+an initially absent project build directory, using independent copies of the
+matching pinned dependency checkouts and compiled caches. The strict IPPSPACE
+build passed (3972 jobs), as did the exact statement checks, all 242 source
+checksums, and the axiom audit of 14836 declarations, including 10568 theorems.
+
+The shared default build passed (4769 jobs), followed by the TSP statement and
+source-admission checks and the Palomar Sunflower/TSP comparisons and kernel
+replays (con-ron, NanoDa, and Lean). The shared build uses the existing CI warning
+policy: an initial stricter `--wfail` run failed on unchanged legacy deprecation
+and style warnings. Both that log and the successful normal build are retained.
+IPPSPACE itself passed with `--wfail`. Subsequent changes only record these results
+in component documentation; proof, configuration, and audit inputs are unchanged.
+
+**Hosted CI and publication remain outstanding.** The dedicated
 [IP = PSPACE workflow](../../.github/workflows/ip-pspace-review.yml) is prepared
 for fresh Ubuntu 24.04 checkouts, but no hosted run of this candidate is claimed.
 It installs pinned elan and the repository's pinned Lean toolchain, downloads
@@ -67,7 +83,7 @@ The Lean pin is `leanprover/lean4:v4.35.0-rc2`; the Mathlib pin is
 checks. To build all monorepo libraries as an additional integration check:
 
 ```sh
-python3 scripts/ip-pspace/serial-lean.py build --wfail
+python3 scripts/ip-pspace/serial-lean.py build
 ```
 
 All these Lake/Lean invocations use the repository-local lock and
