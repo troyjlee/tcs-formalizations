@@ -4,8 +4,14 @@ The completed formalization was merged into
 [TCS formalizations](https://github.com/troyjlee/tcs-formalizations) in
 [PR #8](https://github.com/troyjlee/tcs-formalizations/pull/8), at commit
 [`b49cb245ea61d041f14ef06f6b3b7253ed20b262`](https://github.com/troyjlee/tcs-formalizations/commit/b49cb245ea61d041f14ef06f6b3b7253ed20b262).
-Review release `0.1.0-review.2` is being prepared with planned tag
-`ip-pspace-v0.1.0-review.2` and a Zenodo archive.
+Review release `0.1.0-review.2` was published on October 13, 2026, with tag
+[`ip-pspace-v0.1.0-review.2`](https://github.com/troyjlee/tcs-formalizations/releases/tag/ip-pspace-v0.1.0-review.2)
+at that merge commit and archived at
+[DOI 10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600).
+
+The archive contains the documentation as it stood at the merge commit. Later
+documentation updates record the completed CI runs, publication status, and DOI;
+they do not change the Lean proofs, dependencies, build configuration, or checks.
 
 The files were copied from standalone commit
 `50d03e76fd71d8f66bc2e8c48c76eed64943e709`. The mathematical proof baseline was
@@ -137,8 +143,12 @@ checkout's `.lake/build` absent to force component/vendor recompilation.
 
 Apache-2.0 licensing and original upstream attributions are preserved. The
 formalization is included in the
-[public repository](https://github.com/troyjlee/tcs-formalizations). The release
-tag and Zenodo archive are being prepared; the archive DOI will be recorded when
-assigned. A source archive contains no dependency binaries. When issued, the
-release tag and archive checksum identify the packaged revision; verification
-artifacts record their own tested revision.
+[public repository](https://github.com/troyjlee/tcs-formalizations). The
+[Zenodo archive](https://zenodo.org/records/23341600) contains
+`troyjlee/tcs-formalizations-ip-pspace-v0.1.0-review.2.zip` with recorded MD5
+`3740cd83f3318ec1685d62666ca90d9c`. Its DOI identifies this release of the complete
+repository, including Sunflower and TSPGap. The all-versions DOI remains
+[10.5281/zenodo.21981559](https://doi.org/10.5281/zenodo.21981559).
+The source archive contains no dependency binaries. The release tag and archive
+checksum identify the packaged revision; verification artifacts record their
+own tested revision.

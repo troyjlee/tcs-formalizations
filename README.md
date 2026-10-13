@@ -1,10 +1,13 @@
 # TCS formalizations
 
 [![DOI (all versions)](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+[![DOI (IP = PSPACE review release)](https://zenodo.org/badge/DOI/10.5281/zenodo.23341600.svg)](https://doi.org/10.5281/zenodo.23341600)
 
-The badge covers all archived versions of this repository and resolves to the
-latest archive. The original [sunflower release, v0.1.2](https://doi.org/10.5281/zenodo.21981560),
-has a fixed DOI for that snapshot.
+The first badge covers all archived versions and resolves to the latest archive.
+The second identifies release `ip-pspace-v0.1.0-review.2`, which includes Sunflower,
+TSPGap, and IPPSPACE. The original
+[sunflower release, v0.1.2](https://doi.org/10.5281/zenodo.21981560)
+also has a fixed DOI for its snapshot.
 
 Machine-checked formalizations of results in theoretical computer science,
 developed in Lean 4 over [Mathlib](https://github.com/leanprover-community/mathlib4).

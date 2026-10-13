@@ -1,16 +1,27 @@
 cff-version: 1.2.0
 message: >-
   Please cite this software when using the formalization, and cite the upstream
-  libraries separately where appropriate. Review release 0.1.0-review.2 is
-  being prepared for this component of the TCS formalizations repository.
+  libraries separately where appropriate. The preferred citation identifies
+  the complete TCS formalizations archive, which includes this component.
 type: software
 title: "IP = PSPACE in Lean"
 authors:
   - family-names: Lee
     given-names: Troy
 version: 0.1.0-review.2
+date-released: 2026-10-13
 repository-code: "https://github.com/troyjlee/tcs-formalizations"
 license: Apache-2.0
+preferred-citation:
+  type: software
+  title: "TCS formalizations: sunflowers, the metric TSP integrality gap, and IP = PSPACE"
+  authors:
+    - family-names: Lee
+      given-names: Troy
+      orcid: "https://orcid.org/0000-0001-6912-2338"
+  version: ip-pspace-v0.1.0-review.2
+  date-released: 2026-10-13
+  doi: 10.5281/zenodo.23341600
 abstract: >-
   A Lean 4 formalization of Shamir's theorem using Complexitylib's unchanged
   definitions of IP and PSPACE. The hard inclusion combines a uniform

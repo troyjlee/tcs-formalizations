@@ -26,8 +26,10 @@ This component was merged into
 [TCS formalizations](https://github.com/troyjlee/tcs-formalizations) in
 [PR #8](https://github.com/troyjlee/tcs-formalizations/pull/8), at
 [`b49cb245`](https://github.com/troyjlee/tcs-formalizations/commit/b49cb245ea61d041f14ef06f6b3b7253ed20b262).
-Review release `0.1.0-review.2` is being prepared with planned tag
-`ip-pspace-v0.1.0-review.2`. Start with the [review guide](REVIEW.md) and
+Review release `0.1.0-review.2` was published on October 13, 2026, as
+[`ip-pspace-v0.1.0-review.2`](https://github.com/troyjlee/tcs-formalizations/releases/tag/ip-pspace-v0.1.0-review.2)
+and archived at [DOI 10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600).
+Start with the [review guide](REVIEW.md) and
 [release notes](RELEASE_NOTES.md). The standalone proof passed Lean checks and
 agent cross-review. Local monorepo validation and hosted CI also passed;
 the release notes identify the tested commits and verification runs.
