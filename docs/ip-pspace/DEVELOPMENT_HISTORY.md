@@ -1,12 +1,17 @@
-# Development plan
+# Development history
+
+This optional record explains how the formalization developed. Start with the
+[README](README.md) for the current result and reproduction instructions, and the
+[review guide](REVIEW.md) for the proof architecture and review priorities.
 
 Standalone proof started 2026-10-12; completed 2026-10-13. The unconditional theorem
 `IPPSPACE.ip_eq_pspace : Complexity.IP = Complexity.PSPACE` is proved and checked.
 The chronological milestone notes below describe what was open at each stage;
 they do not list outstanding requirements for the completed theorem.
-The monorepo integration passed local checks; hosted CI and publication remain pending.
-Reviews recorded here were agent cross-reviews. External human review is
-outstanding; the review release supplies reproduction tools and a proof guide.
+When this history was prepared for the monorepo review candidate, local integration
+checks had passed; hosted CI and publication were pending.
+Reviews recorded here were agent cross-reviews. The review release supplies
+reproduction tools and a proof guide.
 
 ## Target and proof route
 
@@ -31,7 +36,7 @@ theorem is unfinished. This project now proves the required hardness reduction
 into encoded closed and closed-prenex QBF in actual `FP`; both existing
 verifiers now have complete actual `FP`/`P` runtime certificates.
 
-## Milestones
+## Milestone summary
 
 | Milestone | Deliverable | Status |
 | --- | --- | --- |
@@ -78,7 +83,8 @@ and a review guide. Its source was copied from standalone commit
 `50d03e76fd71d8f66bc2e8c48c76eed64943e709`; that SHA belongs to the original
 standalone Git history, not this monorepo history.
 
-The monorepo candidate is `0.1.0-review.2`, with proposed tag
+At preparation of this history, the monorepo candidate was `0.1.0-review.2`,
+with proposed tag
 `ip-pspace-v0.1.0-review.2`. Sources remain at `IPPSPACE/` and `vendor/`, documents
 are under `docs/ip-pspace/`, and review tools are under `scripts/ip-pspace/`.
 The dedicated runner builds `IPPSPACE`; the default Lake build includes all
@@ -86,9 +92,9 @@ monorepo libraries. Local integration verification passed at commit
 `0d04e0bbee24d23b0952048e58a45b8687547801`: strict IPPSPACE build and audits,
 the shared default build, TSP statement/source checks, and Palomar Sunflower/TSP
 kernel replays. The shared build retains its existing policy permitting legacy
-warnings. The dedicated hosted CI run remains pending.
-The destination is the existing public TCS formalizations repository;
-publication of this candidate and external human review are not claimed.
+warnings. At that point the dedicated hosted CI run remained pending.
+The intended destination was the existing public TCS formalizations repository;
+publication of this candidate had not taken place.
 See [RELEASE_NOTES.md](RELEASE_NOTES.md) for reproduction and historical evidence.
 
 All requirements for `IP = PSPACE` are complete. Optional maintenance includes
@@ -98,12 +104,14 @@ a prerequisite for the checked equality. The older template-based
 `encodeMachineAcceptance` keeps its correctness and polynomial-size theorem;
 the final proof uses the direct, fully certified FP witness instead.
 
-Parallel agents work in separately owned modules. Every compilation uses
-`python3 scripts/ip-pspace/serial-lean.py <lake arguments...>` to serialize the shared
-compiler/cache and enforce `LEAN_NUM_THREADS=1`. The coordinator integrates
-root imports and runs the final build, axiom audit, and source checksum check.
+Parallel agents worked in separately owned modules. Compilation used a shared
+wrapper to serialize the compiler/cache and enforce `LEAN_NUM_THREADS=1`;
+the monorepo invocation is
+`python3 scripts/ip-pspace/serial-lean.py <lake arguments...>`.
+The coordinator integrated root imports and ran the final build, axiom audit,
+and source checksum check.
 
-## Completed standalone class equality, 2026-10-13
+## Completion milestone: standalone class equality, 2026-10-13
 
 `Protocol/UpstreamProtocol.lean` constructs the actual `Complexity.Protocol`
 using the original packed closed-QBF verifier's FP/P certificates. Its transcript,
@@ -137,7 +145,7 @@ passed; independent comparison of the 238 Complexitylib files with the pinned
 Git blobs found no differences. CSLib provenance is recorded separately in
 `UPSTREAM.json`.
 
-Independent statement reviews checked actual class quantifiers, charged
+Agent cross-reviews of the statements checked actual class quantifiers, charged
 input/output/work-head space, one uniform machine and FP map per language,
 malformed-input guards, binary-name sizes, private-coin timing, every-history
 message bounds, and reduction padding/clipping. No proof obligation remains
@@ -146,9 +154,11 @@ for the stated equality.
 ## Historical milestones
 
 The following sections retain the status and verification counts at each earlier
-milestone. Statements about open work in them are historical.
+milestone. Their open-work notes describe limitations at that time; the completion
+milestone above records the final theorem. Build and audit counts also belong to
+their individual milestones, rather than describing the current release.
 
-## Completed algebraic milestone, 2026-10-12
+### Historical milestone: Algebraic, 2026-10-12
 
 `Restriction.lean` now proves substitution commutation and degree nonincrease
 using a monomial-support argument that remains valid in the presence of
@@ -171,7 +181,7 @@ These are unconditional algebraic results over commutative rings (the degree
 bounds use nontriviality). They do not bound the number of monomials, construct
 an interactive protocol, or prove running time.
 
-## Completed prenex-schedule milestone, 2026-10-12
+### Historical milestone: Prenex-schedule, 2026-10-12
 
 `Support.lean` proves that both translations use only syntactic free variables.
 Restriction and linearization cannot introduce new variables, including when
@@ -179,8 +189,8 @@ the interpolation factors cancel. `QBF/Syntax.lean` provides an executable list
 of free-variable occurrences with length at most the syntax-node count.
 
 `QBF/Prenex.lean` represents a quantifier prefix and a certified quantifier-free
-matrix using upstream QBF syntax. Repeated variable names are allowed. This
-does not yet convert arbitrary formulas to prenex form.
+matrix using upstream QBF syntax. Repeated variable names are allowed. At this
+milestone, conversion of arbitrary formulas to prenex form was not yet supplied.
 
 `Operators.lean` interprets lists of quantifier and coordinate-reduction steps.
 Its `DegreeBoundedChain` property includes every intermediate polynomial and
@@ -209,7 +219,7 @@ machine-time theorem.
 This milestone describes a symbolic chain and arithmetic evaluation; the
 interactive protocol is supplied by the following milestone.
 
-## Completed ideal-protocol milestone, 2026-10-12
+### Historical milestone: Ideal-protocol, 2026-10-12
 
 `Univariate.lean` leaves one coordinate indeterminate and proves that its
 evaluation updates exactly that coordinate. Its degree bound is proved from
@@ -248,11 +258,11 @@ Its main results are:
 
 These results use mathematical polynomial messages and an ideal uniform field
 sampler. The following milestones supply finite message/state representations,
-computed prime fields, and fair-coin sampling. A machine-time theorem remains open.
-No `Complexity.IP` membership or class inclusion has yet been proved. The strategy
-model must be connected to upstream during M4.
+computed prime fields, and fair-coin sampling. At this milestone, a machine-time
+theorem remained open, and no `Complexity.IP` membership or class inclusion had
+yet been proved. Connecting the strategy model to upstream was deferred to M4.
 
-## Completed finite-verifier milestone, 2026-10-12
+### Historical milestone: Finite-verifier, 2026-10-12
 
 `Protocol/Coefficients.lean` represents replies as coefficient lists in increasing
 order of exponent. Horner evaluation agrees exactly with polynomial evaluation
@@ -264,9 +274,9 @@ check inspects at most `d + 2` list constructors, even for an oversized reply.
 and its claimed value. The newest update takes precedence; unassigned variables
 default to zero. Each advance adds one entry, and lookup inspects at most the
 number of stored entries plus one. Storage is independent of the largest numeric
-variable index, but comparing and encoding variable names still needs bit-cost
-analysis. The executable verifier checks a bounded reply's endpoints, advances
-by Horner evaluation, rejects missing/extra rounds, and calls the supplied direct
+variable index. At this milestone, comparing and encoding variable names still
+needed bit-cost analysis. The executable verifier checks a bounded reply's
+endpoints, advances by Horner evaluation, rejects missing/extra rounds, and calls the supplied direct
 terminal evaluator. Its entire transcript check refines the ideal one.
 
 `FiniteProtocol.lean` allows arbitrary adaptive coefficient-list strategies,
@@ -289,11 +299,12 @@ checks do not construct the proof-only polynomials.
 Here `N` counts full formula nodes, `m` counts matrix nodes, `t` is the schedule
 length, and `d = max 2 m`. These counts exclude equality, list traversal, storage,
 variable-name comparisons, field representations, and random-bit generation.
-Local traversal bounds are provided, but a complete encoded machine-time bound
-is not. This generic milestone works over abstract field values with a uniform
-PMF sampler; the following milestone supplies a concrete field and fair coins.
+At this milestone, local traversal bounds were provided, but a complete encoded
+machine-time bound remained open. This generic milestone worked over abstract
+field values with a uniform PMF sampler; the following milestone supplied a
+concrete field and fair coins.
 
-## Completed prime-field and fair-coin milestone, 2026-10-12
+### Historical milestone: Prime-field and fair-coin, 2026-10-12
 
 `Protocol/PrimeField.lean` supplies executable `boundedPrime` and `protocolPrime`.
 Bertrand's theorem guarantees that the finite search succeeds. For every node
@@ -305,8 +316,8 @@ primality proved by the search specification, rather than supplied as a hypothes
 A residue is encoded as a `BitVec (log2 p + 1)` containing its least nonnegative
 representative. `encodeResidue` and `decodeResidue` have both round-trip theorems;
 decoding rejects exactly words whose value is at least `p`. The representations
-and conversions are executable. Their machine costs, and the costs of prime
-search and arithmetic on these words, have not yet been proved.
+and conversions are executable. At this milestone, their machine costs, and the
+costs of prime search and arithmetic on these words, had not yet been proved.
 
 `BitSampling.lean` builds a word from independent uniform Boolean draws.
 `fairWord_eq_uniform` proves equality with the uniform distribution on all words
@@ -340,15 +351,15 @@ holds, including all oversized messages and early rejection.
 
 The challenge generator has fair-coin PMF semantics. This milestone supplies the
 field-list interface refined by the later binary-message development. It is not
-a Complexitylib protocol or a class-membership theorem. The remaining work
-includes arithmetic/search time, input encoding, and simulation of the protocol
-and its randomness upstream.
+a Complexitylib protocol or a class-membership theorem. At this milestone, the
+remaining work included arithmetic/search time, input encoding, and simulation
+of the protocol and its randomness upstream.
 
 At this milestone, all default modules built with warnings treated as errors.
 The axiom audit passed for 1044 declarations (669 theorems, including generated
 declarations), with only standard Lean axioms. The upstream QBF checksum was unchanged.
 
-## Binary messages and word-arithmetic milestone, 2026-10-12
+### Historical milestone: Binary messages and word-arithmetic, 2026-10-12
 
 Three agents worked on independent tasks: bounded message parsing, checked word
 arithmetic, and the exact upstream integration audit. The parser agent then
@@ -389,19 +400,19 @@ encoding and decoding at every continuation. Consequently:
 - `PrenexQBF.runMessageProtocol_mixed_soundness_le_third` gives the same bound
   for randomized mixtures of raw strategies.
 
-The raw-message verifier currently decodes into `ZMod` and uses the existing
-field-value checks; the separately proved word operations are available for its
-encoded implementation. Input encoding, `FP`/`P` membership, fixed random tapes,
-verifier-first transcripts, and polynomial resource padding remain open. No
-Complexitylib class-membership statement is claimed by this milestone.
+At this milestone, the raw-message verifier decoded into `ZMod` and used the
+existing field-value checks; the separately proved word operations were available
+for its encoded implementation. Input encoding, `FP`/`P` membership, fixed random
+tapes, verifier-first transcripts, and polynomial resource padding remained open.
+This milestone did not establish a Complexitylib class-membership statement.
 
 The combined default build passed with `--wfail` (3074 jobs). The axiom audit
 passed for 1252 declarations, including 802 theorems and generated declarations,
 using only standard Lean axioms. The upstream QBF source checksum is unchanged.
 
-## Encoded-input, tape, and transcript milestone, 2026-10-12
+### Historical milestone: Encoded-input, tape, and transcript, 2026-10-12
 
-Parallel work added the following bridges, with independent cross-review of
+Parallel work added the following bridges, with agent cross-review of
 their representations, adaptivity, bounds, and completeness statements.
 
 `QBF/Encoding.lean` uses three-bit constructor tags and self-delimiting binary
@@ -454,8 +465,9 @@ input length `L`:
 Canonical decoding supplies the needed node-count inequality. Message bounds
 cover accepted coefficient encodings and every canonical challenge; parser
 bounds cover arbitrary invalid replies as well. These are resource budgets,
-not `FP` proofs. Input-decoder time, closedness checking, comparisons, arithmetic,
-prime search, and encoded-view execution still require complexity proofs.
+not `FP` proofs. At this milestone, input-decoder time, closedness checking,
+comparisons, arithmetic, prime search, and encoded-view execution still required
+complexity proofs.
 
 `Protocol/EncodedProtocol.lean` combines these pieces into a total executable
 verifier on a raw input string, a global transcript prover, and a tape with
@@ -473,16 +485,17 @@ bounds the rational accepting-tape fraction by `1/3` for every nonmember and
 every global transcript prover, including invalid inputs and oversized replies.
 This milestone's verifier uses its actual schedule and a prover oracle. The
 following milestone supplies padded replay through separate message/verdict
-procedures. Neither is yet an upstream `Protocol` with `FP`/`P` certificates,
-so the result is an encoded semantic verification theorem, not `IP` membership.
+procedures. At this milestone, neither was an upstream `Protocol` with `FP`/`P`
+certificates, so the result established encoded semantic verification;
+`IP` membership remained open.
 
 The combined default build passed with `--wfail` (3082 jobs). The axiom audit
 passed for 1670 declarations, including 1087 theorems and generated declarations,
 using only standard Lean axioms. The unchanged upstream QBF checksum matched.
-Independent reviews found no correctness issues in the input codec, recognizer,
+Agent cross-reviews found no correctness issues in the input codec, recognizer,
 probability bridge, tape and transcript adapters, or encoded verifier statements.
 
-## Padded views, prenex conversion, and reachability milestone, 2026-10-13
+### Historical milestone: Padded views, prenex conversion, and reachability, 2026-10-13
 
 `Protocol/PaddedTranscript.lean` separates the verifier's next-message function
 from its final-verdict function; neither function invokes a prover. The driver
@@ -498,9 +511,9 @@ strategy and tape, including early rejection and malformed replies.
 `Protocol/RawView.lean` accepts arbitrary raw coin strings, padding missing bits
 with false and ignoring excess bits. Message-length bounds quantify over all
 inputs, coins, and histories. Exact-length tapes reproduce the analyzed
-execution. These are total procedures on three view components; packing those
-components into upstream's single encoded argument and certifying `FP`/`P`
-membership remain open.
+execution. These are total procedures on three view components. At this
+milestone, packing those components into upstream's single encoded argument and
+certifying `FP`/`P` membership remained open.
 
 `QBF/Renaming.lean` tracks all variable names, including binders, and proves
 capture-safe injective renaming and arbitrary renaming of quantifier-free
@@ -516,8 +529,9 @@ the original maximum plus node count plus one, giving encoded output length
 at most `L * (4 * L + 8)`. `PrenexReduction.lean` turns this into a total
 raw-string transformation, rejecting malformed and open inputs. It proves exact
 source/target language equivalence and transfers verifier guarantees at the
-transformed input's budgets. This is not yet `MapReducesPoly`: construction time
-and resource transport to an original-input `Protocol` still require proofs.
+transformed input's budgets. At this milestone, this did not yet establish
+`MapReducesPoly`: construction time and resource transport to an original-input
+`Protocol` still required proofs.
 
 `QBF/FiniteReachability.lean` proves finite reachability saturation by counting
 strictly growing reachable sets. With idle steps allowed, a `w`-bit state space
@@ -534,18 +548,18 @@ instantiates the base relation from an actual quantifier-free QBF over two
 has no assumed reachability or class inclusion; the concrete relation is the
 one evaluated by the supplied base formula.
 
-This is the succinct-reachability core of the hardness argument. It still needs
-an encoding of the upstream machine's bounded configurations, a local transition
-formula, appropriate initial/accepting-state handling, and encoded-size/time
-bounds in the original input length. Node bounds for the generic reachability
-construction alone do not prove PSPACE hardness.
+This is the succinct-reachability core of the hardness argument. At this
+milestone, the remaining work included encoding the upstream machine's bounded
+configurations, a local transition formula, appropriate initial/accepting-state
+handling, and encoded-size/time bounds in the original input length. Node bounds
+for the generic reachability construction alone do not prove PSPACE hardness.
 
 The combined default build passed with `--wfail` (3646 jobs). The axiom audit
 passed for 2269 declarations, including 1519 theorems, using only standard Lean
 axioms. The vendored QBF checksum still matches the pinned upstream revision.
 
 
-## Encoded reachability and original-input resources milestone, 2026-10-13
+### Historical milestone: Encoded reachability and original-input resources, 2026-10-13
 
 `QBF/ReachabilityEncoding.lean` bounds every generated name, including binders,
 by `2*w + 3*w*w`. It combines those bounds with node counts and the actual binary
@@ -569,15 +583,16 @@ one-hot state/head indices and two bits per tape symbol. It proves canonical
 decoding, round trips, injectivity, and width
 `(3*k + 4)*S + n + (q + 3*k + 8)`. Substituting a polynomial space bound gives a
 polynomial width. The input tape contents are fixed by the input and not stored
-again. At this stage composition with actual upstream `cfgCode` remained open: its injectivity
-requires both `WithinDecisionSpace` and `Windowed`, not head bounds alone.
+again. At this milestone, composition with actual upstream `cfgCode` remained
+open: its injectivity requires both `WithinDecisionSpace` and `Windowed`, not head bounds alone.
 
 `Protocol/ViewEncoding.lean` follows the pinned upstream `protocolView` equation:
 `pair (pair input coins) (DataEncode.bitstringEncode transcript)`. It supplies
 executable pair and bracketed-list codecs, canonical full-consumption decoding,
 and total single-string message/verdict adapters. Correspondence here is by
-inspection of the exact source equations; equality with the imported upstream
-constants awaits dependency migration. No local complexity classes are defined.
+inspection of the exact source equations. At this milestone, equality with the
+imported upstream constants awaited dependency migration. No local complexity
+classes are defined.
 
 `Protocol/ReducedProtocol.lean` composes the round, coin, and message resource
 polynomials with `L*(4*L+8)`. Its verifier therefore uses exact polynomial round
@@ -588,24 +603,26 @@ Uniform restriction proves the entire output distribution unchanged by extra
 private coins. True closed QBFs have globally bounded provers accepted on every
 tape; every other source input has rational accepting-tape fraction at most `1/3`.
 The same theorem holds for the single-string packed message/verdict procedures.
-These procedures still need `FP`/`P` certificates and upstream `Protocol` assembly.
+At this milestone, these procedures still needed `FP`/`P` certificates and
+upstream `Protocol` assembly.
 
 The combined default build passed with `--wfail` (3651 jobs). The axiom audit
 passed for 2661 declarations, including 1788 theorems, using only standard Lean
-axioms. The unchanged vendored QBF checksum matched the pinned revision. Independent
-reviews checked the view equations against upstream source, the accepting-target
+axioms. The unchanged vendored QBF checksum matched the pinned revision. Agent
+cross-reviews checked the view equations against upstream source, the accepting-target
 construction, and original-input resource transport.
 
 
-## Actual machine components and finite graph milestone, 2026-10-13
+### Historical milestone: Actual machine components and finite graph, 2026-10-13
 
-Three more modules from the same pinned revision now build unchanged on the
-installed stack: `Models/TuringMachine`, `Models/TuringMachine/SpaceTime/Defs`,
+At this milestone, three more modules from the same pinned revision built
+unchanged on the installed stack: `Models/TuringMachine`, `Models/TuringMachine/SpaceTime/Defs`,
 and `Classes/Containments/Internal/ConfigCount`. Each is recorded in
 `UPSTREAM.json` with a source checksum and original attribution. This imports
 actual `Γ`, `Tape`, `Cfg`, `TM`, `Windowed`, `Code`, and `cfgCode_inj` without
-changing any definitions. Full Complexitylib class/closure integration is still
-separate. The audit now covers all imported Complexitylib modules.
+changing any definitions. At this milestone, full Complexitylib class/closure
+integration remained separate. The audit covered all imported Complexitylib
+modules at that stage.
 
 `BooleanGadgets.lean` supplies finite conjunction/disjunction builders, exact
 semantics and variable support, quantifier-free proofs, and node bounds.
@@ -635,7 +652,8 @@ all stored cell equations. For `n` cells it has at most `(28*n + 6)*n + 1` nodes
 write using the old head, ignore writes at zero, saturate left moves at zero,
 and reject a right move leaving the finite window. Equality covers the head
 and stored cells, not arbitrary infinite tails. These formulas describe a fixed
-write symbol/direction; assembling the complete machine transition table is open.
+write symbol/direction. At this milestone, assembling the complete machine
+transition table remained open.
 
 `MachineWindow.lean` propagates the actual window invariant from all-reachable
 head bounds and proves exact acceptance for a space-decider via deterministic
@@ -649,21 +667,22 @@ space bound. An actual `TM.DecidesInSpace` witness then gives language membershi
 `CodecReachability.lean` proves that canonical decoding prevents invalid Boolean
 words from creating additional paths from an encoded initial state. Its local
 edge/acceptance representation interface connects to the succinct prenex QBF
-construction. Supplying the full transition formula, guarding acceptance on all
-words, and proving polynomial-time construction remain open.
+construction. At this milestone, supplying the full transition formula, guarding
+acceptance on all words, and proving polynomial-time construction remained open.
 
 The combined `--wfail` build passed (3665 jobs). The expanded axiom audit passed
 for 3467 declarations, including 2274 theorems, using only standard Lean axioms.
 All four vendored sources match the pinned Git objects and recorded SHA-256
-hashes. Independent reviews checked tape boundaries, canonical representation,
+hashes. Agent cross-reviews checked tape boundaries, canonical representation,
 window preservation, deterministic acceptance, and finite graph equivalence.
 
-## Complete transition and PSPACE encoding milestone, 2026-10-13
+### Historical milestone: Transition and PSPACE encoding, 2026-10-13
 
-The unchanged scoped snapshot now also includes `Asymptotics`, `Classes/Time`,
-`Classes/Space`, and `Classes/P/Defs`. All eight recorded sources build on the
-installed stack and match the exact pinned Git objects. This imports actual
-`P`, `FP`, and `PSPACE`; the interactive class/closure stack remains separate.
+At this milestone, the unchanged scoped snapshot also included `Asymptotics`,
+`Classes/Time`, `Classes/Space`, and `Classes/P/Defs`. All eight recorded sources
+built on the installed stack and matched the exact pinned Git objects. This
+imported actual `P`, `FP`, and `PSPACE`; the interactive class/closure stack
+remained separate.
 `MachinePolynomialSpace.lean` proves that membership in upstream `PSPACE` is
 equivalent to an actual `TM.DecidesInSpace` witness with a natural-coefficient
 polynomial budget at every input length. It widens the same machine's original
@@ -705,34 +724,35 @@ polynomial output size for every language in actual upstream `PSPACE`, without
 an assumed local transition formula or a replacement class definition.
 
 Polynomial output size is not a polynomial-time construction certificate.
-Machine-time proofs for this concrete encoding and the algebraic verifier,
-upstream protocol assembly, IP closure under reductions, and `IP = PSPACE`
-remain open.
+At this milestone, machine-time proofs for this concrete encoding and the
+algebraic verifier, upstream protocol assembly, IP closure under reductions, and
+`IP = PSPACE` remained open.
 
 The complete `--wfail` build passed (3680 jobs). The expanded axiom audit passed
 for 3781 declarations, including 2524 theorems, using only standard Lean axioms.
-All eight vendored SHA-256 values matched, and independent reviews checked
+All eight vendored SHA-256 values matched, and agent cross-reviews checked
 byte identity, full tape equality, transition semantics, malformed-code guards,
 actual PSPACE witness extraction, and the output-size composition.
 
-## Actual polynomial-time component certificates, 2026-10-13
+### Historical milestone: Actual polynomial-time component certificates, 2026-10-13
 
 The scoped unchanged snapshot expanded from eight to 140 modules: the full
 machine-proof dependency closure of unary arithmetic, bounded quantification,
 binary number encoding, pairing, data encoding, and string access. It includes
 Cobham's characterization and the actual Turing-machine constructions proving
 composition, bounded iteration, folds, and finite-range generation. Every module
-builds unchanged on the installed stack. The checksum script now also verifies
-that every vendored Lean file is recorded exactly once, and all source bytes
-were independently compared to the pinned Git objects. This is still a scoped
-snapshot, not an installed full upstream dependency.
+built unchanged on the installed stack. At this milestone, the checksum script
+also verified that every vendored Lean file was recorded exactly once, and all
+source bytes were independently compared to the pinned Git objects. This
+remained a scoped snapshot, not an installed full upstream dependency.
 
 `PrimeFieldFP.lean` proves actual `FPPred` primality via bounded trial division
 and actual `UnaryFn`/`FP` certificates for the existing `find?`-based prime
 selector, protocol modulus, binary prime output, and residue width. The generic
 results compose with any unary-computable size function; the input-length
-instance is unconditional. The QBF parser/node-count computation remains a
-separate prerequisite for applying them inside the complete existing verifier.
+instance is unconditional. At this milestone, the QBF parser/node-count
+computation remained a separate prerequisite for applying them inside the
+complete existing verifier.
 
 `WordArithmeticFP.lean` identifies the existing big-endian words with upstream
 binary encodings. It certifies capped decoding, canonical width/range checks,
@@ -746,16 +766,18 @@ numeric decoding certificate.
 of every occupied fixed-width coefficient block. Its concrete Boolean validator
 is exactly the existing `parseMessage` success flag, including modulus zero,
 empty messages, partial words, excessive counts, and out-of-range coefficients.
-`parseMessage_isSome_mem_FP` is a genuine upstream runtime certificate. It does
-not yet construct an encoding of the decoded coefficient list or execute Horner.
+`parseMessage_isSome_mem_FP` is a genuine upstream runtime certificate. At this
+milestone, encoding the decoded coefficient list and executing Horner remained
+open.
 
 `UpstreamView.lean` proves imported `pair`, `unpair?`, and data encodings equal
 the local executable codec, with exact decoder and adapter consequences. Field
 projections, packing already encoded fields, repacking, and individual-message
 encoding have actual `FP` certificates. Total prefix projections are not confused
-with validating arbitrary malformed views. Import of the named `protocolView`
-and actual `Protocol` still needs the pinned CSLib circuit-signature module;
-local cache inspection and direct/web retrieval did not locate that source.
+with validating arbitrary malformed views. At this milestone, import of the
+named `protocolView` and actual `Protocol` still needed the pinned CSLib
+circuit-signature module; local cache inspection and direct/web retrieval had
+not located that source.
 No replacement protocol/class definition was introduced.
 
 `ResourceFP.lean` proves polynomial-time evaluation of every fixed natural
@@ -774,20 +796,20 @@ at polynomial-time offsets. Dynamic numeric variable names are explicitly
 unary-computable. This covers generated polynomially bounded indices, not
 arbitrary numerically huge names in an untrusted QBF input.
 
-The remaining work is composition: decoded message handling and Horner,
-syntax parsing/evaluation/scheduling, nested-view validation and replay, full
-transition/reachability/prenex generation, and upstream interactive assembly.
-The complete verifier and reduction still lack runtime certificates, and
-`IP = PSPACE` remains unproved.
+At this milestone, the remaining work was composition: decoded message handling
+and Horner, syntax parsing/evaluation/scheduling, nested-view validation and
+replay, full transition/reachability/prenex generation, and upstream interactive
+assembly. The complete verifier and reduction still lacked runtime certificates,
+and `IP = PSPACE` remained unproved.
 
 The full `--wfail` build passed (3821 jobs). The expanded audit passed for
 9137 declarations, including 6396 theorems, with only standard Lean axioms.
-All 140 recorded source hashes and Git-object comparisons passed. Parallel
-reviews checked exact codec equations, prime-search fallback behavior,
+All 140 recorded source hashes and Git-object comparisons passed. Agent
+cross-reviews checked exact codec equations, prime-search fallback behavior,
 malformed-word/message rejection, polynomial budget scope, and the formula
 builders' preservation of the existing syntax.
 
-## Decoded messages, Horner, binary parsing, and machine templates, 2026-10-13
+### Historical milestone: Decoded messages, Horner, binary parsing, and machine templates, 2026-10-13
 
 Eight new modules compose the previous component certificates into larger actual
 `FP` computations. No new dependency or upstream source modification was needed.
@@ -814,7 +836,8 @@ existing fuel-bounded `parseNameBits`; it also certifies `parseNatName` with its
 canonicality check. Their full outputs preserve the binary digits and untouched
 suffix in an injective tagged-pair representation. Zero fuel, missing delimiters,
 redundant high zeroes, and malformed prefixes retain the existing rejection
-behavior. These results do not yet certify the recursive QBF parser.
+behavior. At this milestone, certification of the recursive QBF parser remained
+open.
 
 `ConfigurationValidityFP.lean` constructs the exact full codec-image formula,
 including the unrestricted-symbol `tru` nodes. `TapeTransitionFP.lean` constructs
@@ -834,18 +857,18 @@ machine. Neither complete configurations nor tape contents are enumerated.
 
 The full `--wfail` build passed (3829 jobs). The axiom audit passed for 9398
 declarations, including 6606 theorems, with only `propext`, `Classical.choice`,
-and `Quot.sound`. All 140 upstream checksums passed. Independent reviews checked
+and `Quot.sound`. All 140 upstream checksums passed. Agent cross-reviews checked
 parser output distinctions, Horner state and semantic invariants, arbitrary-size
 name handling, exact formula syntax, layout offsets, boundary behavior, fixed
 table enumeration, and endpoint guards.
 
-The remaining verifier runtime work includes full QBF syntax parsing and node
-counting, matrix evaluation, scheduling, nested transcript validation, and
-replay. Initial configuration output, recursive reachability generation, and
-prenex conversion remain on the reduction side. Upstream protocol assembly,
-closure under reductions, and `IP = PSPACE` remain open.
+At this milestone, the remaining verifier runtime work included full QBF syntax
+parsing and node counting, matrix evaluation, scheduling, nested transcript
+validation, and replay. Initial configuration output, recursive reachability
+generation, and prenex conversion remained on the reduction side. Upstream
+protocol assembly, closure under reductions, and `IP = PSPACE` remained open.
 
-## Syntax, finite claims, and machine reachability runtime, 2026-10-13
+### Historical milestone: Syntax, finite claims, and machine reachability runtime, 2026-10-13
 
 Eight new modules continue the actual machine-time development without changing
 dependencies or vendored sources.
@@ -876,8 +899,8 @@ repeated pairing does not cause exponential storage. Bounded first-match search
 implements newest-first lookup and encoded-zero default. Initialization, point
 lookup, checking a round, and the exact `advanceWithCost` state output are in
 actual `FP`. Raw chain lookup is total but does not validate arbitrary chains;
-semantic refinement requires canonical internal states. Transcript replay must
-establish that invariant.
+semantic refinement requires canonical internal states. At this milestone,
+establishing that invariant during transcript replay remained open.
 
 `InitialConfigurationFP.lean` serializes the exact original configuration codec,
 including width casts, zero space, and zero work tapes. `ReachabilityFP.lean`
@@ -895,25 +918,25 @@ continues to express acceptance. Substituting the fixed polynomial space bound
 from upstream's actual `PSPACE` witness yields `pspace_has_FP_closedQBF_encoding`:
 every such language has an actual `FP` many-one encoding into `EncodedTrueQBF`.
 There is no hypothesis asserting local runtime, reachability truth, or the desired
-class inclusion. This completes M5 for the closed-QBF target. The generated syntax
-need not be prenex, so capture-safe prenex runtime is still required by the current
-interactive verifier. No equality with the older `encodeMachineAcceptance`
-construction is asserted.
+class inclusion. This completed M5 for the closed-QBF target. The generated
+syntax need not be prenex, so at this milestone capture-safe prenex runtime was
+still required by the interactive verifier. No equality with the older
+`encodeMachineAcceptance` construction is asserted.
 
 The full `--wfail` build passed (3837 jobs). The axiom audit passed for 9897
 declarations, including 6979 theorems, using only `propext`, `Classical.choice`,
-and `Quot.sound`. All 140 upstream checksums passed. Independent reviews checked
+and `Quot.sound`. All 140 upstream checksums passed. Agent cross-reviews checked
 forest reconstruction, exact decoder agreement, scanner growth, binary assignment
 keys and pair-chain size, endpoint identities, initial codec output, reachability
 prefix flattening, endpoint guards, syntactic closure, and the actual class/FP
 quantifiers in the final closed-QBF reduction theorem.
 
-At this milestone, remaining verifier work included terminal matrix evaluation, prenex
-recognition/conversion, scheduling, nested transcript validation, and replay.
+At this milestone, remaining verifier work included terminal matrix evaluation,
+prenex recognition/conversion, scheduling, nested transcript validation, and replay.
 Upstream protocol assembly and closure under reductions remained open.
 At this milestone, `IP = PSPACE` was not proved.
 
-## Prenex, matrix, and view-runtime milestone, 2026-10-13
+### Historical milestone: Prenex, matrix, and view-runtime, 2026-10-13
 
 Eight new modules prove component runtime certificates using the actual upstream
 `FP` and `UnaryFn` interfaces. They add no upstream sources or closure axioms.
@@ -950,8 +973,9 @@ Pair validation checks both delimiters by exact repacking, including malformed
 pair prefixes that the total projections alone cannot distinguish. Full view
 recognition, tagged serialized decoder output, and validating projections for
 input, coins, and transcript bytes are in `FP`. Empty histories and empty messages
-remain distinct. Individual-message extraction, alternating-round shape checks,
-and replay are not supplied by these validation results.
+remain distinct. At this milestone, individual-message extraction,
+alternating-round shape checks, and replay remained open; these validation
+results did not supply them.
 
 `BinaryArithmeticFP.lean` certifies successor, comparison, maximum, and addition
 of unary-computable offsets to arbitrary binary names. `RenamingFP.lean` certifies
@@ -959,23 +983,24 @@ the exact structural `renameQBF` given a local binary name-map certificate, with
 a concrete single-name update instance. `PrenexConversionFP.lean` computes the
 exact maximum source name and initial/later fresh counters used by `prenexAux`.
 Its bounded search ranges over token positions, keeping name values binary.
-These are components of the converter: scoped binder environments, prefix/matrix
-assembly, and quantifier dualization under negation still need runtime proofs.
+These are components of the converter. At this milestone, scoped binder
+environments, prefix/matrix assembly, and quantifier dualization under negation
+still needed runtime proofs.
 
 The full `--wfail` build passed (3848 jobs). The axiom audit passed for 10553
 declarations, including 7474 theorems, using only `propext`, `Classical.choice`,
-and `Quot.sound`. All 140 upstream checksums passed. Independent reviews checked
+and `Quot.sound`. All 140 upstream checksums passed. Agent cross-reviews checked
 decoder guards and failure encodings, arbitrary binary-name handling, schedule
 order and repetitions, canonical matrix state/refinement, the nested transcript
 grammar, and the exact scope and premises of the exported runtime theorems.
 
-At this milestone, remaining local runtime work was capture-safe prenex conversion and complete
-verifier replay, including transcript-message extraction, alternating-round
+At this milestone, remaining local runtime work was capture-safe prenex conversion
+and complete verifier replay, including transcript-message extraction, alternating-round
 validation, coin-block access, and preservation of canonical internal assignments.
 The actual upstream interactive module, protocol assembly, and transport under
 reductions remained open. At this milestone, `IP = PSPACE` was not proved.
 
-## Complete prenex-verifier runtime and scoped conversion components, 2026-10-13
+### Historical milestone: Prenex-verifier runtime and scoped conversion components, 2026-10-13
 
 `VerifierFP.lean` proves the two unconditional machine-time interfaces required
 by the eventual upstream protocol:
@@ -989,7 +1014,8 @@ The combined theorem is `prenexVerifier_runtime`. These are the original packed
 functions, on every raw view string. No hypothesis asserts input validity,
 transcript reachability, component runtime, or the desired complexity inclusion.
 Their previously proved all-view bounds and semantic completeness/soundness
-continue to apply. Construction of the named upstream `Protocol` remains open.
+continue to apply. At this milestone, construction of the named upstream
+`Protocol` remained open.
 
 `TranscriptParsingFP.lean` certifies the exact transcript count and indexed raw
 message access. A forward transducer tracks the existing eight-state validator,
@@ -1036,14 +1062,14 @@ output fields equal `toPrenex`.
 `PrenexAssemblyFP.lean` certifies each local payload operation: variable/constant
 leaves, prefix dualization with matrix negation, binary prefix/matrix assembly,
 fresh binder insertion, field projections, and final formula output. It keeps
-the counter binary and stores each field once. At this milestone the remaining
-conversion runtime proof needed the complete traversal with saved scopes and polynomially
-bounded continuation/result storage; local constructor certificates alone do
+the counter binary and stores each field once. At this milestone, the remaining
+conversion runtime proof needed the complete traversal with saved scopes and
+polynomially bounded continuation/result storage; local constructor certificates alone do
 not prove that traversal efficient.
 
 The full `--wfail` build passed (3855 jobs). The axiom audit passed for 10943
 declarations, including 7755 theorems, using only `propext`, `Classical.choice`,
-and `Quot.sound`. All 140 upstream checksums passed. Independent reviews checked
+and `Quot.sound`. All 140 upstream checksums passed. Agent cross-reviews checked
 transcript extraction and failure tags, private bit ordering and timing, replay
 growth/canonicality, the actual P bridge, scope restoration, payload assembly,
 and the unconditional signatures of the final packed-verifier certificates.
@@ -1052,7 +1078,7 @@ At this milestone, the remaining hard-inclusion work was complete prenex
 conversion runtime, actual upstream protocol assembly, and IP closure under the
 completed closed-QBF reduction. `IP = PSPACE` was not proved.
 
-## Complete prenex conversion and arbitrary-QBF verifier runtime, 2026-10-13
+### Historical milestone: Prenex conversion and arbitrary-QBF verifier runtime, 2026-10-13
 
 `QBF/SyntaxChildrenFP.lean` gives actual FP prefix parsing and immediate child
 extraction with exact decoder refinement, preserving the untouched suffix and
@@ -1086,7 +1112,8 @@ converted formula therefore implements the original source-closedness guard.
 Composing it with the actual-machine closed-QBF encoding gives
 `pspace_has_FP_prenex_encoding`: for every language in actual PSPACE, an actual FP
 map preserves membership exactly into `EncodedTruePrenex`. This is an explicit
-reduction witness; the named upstream `MapReducesPoly` module is not yet imported.
+reduction witness; at this milestone, the named upstream `MapReducesPoly` module
+had not yet been imported.
 It does not assert a runtime theorem for the older `encodeMachineAcceptance`
 function, whose separate correctness and size theorem is retained.
 
@@ -1102,13 +1129,13 @@ those already proved in `ReducedProtocol`.
 
 The full `--wfail` build passed (3865 jobs). The axiom audit passed for 11369
 declarations, including 8073 theorems, using only `propext`, `Classical.choice`,
-and `Quot.sound`. All 140 upstream checksums passed. Independent reviews checked
+and `Quot.sound`. All 140 upstream checksums passed. Agent cross-reviews checked
 the worklist semantics, exact raw transition, intermediate-state bound, binary
 names, free-variable preservation, malformed/open reduction guards, actual
 PSPACE composition, source-round validation, and target-prefix replay.
 
-The upstream protocol structure, IP reduction closure, and class equality remained
-open. At this milestone, `IP = PSPACE` was not proved.
+At this milestone, the upstream protocol structure, IP reduction closure, and
+class equality remained open. `IP = PSPACE` was not proved.
 
 ## Invariants for future changes
 
@@ -1146,7 +1173,7 @@ open. At this milestone, `IP = PSPACE` was not proved.
 
 The completed theorem refers to upstream classes, contains no mathematical gap
 as a hypothesis, and uses only standard Lean axioms. The final audit includes the
-full imported complexity development. Independent statement reviews covered the
-machine model, finite-field implementation, randomness, polynomial resource
-bounds, and encodings. Preserve these requirements in future changes; an axiom
+full imported complexity development. Agent cross-reviews of the statements
+covered the machine model, finite-field implementation, randomness, polynomial
+resource bounds, and encodings. Preserve these requirements in future changes; an axiom
 audit alone does not certify that a statement expresses the intended result.

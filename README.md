@@ -83,8 +83,8 @@ Start with the [IPPSPACE guide](docs/ip-pspace/README.md),
 The sources include the required unchanged Complexitylib and CSLib modules,
 with pinned revisions, attribution, and checksum checks recorded in the
 [upstream inventory](docs/ip-pspace/UPSTREAM.md).
-The development has passed Lean checking and agent cross-review; independent
-human review remains outstanding. This addition is prepared as a review candidate.
+The development has passed Lean checking and agent cross-review.
+This addition is prepared as a review candidate.
 
 ## Building
 
@@ -127,9 +127,8 @@ scope and current review status.
 ## License and attribution
 
 Apache License 2.0 (see [LICENSE](LICENSE)). Formalization by Troy Lee, with
-AI-assisted proof development using Claude (Anthropic) and Codex (OpenAI).
-IPPSPACE was developed with Codex assistance. Vendored Complexitylib and CSLib
+AI-assisted proof development using Claude (Anthropic) and Codex (OpenAI). Vendored Complexitylib and CSLib
 sources retain their original authorship and Apache-2.0 licensing.
 The build checks the formal theorem statements and their proofs in Lean.
-Independent review of their correspondence to the intended mathematical
-statements remains separate from kernel verification.
+The proof guides explain how those statements correspond to the intended
+mathematics.

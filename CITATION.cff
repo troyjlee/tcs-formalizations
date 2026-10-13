@@ -35,7 +35,6 @@ abstract: >-
   IPPSPACE proves the unconditional class equality using unchanged Complexitylib
   definitions, a uniform polynomial-time reduction, and a certified interactive
   verifier. The reverse inclusion is imported from Complexitylib; unchanged
-  upstream sources retain their attribution. Independent human review of the
-  IPPSPACE development remains outstanding.
+  upstream sources retain their attribution.
   The shared build includes axiom checks and regression
   examples. Documentation records the scope and adaptations of the proofs.

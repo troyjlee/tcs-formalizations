@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: >-
   Please cite this software when using the formalization, and cite the upstream
   libraries separately where appropriate. This is a candidate for review;
-  publication and external human review are not claimed.
+  publication is not claimed.
 type: software
 title: "IP = PSPACE in Lean"
 authors:

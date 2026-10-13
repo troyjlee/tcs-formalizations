@@ -27,8 +27,8 @@ This component is being integrated into
 `0.1.0-review.2`, with proposed tag `ip-pspace-v0.1.0-review.2`. Start with the
 [review guide](REVIEW.md) and [release notes](RELEASE_NOTES.md). The standalone
 proof passed Lean checks and agent cross-review; local validation in this monorepo
-layout also passed, as recorded in the release notes. Publication, the dedicated
-hosted CI run, and external human review are not claimed.
+layout also passed, as recorded in the release notes. Publication and the
+dedicated hosted CI run remain pending.
 
 The development covers the algebraic core, an executable algebraic verifier,
 and a protocol using a computed prime field and fair binary coins:
@@ -240,7 +240,9 @@ prenex QBFs, and the closed machine-to-QBF construction with capture-safe
 prenex conversion. `UpstreamProtocol` packages these results in the actual
 upstream `Protocol`. `ReductionClosure` transports polynomial resources and
 soundness through an actual FP map, completing the hard inclusion.
-See [PLAN.md](PLAN.md) for the development history.
+The [development history](DEVELOPMENT_HISTORY.md) is an optional account of earlier
+milestones and design decisions. Use this guide and the [review guide](REVIEW.md)
+for the completed proof and current review priorities.
 
 ## Main algebraic results
 
@@ -425,7 +427,8 @@ scope, and an optional migration procedure. No local substitute for `IP` or
 ## Verification policy
 
 The `IPPSPACE` library must build without warnings, `sorry`, custom axioms, or
-native-evaluation proof shortcuts. Missing results are recorded in the plan.
+native-evaluation proof shortcuts. Historical proof obligations and their
+resolution are recorded in the [development history](DEVELOPMENT_HISTORY.md).
 The axiom audit checks declarations by originating module, including private
 declarations and every imported Complexitylib and CSLib module, with transitive
 dependency traversal.

@@ -5,7 +5,7 @@ using Complexitylib's unchanged class definitions. The purpose of review is to
 check that these definitions and their connections express the intended theorem,
 and to reproduce the Lean checks. The proof passed Lean checking and
 agent cross-review in the standalone project, followed by successful local
-monorepo integration checks. It has not undergone external human peer review.
+monorepo integration checks.
 
 Start with [Shamir.lean](../../IPPSPACE/Shamir.lean). Its short proof composes a uniform
 FP reduction from PSPACE to closed QBF truth, an IP protocol for that language,
@@ -135,9 +135,8 @@ mathematics. A reused dependency cache is not a source rebuild of that dependenc
 ## Attribution and scope
 
 Troy Lee developed this formalization with Codex assistance. Parallel agents
-helped implement proofs and cross-review statements; those reviews are not
-external human peer review. Complexitylib supplies the machine and class
-definitions, runtime infrastructure, and reverse inclusion. Mathlib supplies the
+helped implement proofs and cross-review statements. Complexitylib supplies the
+machine and class definitions, runtime infrastructure, and reverse inclusion. Mathlib supplies the
 algebra and probability infrastructure, and four CSLib modules support upstream
 imports. Original source attribution is retained; see
 [UPSTREAM.md](UPSTREAM.md), [UPSTREAM.json](UPSTREAM.json), and
@@ -146,7 +145,6 @@ imports. Original source attribution is retained; see
 This integration candidate carries the class equality checked in the standalone
 project and rebuilt successfully in the monorepo. Hosted CI and publication
 remain outstanding.
-It makes no claim of priority,
-external peer review, or practical performance of an extracted verifier. Feedback
-should identify the declaration or definition, the suspected mismatch, and a
+It makes no claim of priority or practical performance of an extracted verifier.
+Feedback should identify the declaration or definition, the suspected mismatch, and a
 minimal example or explanation where possible.

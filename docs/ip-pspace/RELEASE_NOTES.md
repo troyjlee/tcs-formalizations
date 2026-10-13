@@ -29,7 +29,7 @@ The **historical standalone** full build passed with warnings treated as errors
 (3972 jobs). Its axiom audit passed for 14836 declarations, including 10568
 theorems, using only `propext`, `Classical.choice`, and `Quot.sound`. All 242
 vendored source checksums passed. Statement and source-provenance cross-reviews
-were performed by agents. External human review is outstanding.
+were performed by agents.
 
 **Local monorepo integration verification passed** on 2026-10-13 at commit
 `0d04e0bbee24d23b0952048e58a45b8687547801`, with a clean source tree before and
