@@ -1,29 +1,11 @@
 #!/usr/bin/env python3
-"""Verify IPPSPACE source provenance from docs/ip-pspace/UPSTREAM.json."""
-import hashlib
-import json
+"""Verify IPPSPACE source provenance.
+
+The vendored Complexitylib and CSLib snapshots are shared with the Toda
+component, so this delegates to the shared checker scripts/check-upstream.py,
+which reads vendor/UPSTREAM.json. It is kept so that review-check.py and the
+recorded review procedure keep working unchanged."""
+import runpy
 from pathlib import Path
 
-root = Path(__file__).resolve().parents[2]
-upstream = json.loads((root / "docs/ip-pspace/UPSTREAM.json").read_text())
-recorded = set()
-snapshots = [upstream, *upstream.get("external_snapshots", [])]
-for snapshot in snapshots:
-    for entry in snapshot["vendored_files"]:
-        local_path = entry["local_path"]
-        if local_path != "vendor/" + entry["upstream_path"] or entry["changes"] != "none":
-            raise SystemExit(f"Invalid unchanged-source provenance: {local_path}")
-        if local_path in recorded:
-            raise SystemExit(f"Duplicate upstream provenance: {local_path}")
-        recorded.add(local_path)
-        path = root / entry["local_path"]
-        actual = hashlib.sha256(path.read_bytes()).hexdigest()
-        if actual != entry["sha256"]:
-            raise SystemExit(f"Upstream snapshot modified: {entry['local_path']}")
-present = {str(path.relative_to(root)) for path in (root / "vendor").rglob("*.lean")}
-if present != recorded:
-    raise SystemExit(f"Upstream inventory mismatch: unrecorded={sorted(present - recorded)}, "
-                     f"missing={sorted(recorded - present)}")
-for snapshot in snapshots:
-    print(f"Upstream snapshot verified: {len(snapshot['vendored_files'])} files "
-          f"from {snapshot['repository']} at {snapshot['revision']}")
+runpy.run_path(str(Path(__file__).resolve().parents[1] / "check-upstream.py"), run_name="__main__")

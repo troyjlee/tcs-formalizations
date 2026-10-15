@@ -139,7 +139,7 @@ helped implement proofs and cross-review statements. Complexitylib supplies the
 machine and class definitions, runtime infrastructure, and reverse inclusion. Mathlib supplies the
 algebra and probability infrastructure, and four CSLib modules support upstream
 imports. Original source attribution is retained; see
-[UPSTREAM.md](UPSTREAM.md), [UPSTREAM.json](UPSTREAM.json), and
+[UPSTREAM.md](UPSTREAM.md), the shared [vendor/UPSTREAM.json](../../vendor/UPSTREAM.json), and
 [vendor/README.md](../../vendor/README.md).
 
 This component carries the class equality checked in the standalone project

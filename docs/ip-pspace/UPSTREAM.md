@@ -2,7 +2,7 @@
 
 Audited in the standalone project on 2026-10-13. The source references are exact
 Git revisions recorded in
-[UPSTREAM.json](UPSTREAM.json), not moving branches. The final checked theorem is
+[vendor/UPSTREAM.json](../../vendor/UPSTREAM.json), not moving branches. The final checked theorem is
 `IPPSPACE.ip_eq_pspace : Complexity.IP = Complexity.PSPACE`.
 The unchanged proof and source snapshots also passed local monorepo integration
 checks and hosted CI. The component was merged in
@@ -26,12 +26,17 @@ CSLib files were retrieved from GitHub's source views at the pinned revision,
 preserving source text and terminal newlines. They are `Computability/Circuit/Signature`,
 `Init`, `Foundations/Lint/Basic`, and `Tactic/GrindAttrs` under `Cslib/`.
 
-`docs/ip-pspace/UPSTREAM.json` records both source inventories and SHA-256
-checksums. It is byte-identical to the standalone inventory; its `local_path`
-entries remain relative to the repository root, where `vendor/` resides. Its
-`integration_status` records the completed standalone proof integration. The
-subsequent successful local monorepo rebuild is documented in the release notes.
-`scripts/ip-pspace/check-upstream.py` verifies all hashes, rejects changes to
+`vendor/UPSTREAM.json` records both source inventories and SHA-256
+checksums. Review release `0.1.0-review.2` carried the IPPSPACE inventory at
+`docs/ip-pspace/UPSTREAM.json`, byte-identical to the standalone inventory. That
+file was then merged with the Toda component's inventory into the shared file,
+which lists all 256 vendored Complexitylib modules (the 238 used by IPPSPACE
+plus 18 further modules used only by Toda); every overlapping entry kept its
+checksum, and the IPPSPACE `integration_status` is preserved under `consumers`.
+`local_path` entries remain relative to the repository root, where `vendor/`
+resides. The subsequent successful local monorepo rebuild is documented in the
+release notes. `scripts/check-upstream.py` (also reachable as
+`scripts/ip-pspace/check-upstream.py`) verifies all hashes, rejects changes to
 entries marked unchanged, and rejects duplicate, missing, or unrecorded vendor Lean files.
 No upstream class definition, import, or proof has been replaced or edited.
 

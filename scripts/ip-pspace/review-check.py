@@ -41,8 +41,8 @@ def capture(command, cwd=ROOT):
 def source_hashes():
     paths = [ROOT / name for name in (
         "IPPSPACE.lean", "lean-toolchain", "lakefile.toml", "lake-manifest.json",
-        "docs/ip-pspace/UPSTREAM.json", "scripts/ip-pspace/AxiomAudit.lean", "scripts/ip-pspace/StatementCheck.lean",
-        "scripts/ip-pspace/check-upstream.py", "scripts/ip-pspace/serial-lean.py",
+        "vendor/UPSTREAM.json", "scripts/ip-pspace/AxiomAudit.lean", "scripts/ip-pspace/StatementCheck.lean",
+        "scripts/check-upstream.py", "scripts/ip-pspace/check-upstream.py", "scripts/ip-pspace/serial-lean.py",
         "scripts/ip-pspace/review-check.py", "scripts/ip-pspace/bootstrap-local.py",
         ".github/workflows/ip-pspace-review.yml",
     )]
