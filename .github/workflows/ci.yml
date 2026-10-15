@@ -21,3 +21,7 @@ jobs:
         run: node scripts/check-tsp-source.mjs
       - name: compare Palomar statements and replay proofs
         run: python3 scripts/check-palomar.py --no-sandbox
+      - name: verify vendored Complexitylib and CSLib sources
+        run: python3 scripts/check-upstream.py
+      - name: audit Toda axiom dependencies
+        run: lake env lean scripts/toda/AxiomAudit.lean

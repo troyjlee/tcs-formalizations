@@ -17,7 +17,7 @@ and links to notes on adaptations of the published arguments.
 Separate [Palomar submission packages](Palomar/README.md) provide independent
 statements, proof adapters, and paper correspondence for Sunflower and TSPGap.
 
-One Lake package and one pinned toolchain serve all three libraries, with a
+One Lake package and one pinned toolchain serve all four libraries, with a
 shared build and a dedicated IPPSPACE review workflow:
 
 | Project | Headline results | Guide |
@@ -25,6 +25,7 @@ shared build and a dedicated IPPSPACE review workflow:
 | **Sunflowers** | ALWZ and Rao–BCW bounds, robust-sunflower bounds, and Erdős–Rado | [Sunflower guide](docs/sunflower/README.md) |
 | **TSPGap** | Metric subtour-LP integrality gap at most `3/2 − 2.05522 × 10⁻³⁰`, with an exported strict improvement | [TSP guide](docs/tsp/README.md) |
 | **IPPSPACE** | Shamir's `IP = PSPACE`, using Complexitylib's unchanged class definitions | [IPPSPACE guide](docs/ip-pspace/README.md) |
+| **Toda** | Toda's theorem `PH ⊆ P^#P`, from Complexitylib's unchanged `PH` and `#P` to a full-answer oracle machine class | [Toda guide](docs/toda/README.md) |
 
 ## Sunflowers, formalized
 
@@ -90,6 +91,30 @@ with pinned revisions, attribution, and checksum checks recorded in the
 The development has passed Lean checking and agent cross-review.
 This addition is prepared as a review candidate.
 
+## Toda's theorem, formalized
+
+`Toda.toda : Complexity.PH ⊆ Toda.Oracle.PSharpP` proves that every language in
+Complexitylib's unchanged polynomial hierarchy is decided by a deterministic
+polynomial-time multitape machine with one oracle from Complexitylib's unchanged
+accepting-leaf-count class `#P`, receiving each answer in full binary.
+`Toda.toda_charged` also charges every returned answer bit. The proof follows
+Fortnow's isolation and integer-amplification route through an internal
+bounded-error parity operator, with machine-level witness characterizations,
+uniform `#P`/GapP closure, affine hashing, and a costed three-query reduction.
+
+Start with the [Toda guide](docs/toda/README.md), the
+[foundations audit](docs/toda/FOUNDATIONS.md) of the upstream definitions and
+the oracle-machine model, and the
+[development history](docs/toda/DEVELOPMENT_HISTORY.md).
+The library shares the vendored Complexitylib and CSLib snapshot with IPPSPACE;
+the merged inventory and checksums are in [vendor/UPSTREAM.json](vendor/UPSTREAM.json).
+
+Principal paper:
+
+- **Fortnow:**
+  [*A Simple Proof of Toda's Theorem*](https://theoryofcomputing.org/articles/v005a007/),
+  Theory of Computing 5 (2009).
+
 ## Building
 
 Install [elan](https://lean-lang.org/install/), then run from the repository root:
@@ -101,12 +126,14 @@ lake env lean scripts/audit-tsp-statements.lean
 node scripts/check-tsp-source.mjs
 python3 scripts/ip-pspace/review-check.py --output-dir review-artifacts/ip-pspace \
   --cache-note "Mathlib cache downloaded for the committed dependency pins"
+python3 scripts/check-upstream.py
+lake env lean scripts/toda/AxiomAudit.lean
 ```
 
 The toolchain and Mathlib revision are pinned at **4.35.0-rc2** in
 [lean-toolchain](lean-toolchain) and [lake-manifest.json](lake-manifest.json).
 The cache command fetches compiled Mathlib dependencies. `lake build`
-compiles all three libraries, the Sunflower and TSP check files
+compiles all four libraries, the Sunflower and TSP check files
 (`SunflowerChecks.lean` and `TSPGapChecks.lean`), and the separate Palomar
 Challenge and Solution modules.
 The project guides give commands for building each library separately.
@@ -116,11 +143,12 @@ Both check files guard headline theorem footprints against exactly
 Song regression examples and five paper-interface checks, and enforce
 2,534 axiom checks. CI runs the same default build, the supplementary TSP
 statement and proof-dependency checks, and the source-admission scan.
-It also runs the [Palomar comparison and kernel checks](Palomar/README.md#reproduce-the-local-checks).
+It also runs the [Palomar comparison and kernel checks](Palomar/README.md#reproduce-the-local-checks),
+the shared vendored-source provenance check, and the Toda axiom audit.
 See the [TSP verification record](docs/tsp/VERIFICATION.md) for the recorded results.
 
 The IPPSPACE review runner builds its library with warnings treated as errors,
-checks the exact public theorem types, verifies all 242 vendored source hashes,
+checks the exact public theorem types, verifies all 260 vendored source hashes,
 and audits transitive axiom dependencies for every imported IPPSPACE,
 Complexitylib, and CSLib declaration. Its dedicated CI workflow builds these
 sources from a fresh checkout using only the pinned Mathlib dependency cache,

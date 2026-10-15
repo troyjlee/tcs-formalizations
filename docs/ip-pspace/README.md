@@ -418,7 +418,8 @@ The source snapshot contains 238 unchanged Complexitylib modules at revision
 `311d27ad8458b61e9b7461fc83a480e4be97aef2`. It includes the complete import
 closure required for the actual `IP` and `PSPACE` definitions, machine-time
 certificates, and upstream `IP_subset_PSPACE`. Every source retains its original
-module name and attribution; [UPSTREAM.json](UPSTREAM.json) records its checksum.
+module name and attribution; the shared inventory
+[vendor/UPSTREAM.json](../../vendor/UPSTREAM.json) records its checksum.
 
 All required sources built in both the standalone project and this monorepo on
 the same pinned Lean 4.35.0-rc2 and Mathlib stack. The full upstream

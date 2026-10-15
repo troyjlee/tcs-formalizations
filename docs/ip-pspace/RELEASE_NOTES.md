@@ -139,7 +139,7 @@ checkout's `.lake/build` absent to force component/vendor recompilation.
 - [CITATION.cff](CITATION.cff): component citation metadata and AI-assistance disclosure.
 - [ip-pspace-review.yml](../../.github/workflows/ip-pspace-review.yml): dedicated fresh-checkout CI with pinned actions.
 - [review-check.py](../../scripts/ip-pspace/review-check.py): verification and evidence capture for `IPPSPACE`.
-- [UPSTREAM.json](UPSTREAM.json): unchanged source inventories and SHA-256 checksums; `local_path` entries are repository-root-relative.
+- [vendor/UPSTREAM.json](../../vendor/UPSTREAM.json): unchanged source inventories and SHA-256 checksums; `local_path` entries are repository-root-relative. The released archive carried this inventory at `docs/ip-pspace/UPSTREAM.json`; it has since been merged with the Toda component's inventory into the shared file.
 
 Apache-2.0 licensing and original upstream attributions are preserved. The
 formalization is included in the

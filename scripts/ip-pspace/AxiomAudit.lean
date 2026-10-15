@@ -4,7 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Troy Lee
 
 The module-origin audit follows Samuel Schlesinger's Complexitylib AxiomGuard
-(Apache-2.0, revision recorded in docs/ip-pspace/UPSTREAM.json).
+(Apache-2.0, revision recorded in vendor/UPSTREAM.json).
 -/
 import IPPSPACE
 import Lean

@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this formalization, please cite it using the metadata from this file."
-title: "TCS formalizations: sunflowers, the metric TSP integrality gap, and IP = PSPACE"
+title: "TCS formalizations: sunflowers, the metric TSP integrality gap, IP = PSPACE, and Toda's theorem"
 type: software
 authors:
   - family-names: Lee
@@ -26,10 +26,13 @@ keywords:
   - integrality gap
   - interactive proofs
   - IP = PSPACE
+  - counting complexity
+  - polynomial hierarchy
+  - Toda's theorem
 abstract: >-
   Machine-checked Lean 4 formalizations over Mathlib of the improved sunflower
-  bounds, an upper bound on the metric TSP subtour-LP integrality gap, and
-  Shamir's IP = PSPACE theorem.
+  bounds, an upper bound on the metric TSP subtour-LP integrality gap,
+  Shamir's IP = PSPACE theorem, and Toda's theorem PH ⊆ P^#P.
   The sunflower development includes Alweiss–Lovett–Wu–Zhang, Rao–Bell–Chueluecha–Warnke,
   robust-sunflower lower bounds and Erdős–Rado. The TSP development follows
   Karlin–Klein–Oveis Gharan, Gurvits–Klein–Leake and Song, and proves the
@@ -39,5 +42,8 @@ abstract: >-
   definitions, a uniform polynomial-time reduction, and a certified interactive
   verifier. The reverse inclusion is imported from Complexitylib; unchanged
   upstream sources retain their attribution.
+  Toda proves PH ⊆ P^#P from Complexitylib's unchanged PH and #P definitions to
+  a full-binary-answer oracle machine class, following Fortnow's isolation and
+  amplification route with machine-level counting closure and costed queries.
   The shared build includes axiom checks and regression
   examples. Documentation records the scope and adaptations of the proofs.

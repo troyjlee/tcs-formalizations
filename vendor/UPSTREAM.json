@@ -1,11 +1,47 @@
 {
   "repository": "https://github.com/SamuelSchlesinger/complexitylib",
   "revision": "add0aca8ee0d71e68969f2cb45cf91554a50f787",
-  "reviewed_on": "2026-10-13",
+  "reviewed_on": "2026-10-15",
+  "source_archive_sha256": "dba7c05be30d1dcf5c49abab96de32e54217d633ce5e058e20b46e10028d3d6c",
   "required_toolchain": "leanprover/lean4:v4.35.0-rc3",
   "mathlib_revision": "728a93eeff833da3173895bb0575752fdc24edb0",
   "cslib_revision": "311d27ad8458b61e9b7461fc83a480e4be97aef2",
-  "integration_status": "Complete: unconditional IPPSPACE.ip_eq_pspace uses unchanged upstream IP and PSPACE definitions and IP_subset_PSPACE. All required imports (238 Complexitylib and 4 CSLib modules) build on the pinned local rc2 stack and pass the expanded axiom audit. Full-package migration is optional.",
+  "local_toolchain": "leanprover/lean4:v4.35.0-rc2",
+  "local_mathlib_revision": "065356127b1dc0016f66b7283ce0ce2c4055aa55",
+  "license_path": "vendor/LICENSE",
+  "license_sha256": "5969af59903baf143cdf101bac053f262c093847ab0efc43807ae81e19bdf190",
+  "integration_status": "Shared inventory of every unchanged Complexitylib and CSLib module vendored under vendor/. It merges the IPPSPACE inventory (238 Complexitylib modules, reviewed 2026-10-13) and the Toda inventory (193 Complexitylib modules, reviewed 2026-10-14); the 175 overlapping modules have identical checksums. All 256 Complexitylib and 4 CSLib modules build on the pinned local rc2 stack. scripts/check-upstream.py verifies every checksum and rejects duplicate, missing, or unrecorded vendor Lean files.",
+  "consumers": {
+    "IPPSPACE": {
+      "modules": 238,
+      "status": "Complete: unconditional IPPSPACE.ip_eq_pspace uses unchanged upstream IP and PSPACE definitions and IP_subset_PSPACE. All required imports (238 Complexitylib and 4 CSLib modules) build on the pinned local rc2 stack and pass the expanded axiom audit. Full-package migration is optional.",
+      "reviewed_on": "2026-10-13"
+    },
+    "Toda": {
+      "modules": 193,
+      "import_roots": [
+        "Complexitylib.Classes.SharpP",
+        "Complexitylib.Asymptotics.PolyBound",
+        "Complexitylib.Classes.P.Defs",
+        "Complexitylib.Models.TuringMachine.Internal",
+        "Complexitylib.Models.TuringMachine.Subroutines.PairValidate",
+        "Complexitylib.Models.TuringMachine.Subroutines.PairSplit",
+        "Complexitylib.Models.TuringMachine.Combinators.Internal.Retarget",
+        "Complexitylib.Models.TuringMachine.Subroutines.Internal",
+        "Complexitylib.Models.TuringMachine.Registers.Horner",
+        "Complexitylib.Models.TuringMachine.Registers.InputLen",
+        "Complexitylib.Models.TuringMachine.Subroutines.PairBuild",
+        "Complexitylib.Classes.P.StringAccess",
+        "Complexitylib.Classes.P.Pairing",
+        "Complexitylib.Classes.P.Verdict",
+        "Complexitylib.Models.TuringMachine.Oracle",
+        "Complexitylib.Classes.Randomized.Hashing.Affine",
+        "Complexitylib.Classes.PH"
+      ],
+      "status": "193 unchanged Complexitylib modules and four unchanged CSLib modules build on the pinned local rc2 stack and pass the complete module-origin axiom audit. Toda.toda proves canonical PH is contained in the full binary-answer machine-based PSharpP class; Toda.toda_charged also charges every returned answer bit. The proof includes exact canonical SharpP/GapP witness characterizations, uniform counting closure and amplification, canonical parity predicates with actual FP hashing and repetition adapters, randomized existential closure and PH induction, and costed query preparation, full-answer batch execution, and ordinary postprocessing. No unproved model bridge, custom axiom, sorry, or native_decide is used.",
+      "reviewed_on": "2026-10-14"
+    }
+  },
   "vendored_files": [
     {
       "upstream_path": "Complexitylib/Asymptotics.lean",
@@ -686,6 +722,12 @@
       "changes": "none"
     },
     {
+      "upstream_path": "Complexitylib/Classes/P/Verdict.lean",
+      "local_path": "vendor/Complexitylib/Classes/P/Verdict.lean",
+      "sha256": "c94cc6b5eaa5c33ba0b415cc547f002713a31d0698f9d141ae066c197cc48229",
+      "changes": "none"
+    },
+    {
       "upstream_path": "Complexitylib/Classes/PH.lean",
       "local_path": "vendor/Complexitylib/Classes/PH.lean",
       "sha256": "fd31282f4bd4d57b26a0689b4efeb3b40f312b232e288246550c694a21743a27",
@@ -701,6 +743,36 @@
       "upstream_path": "Complexitylib/Classes/Randomized.lean",
       "local_path": "vendor/Complexitylib/Classes/Randomized.lean",
       "sha256": "45cf3de3e88c223723a73708ae3ff1f111f27ef8b6209fbbe66ad3d529472a7b",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Classes/Randomized/Hashing/Affine.lean",
+      "local_path": "vendor/Complexitylib/Classes/Randomized/Hashing/Affine.lean",
+      "sha256": "5a71464666a7a8f6131ceef23b998fcdd89d0c85ef961564dc76148c987dd820",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Classes/Randomized/Hashing/Affine/Defs.lean",
+      "local_path": "vendor/Complexitylib/Classes/Randomized/Hashing/Affine/Defs.lean",
+      "sha256": "4318649de76a5ac7d94853779452c8796dd4c85bf28f203addb474a6e17936a7",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Classes/Randomized/Hashing/Affine/Internal.lean",
+      "local_path": "vendor/Complexitylib/Classes/Randomized/Hashing/Affine/Internal.lean",
+      "sha256": "7a20a594c8eb5418fbb846b9b968806394ef442af664dfdd3bd570644e4ff35c",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Classes/Randomized/Hashing/Defs.lean",
+      "local_path": "vendor/Complexitylib/Classes/Randomized/Hashing/Defs.lean",
+      "sha256": "90d0dd025a3813c76f72ca68ebc36634b3ed47e5eaf66ebcea334c42a5907940",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Classes/SharpP.lean",
+      "local_path": "vendor/Complexitylib/Classes/SharpP.lean",
+      "sha256": "859d74e570ff8edf637834a2517d5dcf81e548b3fb28691480f8db9557f69185",
       "changes": "none"
     },
     {
@@ -1058,6 +1130,24 @@
       "changes": "none"
     },
     {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Oracle.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Oracle.lean",
+      "sha256": "66882248f78237ff136eb2fdd0430758c11dde86f28935957619396e673fb877",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Oracle/Defs.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Oracle/Defs.lean",
+      "sha256": "594c2179a73f648cd1aa8d53db433964dbd3825d92c21ef53d29187cda127eff",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Oracle/Internal.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Oracle/Internal.lean",
+      "sha256": "d62ae35cfe577e55510a00c0aca835d7bc3b76a33dd185f1434d4c2742a80fe3",
+      "changes": "none"
+    },
+    {
       "upstream_path": "Complexitylib/Models/TuringMachine/OutputBounds.lean",
       "local_path": "vendor/Complexitylib/Models/TuringMachine/OutputBounds.lean",
       "sha256": "4fcc5ac8421e0d8b92bbcb28f055b926d9a90fd1c687ee8534f61713180e5ba5",
@@ -1316,6 +1406,12 @@
       "changes": "none"
     },
     {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairBuild.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairBuild.lean",
+      "sha256": "67e058fb13b525a4244fd24f39331252d93b8fb40e81d8beda9e654efd735311",
+      "changes": "none"
+    },
+    {
       "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairEmit.lean",
       "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairEmit.lean",
       "sha256": "abe481501b235d4bf35d5067874bd88d73688fede64e4eca5231703ffb1cf94b",
@@ -1331,6 +1427,42 @@
       "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairEmit/Internal.lean",
       "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairEmit/Internal.lean",
       "sha256": "3ae2380e1909c161062d26bb25df4c234a7b40c13145ce55f14b95a1fa48694b",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairSplit.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairSplit.lean",
+      "sha256": "1cb7d948283d5a96f78bdb7103a2c77d01abe1453d7858c5045c66aa31b3360e",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairSplit/Defs.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairSplit/Defs.lean",
+      "sha256": "59e41848aefd791648692541271533d0fe8a304f07f392681dea9617cd4f1051",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairSplit/Internal.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairSplit/Internal.lean",
+      "sha256": "c9dcb4f1d1494c090e7387bdbcef9f14e13c0723a0777d39d64fa8e2c82a3e92",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairValidate.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairValidate.lean",
+      "sha256": "98fc1b00171db0a28633b40d01ebb5bb2b47babd3bd7b0f515fa009917246c25",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairValidate/Defs.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairValidate/Defs.lean",
+      "sha256": "fbffcb0abedf0a162bb2489245c91851700cd8fb5a48e60ef245ed65b258e6d8",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Subroutines/PairValidate/Internal.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Subroutines/PairValidate/Internal.lean",
+      "sha256": "e991eb3a8046b0921afe7b6d63eb2d37d791289523af301196bce8abb21ce92d",
       "changes": "none"
     },
     {
@@ -1424,6 +1556,18 @@
       "changes": "none"
     },
     {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Trace.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Trace.lean",
+      "sha256": "a658c0d486144b0aa39b946f2e6ef094afef42b851184c02aa04d2275d16fea0",
+      "changes": "none"
+    },
+    {
+      "upstream_path": "Complexitylib/Models/TuringMachine/Trace/Internal.lean",
+      "local_path": "vendor/Complexitylib/Models/TuringMachine/Trace/Internal.lean",
+      "sha256": "3bebe278c790ba31d203921f446049026a3ee750a32927a1576e1f9c4abf1909",
+      "changes": "none"
+    },
+    {
       "upstream_path": "Complexitylib/Models/TuringMachine/Transport.lean",
       "local_path": "vendor/Complexitylib/Models/TuringMachine/Transport.lean",
       "sha256": "a60efd8307288bed5b472f902b3aef743c83d831b66aba4121804f30d3fd2a14",
@@ -1466,7 +1610,10 @@
           "sha256": "039da177090845a88b3a3cc7697f76f33369406a27531cfebfca92518b3b3b9c",
           "changes": "none"
         }
-      ]
+      ],
+      "license_path": "vendor/LICENSE-CSLib",
+      "license_sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "note": "Apache-2.0 license text copied from the CSLib source snapshot. Both the IPPSPACE and Toda components import these four modules."
     }
   ]
 }
