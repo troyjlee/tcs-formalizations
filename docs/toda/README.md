@@ -14,8 +14,21 @@ unproved bridge hypotheses, `sorry`, custom axioms, or `native_decide`.
 
 This component was developed in a standalone project and then added to
 [TCS formalizations](https://github.com/troyjlee/tcs-formalizations) as the
-`Toda` library, sharing the pinned toolchain, Mathlib revision, and vendored
-Complexitylib/CSLib snapshot with the IPPSPACE component.
+`Toda` library in
+[PR #10](https://github.com/troyjlee/tcs-formalizations/pull/10), at merge
+commit
+[`55d5b145`](https://github.com/troyjlee/tcs-formalizations/commit/55d5b145158e564cf4a18bb5ef20ce8fad0f3d94).
+It shares the pinned toolchain, Mathlib revision, and vendored
+Complexitylib/CSLib snapshot with the IPPSPACE component. The repository CI
+and the IPPSPACE review workflow passed on the pull request. Release
+`toda-v0.1.0` was published on October 15, 2026, at that merge commit as
+[`toda-v0.1.0`](https://github.com/troyjlee/tcs-formalizations/releases/tag/toda-v0.1.0)
+and archived at
+[DOI 10.5281/zenodo.23382977](https://doi.org/10.5281/zenodo.23382977); the
+archive `troyjlee/tcs-formalizations-toda-v0.1.0.zip` has recorded MD5
+`1c39e392d0b7ba2fbf85828dfa595367`. The all-versions DOI remains
+[10.5281/zenodo.21981559](https://doi.org/10.5281/zenodo.21981559).
+Citation metadata is in [CITATION.cff](CITATION.cff).
 
 ## Definitions and scope
 
