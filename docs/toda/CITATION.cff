@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: >-
+  Please cite this software when using the formalization, and cite the upstream
+  libraries separately where appropriate. The preferred citation identifies
+  the complete TCS formalizations archive, which includes this component.
+type: software
+title: "Toda's theorem in Lean"
+authors:
+  - family-names: Lee
+    given-names: Troy
+version: 0.1.0
+date-released: 2026-10-15
+repository-code: "https://github.com/troyjlee/tcs-formalizations"
+license: Apache-2.0
+preferred-citation:
+  type: software
+  title: "TCS formalizations: sunflowers, the metric TSP integrality gap, IP = PSPACE, and Toda's theorem"
+  authors:
+    - family-names: Lee
+      given-names: Troy
+      orcid: "https://orcid.org/0000-0001-6912-2338"
+  version: toda-v0.1.0
+  date-released: 2026-10-15
+  doi: 10.5281/zenodo.23382977
+abstract: >-
+  A Lean 4 formalization of Toda's theorem, PH ⊆ P^#P, from Complexitylib's
+  unchanged polynomial hierarchy and accepting-leaf-count #P definitions to a
+  deterministic polynomial-time oracle machine receiving full binary answers,
+  with a corollary charging every returned answer bit. The proof follows
+  Fortnow's isolation and integer-amplification route through a bounded-error
+  parity operator, with machine-level witness characterizations, uniform
+  #P/GapP closure, affine hashing, and a costed three-query reduction.
+  Developed with AI assistance; original attribution is preserved for all
+  vendored sources. This component is included in the TCS formalizations
+  repository.
+keywords:
+  - computational complexity
+  - counting complexity
+  - polynomial hierarchy
+  - Toda's theorem
+  - formal verification
+  - Lean
