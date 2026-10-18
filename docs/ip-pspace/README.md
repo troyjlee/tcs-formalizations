@@ -461,3 +461,27 @@ word evaluator must receive a list already bounded by parsing or length validati
 
 Apache License 2.0. New formalization by Troy Lee with Codex assistance;
 vendored code retains its original authorship. See [vendor/README.md](../../vendor/README.md).
+
+## How to cite
+
+The IPPSPACE library was archived in review release `ip-pspace-v0.1.0-review.2`,
+[DOI 10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600). To cite it:
+
+```bibtex
+@software{lee_2026_ippspace,
+  author    = {Lee, Troy},
+  title     = {{TCS} formalizations: sunflowers, the metric {TSP}
+               integrality gap, and {IP} = {PSPACE}},
+  month     = oct,
+  year      = 2026,
+  publisher = {Zenodo},
+  version   = {ip-pspace-v0.1.0-review.2},
+  doi       = {10.5281/zenodo.23341600},
+  url       = {https://doi.org/10.5281/zenodo.23341600},
+  note      = {Lean 4 formalization of IP = PSPACE, library \texttt{IPPSPACE}}
+}
+```
+
+Later releases also contain this library. To cite the release you used instead,
+take its DOI from the [Zenodo record](https://doi.org/10.5281/zenodo.21981559),
+which lists every version.

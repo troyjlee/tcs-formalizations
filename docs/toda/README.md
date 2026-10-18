@@ -137,6 +137,30 @@ inspects the compiled Lean environment; it is not a separate kernel
 implementation. The same build, provenance check, and audit are run by the
 repository CI.
 
+## How to cite
+
+The Toda library was archived in release `toda-v0.1.0`,
+[DOI 10.5281/zenodo.23382977](https://doi.org/10.5281/zenodo.23382977). To cite it:
+
+```bibtex
+@software{lee_2026_toda,
+  author    = {Lee, Troy},
+  title     = {{TCS} formalizations: sunflowers, the metric {TSP}
+               integrality gap, {IP} = {PSPACE}, and {Toda}'s theorem},
+  month     = oct,
+  year      = 2026,
+  publisher = {Zenodo},
+  version   = {toda-v0.1.0},
+  doi       = {10.5281/zenodo.23382977},
+  url       = {https://doi.org/10.5281/zenodo.23382977},
+  note      = {Lean 4 formalization of Toda's theorem, library \texttt{Toda}}
+}
+```
+
+Later releases also contain this library. To cite the release you used instead,
+take its DOI from the [Zenodo record](https://doi.org/10.5281/zenodo.21981559),
+which lists every version.
+
 ## License
 
 Apache-2.0. Build helpers were adapted from the IPPSPACE component.

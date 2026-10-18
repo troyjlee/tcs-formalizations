@@ -285,6 +285,31 @@ parameter, but the actual inner tester always evaluates at zero. Its encoded see
 retains one unused scalar, which does not change the rejection probability or the
 asymptotic randomness bound.
 
+## How to cite
+
+The PCP library was archived in release `pcp-v0.1.0`,
+[DOI 10.5281/zenodo.23445994](https://doi.org/10.5281/zenodo.23445994). To cite it:
+
+```bibtex
+@software{lee_2026_pcp,
+  author    = {Lee, Troy},
+  title     = {{TCS} formalizations: sunflowers, the metric {TSP}
+               integrality gap, {IP} = {PSPACE}, {Toda}'s theorem, and
+               the {PCP} theorem},
+  month     = oct,
+  year      = 2026,
+  publisher = {Zenodo},
+  version   = {pcp-v0.1.0},
+  doi       = {10.5281/zenodo.23445994},
+  url       = {https://doi.org/10.5281/zenodo.23445994},
+  note      = {Lean 4 formalization of the PCP theorem, library \texttt{PCP}}
+}
+```
+
+Later releases also contain this library. To cite the release you used instead,
+take its DOI from the [Zenodo record](https://doi.org/10.5281/zenodo.21981559),
+which lists every version.
+
 ## License
 
 Apache-2.0 (see [LICENSE](../../LICENSE)). Formalization by Troy Lee, with

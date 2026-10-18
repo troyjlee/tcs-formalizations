@@ -144,6 +144,32 @@ A map of the layers:
 - P. Erdős, R. Rado, *Intersection theorems for systems of sets*,
   J. London Math. Soc. 35 (1960) 85–90.
 
+## How to cite
+
+The Sunflower library was released as `v0.1.2`, archived at
+[DOI 10.5281/zenodo.21981560](https://doi.org/10.5281/zenodo.21981560). To cite it:
+
+```bibtex
+@software{lee_2026_sunflower,
+  author    = {Lee, Troy},
+  title     = {{TCS} formalizations: the sunflower theorems},
+  month     = aug,
+  year      = 2026,
+  publisher = {Zenodo},
+  version   = {0.1.2},
+  doi       = {10.5281/zenodo.21981560},
+  url       = {https://doi.org/10.5281/zenodo.21981560}
+}
+```
+
+Later releases port the library to the current toolchain and add explicit-constant
+forms of two theorems (`alwz_uniform_of_spread_lemma` and `bcw_theorem3_explicit`)
+and the [Palomar package](../../Palomar/README.md#sunflower-statements); these
+first appear in release `ip-pspace-v0.1.0-review.2`,
+[DOI 10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600). To cite
+the release you used instead, take its DOI from the
+[Zenodo record](https://doi.org/10.5281/zenodo.21981559), which lists every version.
+
 ## License
 
 Copyright © 2026 Troy Lee. Released under the
