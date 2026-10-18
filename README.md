@@ -190,6 +190,26 @@ and retains setup and verification logs. See the
 [IPPSPACE release notes](docs/ip-pspace/RELEASE_NOTES.md) for the verification
 scope and current review status.
 
+## How to cite
+
+Cite the Zenodo release that contains the library you use, by its version DOI.
+Each guide's "How to cite" section gives a BibTeX entry for the release that
+first archived its library:
+
+| Library | Release | DOI |
+| --- | --- | --- |
+| [Sunflowers](docs/sunflower/README.md#how-to-cite) | `v0.1.2` | [10.5281/zenodo.21981560](https://doi.org/10.5281/zenodo.21981560) |
+| [TSPGap](docs/tsp/README.md#how-to-cite) | `ip-pspace-v0.1.0-review.2` | [10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600) |
+| [IPPSPACE](docs/ip-pspace/README.md#how-to-cite) | `ip-pspace-v0.1.0-review.2` | [10.5281/zenodo.23341600](https://doi.org/10.5281/zenodo.23341600) |
+| [Toda](docs/toda/README.md#how-to-cite) | `toda-v0.1.0` | [10.5281/zenodo.23382977](https://doi.org/10.5281/zenodo.23382977) |
+| [PCP](docs/pcp/README.md#how-to-cite) | `pcp-v0.1.0` | [10.5281/zenodo.23445994](https://doi.org/10.5281/zenodo.23445994) |
+
+Later releases also contain these libraries, so a citation may name the release
+that was used instead. The all-versions DOI,
+[10.5281/zenodo.21981559](https://doi.org/10.5281/zenodo.21981559), resolves to
+the latest release, and GitHub's "Cite this repository" button gives the latest
+release from [CITATION.cff](CITATION.cff).
+
 ## License and attribution
 
 Apache License 2.0 (see [LICENSE](LICENSE)). Formalization by Troy Lee, with
