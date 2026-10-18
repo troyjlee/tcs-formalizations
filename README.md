@@ -1,13 +1,16 @@
 # TCS formalizations
 
 [![DOI (all versions)](https://zenodo.org/badge/DOI/10.5281/zenodo.21981559.svg)](https://doi.org/10.5281/zenodo.21981559)
+[![DOI (PCP release)](https://zenodo.org/badge/DOI/10.5281/zenodo.23445994.svg)](https://doi.org/10.5281/zenodo.23445994)
 [![DOI (Toda release)](https://zenodo.org/badge/DOI/10.5281/zenodo.23382977.svg)](https://doi.org/10.5281/zenodo.23382977)
 [![DOI (IP = PSPACE review release)](https://zenodo.org/badge/DOI/10.5281/zenodo.23341600.svg)](https://doi.org/10.5281/zenodo.23341600)
 
 The first badge covers all archived versions and resolves to the latest archive.
-The second identifies release `toda-v0.1.0`, which includes Sunflower, TSPGap,
-IPPSPACE, and Toda. The third identifies release `ip-pspace-v0.1.0-review.2`,
-which includes Sunflower, TSPGap, and IPPSPACE. The original
+The second identifies release `pcp-v0.1.0`, which includes Sunflower, TSPGap,
+IPPSPACE, Toda, and PCP. The third identifies release `toda-v0.1.0`, which
+includes Sunflower, TSPGap, IPPSPACE, and Toda. The fourth identifies release
+`ip-pspace-v0.1.0-review.2`, which includes Sunflower, TSPGap, and IPPSPACE.
+The original
 [sunflower release, v0.1.2](https://doi.org/10.5281/zenodo.21981560)
 also has a fixed DOI for its snapshot.
 

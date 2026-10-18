@@ -9,9 +9,9 @@ authors:
     affiliation: "University of Technology Sydney"
 license: Apache-2.0
 repository-code: "https://github.com/troyjlee/tcs-formalizations"
-version: toda-v0.1.0
-date-released: 2026-10-15
-doi: 10.5281/zenodo.23382977
+version: pcp-v0.1.0
+date-released: 2026-10-18
+doi: 10.5281/zenodo.23445994
 keywords:
   - Lean 4
   - Mathlib
