@@ -105,9 +105,9 @@ the upstream audit and the exact source/model choices.
 ## Build and audit
 
 The repository pins Lean `v4.35.0-rc2` and Mathlib for every library. The
-`Toda` library imports 193 of the unchanged Complexitylib modules and the four
-unchanged CSLib modules vendored under `vendor/`; the snapshot is shared with
-IPPSPACE, and its revisions, licenses, and SHA-256 checksums are recorded in
+`Toda` library imports 193 of the unchanged Complexitylib modules and four of
+the unchanged CSLib modules vendored under `vendor/`; the snapshot is shared with
+IPPSPACE and PCP, and its revisions, licenses, and SHA-256 checksums are recorded in
 the shared inventory [vendor/UPSTREAM.json](../../vendor/UPSTREAM.json).
 No neighboring checkout is required.
 

@@ -25,3 +25,5 @@ jobs:
         run: python3 scripts/check-upstream.py
       - name: audit Toda axiom dependencies
         run: lake env lean scripts/toda/AxiomAudit.lean
+      - name: audit PCP axiom dependencies and theorem statements
+        run: bash scripts/pcp/axiom-audit.sh
