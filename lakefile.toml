@@ -1,5 +1,5 @@
 name = "TCSFormalizations"
-defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks", "Palomar", "IPPSPACE", "Toda"]
+defaultTargets = ["Sunflower", "SunflowerChecks", "TSPGap", "TSPGapChecks", "Palomar", "IPPSPACE", "Toda", "PCP"]
 
 [[require]]
 name = "mathlib"
@@ -25,7 +25,7 @@ relaxedAutoImplicit = false
 weak.linter.mathlibStandardSet = true
 maxSynthPendingDepth = 3
 
-# Unchanged upstream source snapshots shared by IPPSPACE and Toda.
+# Unchanged upstream source snapshots shared by IPPSPACE, Toda and PCP.
 # Attribution, exact revisions, and checksums: vendor/UPSTREAM.json.
 [[lean_lib]]
 name = "Cslib"
@@ -52,6 +52,16 @@ name = "Toda"
 [lean_lib.leanOptions]
 autoImplicit = false
 pp.unicode.fun = true
+
+[[lean_lib]]
+name = "PCP"
+
+[lean_lib.leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+weak.linter.style.header = false
 
 [[lean_lib]]
 name = "TSPGapChecks"

@@ -19,7 +19,7 @@ and links to notes on adaptations of the published arguments.
 Separate [Palomar submission packages](Palomar/README.md) provide independent
 statements, proof adapters, and paper correspondence for Sunflower and TSPGap.
 
-One Lake package and one pinned toolchain serve all four libraries, with a
+One Lake package and one pinned toolchain serve all five libraries, with a
 shared build and a dedicated IPPSPACE review workflow:
 
 | Project | Headline results | Guide |
@@ -28,6 +28,7 @@ shared build and a dedicated IPPSPACE review workflow:
 | **TSPGap** | Metric subtour-LP integrality gap at most `3/2 − 2.05522 × 10⁻³⁰`, with an exported strict improvement | [TSP guide](docs/tsp/README.md) |
 | **IPPSPACE** | Shamir's `IP = PSPACE`, using Complexitylib's unchanged class definitions | [IPPSPACE guide](docs/ip-pspace/README.md) |
 | **Toda** | Toda's theorem `PH ⊆ P^#P`, from Complexitylib's unchanged `PH` and `#P` to a full-answer oracle machine class | [Toda guide](docs/toda/README.md) |
+| **PCP** | The PCP theorem `NP = PCP(O(log n), O(1))`, by the algebraic route without composition, with a polynomial-time verifier certificate | [PCP guide](docs/pcp/README.md) |
 
 ## Sunflowers, formalized
 
@@ -117,6 +118,33 @@ Principal paper:
   [*A Simple Proof of Toda's Theorem*](https://theoryofcomputing.org/articles/v005a007/),
   Theory of Computing 5 (2009).
 
+## The PCP theorem, formalized
+
+`PCP.np_subset_pcp` proves that every language in NP has a probabilistic
+verifier that uses `a·⌈log₂(n+2)⌉ + b` random bits for constants `a` and `b`,
+makes a constant number of bit queries to a polynomial-length proof, accepts
+some proof with probability 1 on inputs in the language, and accepts every
+proof with probability at most 1/2 on inputs outside it. The verifier is
+certified to run in polynomial time on Mathlib's Turing machines. `PCP.pcp_subset_np_concrete` proves the converse, and
+`PCP.ReferenceNP.inNP_iff_mem` shows that the NP class used agrees with
+Complexitylib's unchanged definition. The proof follows the paper's algebraic
+construction for 3-coloring, which uses low-degree polynomials and the Hadamard
+code without PCP composition, and adds a reduction from every NP language to
+3-coloring. It also proves the ALMSS point-versus-line theorem, which the paper
+cites, including the bivariate agreement lemma that ALMSS states without proof
+and credits to Arora and Safra.
+
+Start with the [PCP guide](docs/pcp/README.md) for the proof map and the
+differences from the paper, or the [reading guide](docs/pcp/reading-guide.md)
+for an introduction to the formal statements for readers new to Lean.
+
+Principal paper:
+
+- **Amireddy–Behera–Srinivasan–Sudan–Willumsgaard:**
+  [*A Simple Algebraic Proof of the PCP Theorem*](https://arxiv.org/abs/2608.17429)
+  (to appear in SOSA 2027). The formalization follows the revised version; see
+  [Paper version](docs/pcp/README.md#paper-version).
+
 ## Building
 
 Install [elan](https://lean-lang.org/install/), then run from the repository root:
@@ -130,12 +158,13 @@ python3 scripts/ip-pspace/review-check.py --output-dir review-artifacts/ip-pspac
   --cache-note "Mathlib cache downloaded for the committed dependency pins"
 python3 scripts/check-upstream.py
 lake env lean scripts/toda/AxiomAudit.lean
+scripts/pcp/axiom-audit.sh
 ```
 
 The toolchain and Mathlib revision are pinned at **4.35.0-rc2** in
 [lean-toolchain](lean-toolchain) and [lake-manifest.json](lake-manifest.json).
 The cache command fetches compiled Mathlib dependencies. `lake build`
-compiles all four libraries, the Sunflower and TSP check files
+compiles all five libraries, the Sunflower and TSP check files
 (`SunflowerChecks.lean` and `TSPGapChecks.lean`), and the separate Palomar
 Challenge and Solution modules.
 The project guides give commands for building each library separately.
@@ -146,11 +175,11 @@ Song regression examples and five paper-interface checks, and enforce
 2,534 axiom checks. CI runs the same default build, the supplementary TSP
 statement and proof-dependency checks, and the source-admission scan.
 It also runs the [Palomar comparison and kernel checks](Palomar/README.md#reproduce-the-local-checks),
-the shared vendored-source provenance check, and the Toda axiom audit.
+the shared vendored-source provenance check, and the Toda and PCP axiom audits.
 See the [TSP verification record](docs/tsp/VERIFICATION.md) for the recorded results.
 
 The IPPSPACE review runner builds its library with warnings treated as errors,
-checks the exact public theorem types, verifies all 260 vendored source hashes,
+checks the exact public theorem types, verifies all 303 vendored source hashes,
 and audits transitive axiom dependencies for every imported IPPSPACE,
 Complexitylib, and CSLib declaration. Its dedicated CI workflow builds these
 sources from a fresh checkout using only the pinned Mathlib dependency cache,

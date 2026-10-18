@@ -33,6 +33,8 @@ file was then merged with the Toda component's inventory into the shared file,
 which lists all 256 vendored Complexitylib modules (the 238 used by IPPSPACE
 plus 18 further modules used only by Toda); every overlapping entry kept its
 checksum, and the IPPSPACE `integration_status` is preserved under `consumers`.
+The PCP component later added 39 further Complexitylib modules and four further
+CSLib modules, all unchanged, for 295 and 8 in total.
 `local_path` entries remain relative to the repository root, where `vendor/`
 resides. The subsequent successful local monorepo rebuild is documented in the
 release notes. `scripts/check-upstream.py` (also reachable as
