@@ -88,7 +88,19 @@ addition to [TCS formalizations](https://github.com/troyjlee/tcs-formalizations)
 as the `PCP` library, it was ported to v4.35.0-rc2 and now uses the vendored
 modules unchanged. The port changed proof scripts and comments only. The final
 theorem statements are the standalone project's, and the audit compares them
-with fixed transcriptions.
+with fixed transcriptions. The library was added in
+[PR #12](https://github.com/troyjlee/tcs-formalizations/pull/12), at merge
+commit
+[`d62fc17e`](https://github.com/troyjlee/tcs-formalizations/commit/d62fc17e6a21ffb8b662682120db78a57a2ad78a).
+The repository CI and the IPPSPACE review workflow passed on the pull request.
+Release
+[`pcp-v0.1.0`](https://github.com/troyjlee/tcs-formalizations/releases/tag/pcp-v0.1.0)
+was published on October 18, 2026, at that merge commit and archived at
+[DOI 10.5281/zenodo.23445994](https://doi.org/10.5281/zenodo.23445994); the
+archive `troyjlee/tcs-formalizations-pcp-v0.1.0.zip` has recorded MD5
+`fa6a74aded9ec13111fa08f0e2bd2f91`. The all-versions DOI remains
+[10.5281/zenodo.21981559](https://doi.org/10.5281/zenodo.21981559).
+Citation metadata is in [CITATION.cff](CITATION.cff).
 
 ## Proof map
 
