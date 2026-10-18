@@ -10,17 +10,14 @@ open PCP.Algebraic ThreeColorFullFieldSampling ThreeColorAmplifiedRuntime
 
 attribute [local irreducible] program allQueries allVerdict
 
-set_option maxRecDepth 8192 in
 /-- Exact callback behavior on arbitrary graph, seed, and answer words. -/
 theorem correct : AmplifiedStream.Correct program queries verdict := by
   classical
   constructor
   intro x bits answers
-  let st := AmplifiedWorkspace.initial (x.map Bool.toNat) (bits.map Bool.toNat)
-    (answers.map Bool.toNat)
   have hs := initial_sources x bits answers
   by_cases hv : Valid (ThreeColorBaseSeed.sample (ThreeColorEncoding.vertexCount x) bits)
-  · have hp := program_valid x bits answers hv st hs
+  · have hp := program_valid x bits answers hv _ hs
     have hq : allQueries (ThreeColorEncoding.vertexCount x) x bits hv = queries x bits := by
       exact allQueries_input_eq x bits hv
     have ht := allVerdict_input_eq x bits hv
@@ -33,7 +30,7 @@ theorem correct : AmplifiedStream.Correct program queries verdict := by
     refine ⟨hp.2.1.trans hq, ?_⟩
     rw [hq] at hp
     exact hp.1.trans (congrArg Bool.toNat ht)
-  · have hp := program_invalid x bits answers hv st hs
+  · have hp := program_invalid x bits answers hv _ hs
     have hq : queries x bits = [] := by
       change (ComputableThreeColorQueryAlgorithm.queryList x bits).map Fin.val = []
       rw [queryList_invalid_input x bits hv, List.map_nil]
